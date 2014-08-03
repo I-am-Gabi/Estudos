@@ -1,0 +1,65 @@
+div.calls {
+    width: 600px;
+}
+
+div.calls .scope {
+    font-size: 18px;
+    width: 25%;
+    border-bottom: 1px black solid;
+}
+
+div.calls .localVar {
+    font-size: 18px;
+    width: 25%;
+    border: 1px black solid;
+    margin: -1px;
+}
+
+div.calls .address {
+    font-size: 14px;
+    line-height: 31px;
+    text-align: right;
+    width: 25%;
+    border-bottom: 1px black dashed;
+}
+
+div.calls .value {
+    font-size: 18px;
+    width: 25%;
+    border: 1px black solid;
+    margin: -1px;
+}
+
+div.calls .header, div.return > .header {
+    font-weight: bold;
+    font-size: 22px;
+    text-align: center;
+    border: 0px;
+}
+
+div.calls > div {
+    text-align: center;
+}
+
+div.calls .row {
+    font-size: 0;
+}
+div.calls .row > div {
+    display: inline-block;
+    text-align: center;
+}
+
+.inner > div {
+    opacity: 0;
+}
+
+
+div.return {
+    width: 100px;
+}
+
+div.return > div:not(.header) {
+    text-align: center;
+    font-size: 18px;
+    border-bottom: 1px black solid;
+}

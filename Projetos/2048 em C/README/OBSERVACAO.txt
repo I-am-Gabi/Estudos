@@ -1,0 +1,20 @@
+OBSERVAÇÕES:
+	OBS 1:
+	HÁ UM EASTER EGG (segredo oculto) NO JOGO.
+	
+	Os elementos vazio da matriz são preenchidos com asterisco *, Então, Se no menu inicial do jogo 
+	digitar asterisco * vai para uma tela de jogo com a matriz toda preenchida em 1024 
+	e assim com qualquer movimento, vence o jogo.
+
+
+
+	OBS 2:
+	PARA O BOM FUNCIONAMENTO DO JOGO, FAZ-SE NECESSÁRIO QUE OS ARQUIVOS:
+	score.2048
+	best.2048
+	estadomatriz.2048
+	matriz_ant.2048
+	ESTEJAM NA MESMA PASTA DO EXECUTAVEL. 
+	(A PRIMEIRA VEZ QUE RODA O JOGO PODE DAR ERRO DE SEGMENTAÇÃO POIS ELE GERA OS ARQUIVOS
+	APÓS GERAR, RODAR NA SEGUNDA VEZ FUNCIONARÁ NORMALMENTE, O MESMO ACONTECE AO RETONAR ULTIMO JOGO
+	PELA PRIMEIRA VEZ SEM OS ARQUIVOS NA PASTA);

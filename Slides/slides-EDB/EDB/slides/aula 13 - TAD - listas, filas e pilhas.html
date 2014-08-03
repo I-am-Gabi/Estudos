@@ -1,0 +1,755 @@
+<!DOCTYPE HTML>
+<html lang="pt-BR" class="nonumbers">
+<head>
+    <title>Estrutura de Dados Básicas</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=1274, user-scalable=no">
+    <link rel="stylesheet" href="../../common/themes/presentations/styles/style.css" type="text/css">
+    <link rel="stylesheet" href="../../common/themes/presentations/styles/print.css" type="text/css"  media="print">
+    <link rel="stylesheet" href="../../common/themes/edb/styles/presentation.css" type="text/css">
+    <link rel="stylesheet" href="../../common/themes/code-prettify/styles/prettify.css" type="text/css">
+</head>
+
+<body class="list" onload="prettyPrint();">
+
+<!-- ============================================================================== -->
+<!-- Informações para a lista de slides -->
+<header class="caption">
+    <h1>Algoritmos e Estruturas de Dados I</h1>
+    <h1>Aula 13 - Tipos Abstratos de Dados (TADs)</h1>
+</header>
+
+<!-- ============================================================================== -->
+<div id="capa" class="slide cover w">
+     <div>
+    <section>
+        <header>
+            <h3>Estruturas de Dados Básicas I</h3>
+            <h2>Aula 13 - Tipos Abstratos de Dados (TADs)</h2>
+            <img src="./images/aula13/bg.png">
+        </header>
+    </section>
+    </div>
+</div>
+
+<!-- ============================================================================== -->
+<div id="sld-01" class="slide">
+    <div>
+        <section>
+            <header>
+                <h2>Motivação e objetivos</h2>
+            </header>
+            <ul class="inner">
+                <li class="active">Motivação</li>
+                <ul>
+                    <li>Algoritmos processam dados... que possuem uma "forma"</li>
+                    <li>Pode-se pensar na forma de maneira abstrata (conceito) ou concreta (implementação do conceito)</li>
+                </ul>
+                <li class="active">Objetivos</li>
+                  <ul>
+                    <li>Apresentar o conceito de Tipo Abstrato de Dados (TAD)</li>
+                    <li>Especificar as característas que os TADs podem possuir</li>
+                    <li>Apresentar os TADs mais comuns e um exemplo de implementação</li>
+                  </ul>
+               </ul>
+           <footer class="notes">
+            </footer>
+        </section>
+    </div>
+</div>
+
+<!-- ============================================================================== -->
+<div id="cosld-02" class="slide">
+    <div>
+        <section>
+            <header>
+                <h2>Tipos de Dados</h2>
+            </header>
+            <ul class="inner">
+                <li class="active">Um <strong>tipo de dado</strong> define:
+                    <ul>
+                        <li>Que <strong>valores</strong> podem ser armazeados/processados<br>
+                            Ex: o tipo <code>int</code> especifica apenas números inteiros
+                        </li>
+                        <li>Que <strong>operações</strong> podem ser feitas sobre os valores<br>
+                            Ex: soma, multiplicação, incremento, ...</li>
+                    </ul>
+                </li>
+                <br>
+                <li>Existem os tipos de dados:</li>
+                <ul>
+                    <li>Simples (básicos): <code>int</code>, <code>char</code>, <code>bool</code> (C++),...</li>
+                    <li>Estruturados: definem uma coleção de valores do tipo simples ou estruturado</li>
+                </ul>
+            </ul>
+            <footer class="notes">
+            </footer>
+        </section>
+    </div>
+</div>
+
+<!-- ============================================================================== -->
+<div id="cosld-03" class="slide">
+    <div>
+        <section>
+            <header>
+                <h2>Tipos Abstratos de Dados (TADs)</h2>
+            </header>
+            <ul class="inner">
+                <li>Também definem <strong>valores</strong> e <strong>operações</strong></li>
+                <li>Porém, de forma abstrata (o que se interessa é a semântica)</li>
+                <ul>
+                    <li class="obs">Cumpre o papel de "pseudocódigo" de um tipo estruturado de dados</li>
+                </ul>
+                <br>
+                <li>Pode ser definido como um <strong>modelo matemático acompanhado de operações</strong> sobre os dados desse modelo</li>
+                <li class="obs">Ex: tipo <code>Conjunto</code> define um aglomerado de elementos não repetidos com operações de união, interseção, etc</li>
+                <br>
+                <li>Por ser abstrato, várias implementações (concretas) podem ser feitas sobre o modelo</li>
+            </ul>
+            <footer class="notes">
+            </footer>
+        </section>
+    </div>
+</div>
+
+<!-- ============================================================================== -->
+<div id="sld-04" class="slide">
+    <div>
+        <section>
+            <header>
+                <h2>Exemplo de abstração (semântica)</h2>
+            </header>
+            <ul class="inner">
+                <li>Tipo de dado <code>Funcionário</code>
+                    <div style="position: absolute; top: 25%; right: 10%; height:30%">
+                        <img src="./images/aula13/funcionario.png"
+                            style="position: absolute; bottom: 0%; right: 0%; height:100%">
+                    </div>
+                </li>
+                <ul>
+                    <li>Dados: nome, idade, função, salário,...</li>
+                    <li>Operações</li>
+                    <ul>
+                        <li>Promover (age sobre função e salário)</li>
+                        <li>Pagar bônus (age sobre o salário)</li>
+                    </ul>
+                </ul>
+                <li>Tipo de dado <code>Carro</code>
+                    <div style="position: absolute; top: 60%; right: 10%; height:30%">
+                        <img src="./images/aula13/carro.jpg"
+                            style="position: absolute; bottom: 0%; right: 0%; height:100%">
+                    </div>
+                </li>
+                <ul>
+                    <li>Dados: modelo, cor, localização,...</li>
+                    <li>Operações</li>
+                    <ul>
+                        <li>Dirigir (age sobre a localização)</li>
+                        <li>Pintar (age sobre a cor)</li>
+                    </ul>
+                </ul>
+            <footer class="notes">
+            </footer>
+        </section>
+    </div>
+</div>
+
+<!-- ============================================================================== -->
+<div id="sld-05" class="slide">
+    <div>
+        <section>
+            <header>
+                <h2>Alguns TADs comuns</h2>
+            </header>
+            <ul class="inner">
+                <li><strong>Conjunto</strong>: aglomerado de elementos não repetidos</li>
+                <li><strong>Lista</strong>: sequência de elementos</li>
+                <li><strong>Pilha</strong>: sequência em que só pode remover o último elemento inserido</li>
+                <li><strong>Fila</strong>: sequência em que só pode remover o primeiro elemento inserido</li>
+                <li><strong>Fila de prioridade</strong>: fila cuja remoção segue uma prioridade</li>
+                <li><strong>Deque</strong>: sequência que pode-se remover o primeiro ou último inserido</li>
+                <li><strong>Dicionário</strong>: conjunto com pares de chaves associadas a valores</li>
+                <li><strong>Árvore</strong>: estrutura hierárquica de dados</li>
+                <li><strong>Grafo</strong>: forma de estrturar pares de valores</li>
+                <li>...</li>
+            </ul>
+            <footer class="notes">
+            </footer>
+        </section>
+    </div>
+</div>
+
+<!-- ============================================================================== -->
+<div id="sld-06" class="slide">
+    <div>
+        <section>
+            <header>
+                <h2>TAD Lista</h2>
+            </header>
+            <ul class="inner">
+                <li class="active">Define uma <strong>sequência finita</strong> de valores</li>
+                <li>Ex: a sequência \(S = \{ s_k \}_{k=1}^{10} | s_k = k^2 \), define uma lista indexada de \(10\) elementos,
+                    com valores \(\{ 1, 4, 9, 16, 25, 36, 49, 64, 81, 100 \}\).</li>
+                <li>Toda sequência é <strong>indexada</strong> (possui posição relativa)</li>
+                <ul>
+                    <li>Exemplo (consultório médico)</li>
+                    <li>As pessoas na sala de espera pegam uma ficha e ficam sentadas em qualquer lugar. Com a ficha, sabe-se quem é o próximo a ser atendido,
+                        e o seguinte, e assim por diante.</li>
+                </ul>
+                <li>Permite representar dados preservando a relação de ordem entre seus elementos.</li>
+            </ul>
+            <footer class="notes">
+            </footer>
+        </section>
+    </div>
+</div>
+
+<!-- ============================================================================== -->
+<div id="sld-07" class="slide">
+    <div>
+        <section>
+            <header>
+                <h2>Definição de Lista</h2>
+            </header>
+            <ul>
+                <li>Agrupamento de \(n\) elementos \(x_{1}, x_{2}, \ldots, x_{n}\), organizados de forma a refletir a posição relativa dos mesmos;</li>
+                <li>Supondo que \(n > 0\), temos:</li>
+                <ul>
+                <li>\(x_{1}\) é o primeiro nó</li>
+                <li>Para \(1 < k < n\), o nó \(x_{k}\) é precedido pelo nó \(x_{k-1}\) e seguido pelo nó \(x_{k+1}\)</li>
+                <li>\(x_{n}\) é o último nó.</li>
+                </ul>
+                <li>Caso \(n = 0\), então a lista está vazia.</li>
+            </ul>
+            <figure style="position: absolute; top: 85%; left: 47%">
+                <img style="height: 40px" src="images/aula13/lista01.png">
+            </figure>
+            <footer class="notes">
+            </footer>
+        </section>
+    </div>
+</div>
+
+<!-- ============================================================================== -->
+<div id="sld-08" class="slide">
+    <div>
+        <section>
+            <header>
+                <h2>Possíveis operações sobre listas</h2>
+            </header>
+            <ul class="inner">
+                <li>Operações</li>
+                <ul>
+                    <li>Busca de um elemento na sequência</li>
+                    <li>Inserção de um elemento na \(i\)-ésima posição
+                    <li class="obs">os demais devem ser deslocados, pois a posição é <strong>relativa</strong></li>
+                    <li>Remoção de um elemento da \(i\)-ésima posição</li>
+                    <li>Determinação da cardinalidade (quantidade)</li>
+                    <li>Ordenação da lista</li>
+                    <li>Combinação de listas,...</li>
+                </ul>
+                <li>A complexidade associada às operações que determinam a eficiência da implementação de um TAD</li>
+            </ul>
+            <footer class="notes">
+            </footer>
+        </section>
+    </div>
+</div>
+
+<!-- ============================================================================== -->
+<div id="sld-11" class="slide">
+    <div>
+        <section>
+            <header>
+                <h2>Formas de implementar listas</h2>
+            </header>
+            <ul class="inner">
+                <li class="active">Quanto à alocação de memória:</li>
+                <ul>
+                    <li><strong>Sequencial</strong> (ou contígua): os elementos, além de estarem em uma sequência indexada lógica, estão também alocados fisicamente (na memória do computador) em sequência;</li>
+                    <li><strong>Encadeada</strong>: os elementos não estão necessariamente armazenados sequencialmente na memória, porém a indexação lógica entre os elementos é mantida.</li>
+                    <li class="obs">Neste caso, é utilizado ponteiros (referências) para definir a ordem dos elementos.</li>
+                </ul>
+            </ul> 
+            <footer class="notes">
+            </footer>
+        </section>
+    </div>
+</div>
+
+<!-- ============================================================================== -->
+<div id="sld-12" class="slide">
+    <div>
+        <section>
+          <header>
+                <h2>Memória do computador</h2>
+          </header>
+          <ul>
+          <li>Alocação Sequencial de memória:</li>
+          <br>
+          <br>
+          <br>
+          <br>
+          <li>Alocação Dinâmica de memória:</li>
+      </ul>   
+          <figure style="position: absolute; top: 30%; left: 30%">
+                <img style="height: 55px" src="images/aula13/sequencial.png">
+              </figure>
+              <figure style="position: absolute; top: 70%; left: 30%">
+                <img style="height: 100px" src="images/aula13/dinamica.png">
+             </figure> 
+            <footer class="notes">
+            </footer>
+        </section>
+    </div>
+</div>
+
+<!-- ============================================================================== -->
+<div id="sld-15" class="slide">
+    <div>
+        <section>
+            <header>
+                <h2>Alocação Sequencial</h2>
+            </header>
+            <ul class="inner">
+                <li class="active">Maneira <span class="flash">mais simples</span>: nós ocupam posições contíguas;</li>
+                <li>Utilização de arranjos:<br>
+                <strong>alocação estática</strong> (tamanho definido em tempo de compilação).</li>
+                <li>Reserva prévia de memória: memória não é <span class="flash">inserida</span> ou <span class="flash">removida</span>, 
+                  mas apenas <span class="flash">ocupada</span> ou <span class="flash">desocupada</span>.</li>
+                  <br>
+                <li>É vantajoso se utilizado para sequências com <strong>restrições</strong> nas inserções e remoções, tais como pilhas, filas e deques.</li>
+                <li>Porém pode ser <strong>oneroso</strong> em termos de consumo de memória.<br>
+                    Por quê?</li>
+                <ul>
+                    <li>reservado \(\neq\) usado.</li>
+                </ul>
+            </ul>
+            <footer class="notes">
+            </footer>
+        </section>
+    </div>
+</div>
+
+<!-- ============================================================================== -->
+<div id="sld-16" class="slide">
+    <div>
+        <section>
+          <header>
+                <h2>Alocação Sequencial</h2>
+          </header>
+          <ul>
+          <li>Elementos de uma lista são representados por <span class="flash">nós</span>, que podem possuir <strong>campos</strong>
+                (se o dado for composto por diferentes informações)</li>
+          <li>Listas podem ser <span class="flash">ordenadas</span> (em relação à campos)</li>
+          <br>
+          <li>Suponha uma lista linear \(L\) com \(n\) elementos, onde cada nó ocupa \(c\) bytes, então uma representação seria:</li>    
+     </ul> 
+     <figure style="position: absolute; top: 70%; left: 30%">
+                <img style="height: 150px" src="images/aula13/lista_sequencial.png">
+        </figure>
+         <footer class="notes">
+         </footer>
+        </section>
+    </div>
+</div>
+
+<!-- ============================================================================== -->
+<div id="sld-17" class="slide">
+    <div>
+        <section>
+          <header>
+                <h2>Alocação Sequencial em C</h2>
+          </header>
+          <ul>
+          <li>Exemplo de Lista sequencial:</li>
+     </ul>
+          <pre><code class="prettyprint">#define SIZE 10
+
+struct pessoa{      /* definição do tipo */
+    int cpf;        /* declaração do campo CPF */
+    char nome[30];  /* declaração do campo NOME */
+};
+
+/* declaração da lista sequencial */
+struct pessoa lista[SIZE];
+int comprimento = 0;
+
+/* operações */
+int    busca(int x);
+void   inserePessoa(struct pessoa p);
+struct pessoa removePessoa(int cpf);
+void   imprimeLista( ); </code></pre>  
+         <footer class="notes">
+         </footer>
+        </section>
+    </div>
+</div>
+
+<!-- ============================================================================== -->
+<div id="sld-18" class="slide">
+    <div>
+        <section>
+          <header>
+                <h2>Exemplo de operação (1)</h2>
+          </header>
+          <ul>
+          <li>Relembrando busca sequencial:</li>
+     </ul>
+          <pre><code class="prettyprint">/* operação de busca de um nó em lista dado um cpf conhecido */
+int busca(int x){
+    int i = 0;
+    int procurado = -1;
+    while (i < comprimento) {
+        if (lista[i].cpf == x) {
+            procurado = i;
+            break;
+        }
+        i += 1;
+    }
+    return procurado;
+} </code></pre>  
+         <footer class="notes">
+         </footer>
+        </section>
+    </div>
+</div>
+
+<!-- ============================================================================== -->
+<div id="sld-19" class="slide">
+    <div>
+        <section>
+          <header>
+                <h2>Exemplo de operação (2)</h2>
+          </header>
+          <ul>
+          <li>Outra forma (uso de nó sentinela):</li>
+     </ul>
+          <pre><code class="prettyprint">/* operação de busca de um nó em lista usando um nó sentinela */
+int buscaSentinela (int x) {
+    int i, procurado = -1;
+    lista[comprimento].cpf = x;
+
+    for (i = 0; lista[i].cpf != x; i++);
+
+    if (i != comprimento){
+          procurado = i;
+    }
+    return procurado;
+} </code></pre>  
+         <footer class="notes">
+         </footer>
+        </section>
+    </div>
+</div>
+
+<!-- ============================================================================== -->
+<div id="sld-20" class="slide">
+    <div>
+        <section>
+          <header>
+                <h2>Busca com sentinela</h2>
+          </header>
+          <ul>
+          <li>Artifício usado: incluir um <span class="flash">nó sentinela</span> no final, com o valor procurado;</li>
+          <li>O uso de "sentinela" visa <span class="flash">reduzir</span> número de testes (apenas o teste do while);</li>
+          <li>Desta forma um nó com a chave <span class="flash">sempre</span> é encontrado, resta saber se é o nó articialmente inserido ou não;</li>
+          <li>Qual o mais eficiente (memória e desempenho)?</li>    
+     </ul> 
+         <footer class="notes">
+         </footer>
+        </section>
+    </div>
+</div>
+
+<!-- ============================================================================== -->
+<div id="sld-21" class="slide">
+    <div>
+        <section>
+          <header>
+                <h2>Alocação Sequencial</h2>
+          </header>
+          <ul>
+          <li>No <span class="flash">pior caso</span> ambos são \(O(n)\), com o buscaSentinela( ) levando um pouco de vantagem;</li>
+          <li>No <span class="flash">caso médio</span> devemos assumir:</li>
+          <ul>
+          <li><span class="flash">q</span> a probabilidade de sucesso na busca;</li>
+          <li>a probabilidade da chave estar em uma posição qualquer <span class="flash">i</span> de \(L\) é idêntica;</li>
+          <li>entradas distintas com chave na mesma posição são <span class="flash">idênticas</span>.</li>
+          </ul>  
+     </ul> 
+         <footer class="notes">
+         </footer>
+        </section>
+    </div>
+</div>
+
+<!-- ============================================================================== -->
+<div id="sld-22" class="slide">
+    <div>
+        <section>
+          <header>
+                <h2>Alocação Sequencial</h2>
+          </header>
+          <ul>
+          <li>Assim em casos particulares temos:</li>
+          <ul>
+          <li>\(q=1\), chave sempre na lista \(\Rightarrow\) complexidade \(\approx\) \(n/2\);</li>
+          <li>\(q=1/2\), chave em 50% das vezes \(\Rightarrow\) complexidade \(\approx\) \(3n/4\);</li>
+          <li>\(q=0\), todas as buscas sem sucesso \(\Rightarrow\) complexidade \(\approx\) \(n\) (a mesma do pior caso).</li>
+          </ul>  
+     </ul> 
+         <footer class="notes">
+         </footer>
+        </section>
+    </div>
+</div>
+
+<!-- ============================================================================== -->
+<div id="sld-23" class="slide">
+    <div>
+        <section>
+          <header>
+                <h2>Alocação Sequencial</h2>
+          </header>
+        <ul>
+          <li>Abordagem de Busca Binária:</li>
+     </ul> 
+     <pre><code class="prettyprint">//Função busca um nó em lista usando estratégia dividir p/ conquistar
+int buscaBinaria(int x){
+    int inf = 0, meio = 0;
+    int sup = comprimento - 1;
+    int procurado = -1;
+    while (inf <= sup) {
+          meio = (inf + sup)/2;
+          if (lista[meio].cpf == x){
+              procurado = meio;
+              inf = sup + 1;                
+          }
+          else if (lista[meio].cpf < x) inf = meio + 1;
+               else sup = meio + 1;
+    }
+  return procurado;
+}</code></pre>
+         <footer class="notes">
+         </footer>
+        </section>
+    </div>
+</div>
+
+<!-- ============================================================================== -->
+<div id="sld-24" class="slide">
+    <div>
+        <section>
+          <header>
+                <h2>Alocação Sequencial</h2>
+          </header>
+          <ul>
+          <li>Análise de complexidade da Busca Binária:</li>
+          <ul>
+          <li><span class="flash">Melhor caso</span>: o elemento procurado está no meio do vetor \(\Rightarrow O(1)\).</li>
+          <li><span class="flash">Pior caso</span>: ocorre quando a chave procurada é o <span class="flash">último</span> elemento de \(L\) a ser 
+                                  testado ou então não está presente. Nesse caso, a lista é reduzida a 1 elemento, veja abaixo:</li>
+          <ul>
+              <li><span class="flash">\(1^{a}\)</span> Iteração: dimensão da lista é \(n\),</li>
+              <li><span class="flash">\(2^{a}\)</span> Iteração: dimensão da lista é \(n/2=\frac{n}{2}\),</li>
+              <li><span class="flash">\(3^{a}\)</span> Iteração: dimensão da lista é \((n/2)/2=\frac{n}{2^{2}}\),</li>
+              <li><span class="flash">\(m^{a}\)</span> Iteração: dimensão da lista é \(\frac{n}{2^{m}}=1\).</li>
+             </ul>                          
+          </ul>  
+     </ul> 
+         <footer class="notes">
+         </footer>
+        </section>
+    </div>
+</div>
+
+<!-- ============================================================================== -->
+<div id="sld-25" class="slide">
+    <div>
+        <section>
+          <header>
+                <h2>Alocação Sequencial</h2>
+          </header>
+          <ul>
+          <li>Análise de complexidade da Busca Binária:</li>
+          <ul>
+          <li>No máximo o número de iterações \(m\) é 1 + \((log_{2}n)) \Rightarrow O(log n)\).</li>
+          <li>O procedimento de busca (sequencial ou binária) é utilizado pelos procedimentos de <span class="flash">inserção</span> (para evitar duplicação de elementos) e na
+          <span class="flash">remoção</span> (para achar o elemento a ser removido), daí a importância de uma boa implementação.</li>                       
+          </ul>  
+     </ul> 
+         <footer class="notes">
+         </footer>
+        </section>
+    </div>
+</div>
+
+<!-- ============================================================================== -->
+<div id="sld-26" class="slide">
+    <div>
+        <section>
+          <header>
+                <h2>Alocação Sequencial</h2>
+          </header>
+          <ul>
+          <li>Operações de inserção e remoção:</li>
+           <ul>
+          <li>Vamos assumir que existe um <span class="flash">espaço de memória</span> (SIZE + 1) reservado para a existência da lista.</li>
+          <li>Logo:</li>
+            <ul>
+               <li>Inserção além deste limite gera <span class="flash">overflow</span></li>
+               <li>Remoção em uma lista vazia gera <span class="flash">underflow</span></li>                   
+            </ul>                  
+          </ul>  
+     </ul>
+     
+         <footer class="notes">
+         </footer>
+        </section>
+    </div>
+</div>
+
+<!-- ============================================================================== -->
+<div id="sld-27" class="slide">
+    <div>
+        <section>
+          <header>
+                <h2>Alocação Sequencial</h2>
+          </header>
+          <ul>
+          <li>Inserção em lista não ordenada:</li>
+     </ul>
+          <pre><code class="prettyprint">/* operação de inserção em lista COM RESTRIÇÃO (não repetição) */
+void inserePessoa(struct pessoa p){
+     if (comprimento < SIZE) {
+        if (busca(p.cpf)==-1) {
+           lista[comprimento].cpf = p.cpf;
+           strcpy(lista[comprimento].nome, p.nome);
+           comprimento++;
+        } else {
+              printf("Elemento já existe na lista");
+        }
+     } else {
+           printf("A lista está cheia (OVERFLOW)!");
+     }
+} </code></pre>  
+         <footer class="notes">
+         </footer>
+        </section>
+    </div>
+</div>
+
+<!-- ============================================================================== -->
+<div id="sld-28" class="slide">
+    <div>
+        <section>
+          <header>
+                <h2>Alocação Sequencial</h2>
+          </header>
+          <ul>
+          <li>Remoção em lista (ordenada ou não):</li>
+     </ul>
+          <pre><code class="prettyprint">/* op. de remoção em lista (ordenada ou não) */
+struct pessoa removePessoa (int cpf) {
+       int i = 0;
+       int procurado = -1;
+       struct pessoa p;
+       p.cpf = 0;
+       strcpy(p.nome, " ");
+       
+       ...
+
+       return p;
+} </code></pre>  
+         <footer class="notes">
+         </footer>
+        </section>
+    </div>
+</div>
+
+<!-- ============================================================================== -->
+<div id="sld-29" class="slide">
+    <div>
+        <section>
+          <header>
+                <h2>Alocação Sequencial</h2>
+          </header>
+          <ul>
+          <li>Remoção em lista (ordenada ou não):</li>
+     </ul>
+          <pre><code class="prettyprint">  ...
+       if (comprimento != 0) {
+          procurado = busca(cpf);
+          if (procurado != -1) {
+             p = lista[procurado];
+             for (i = procurado; i <= comprimento-2; i++) {
+                 lista[i] = lista[i+1];
+             }
+             comprimento--;
+          } else {
+                printf("Elemento não existe na Lista! \n");
+          }
+     } else {
+           printf("Lista vazia (UNDERFLOW)!\n");
+     }</code></pre>  
+         <footer class="notes">
+         </footer>
+        </section>
+    </div>
+</div>
+
+<!-- ============================================================================== -->
+<div id="sld-30" class="slide">
+    <div>
+        <section>
+          <header>
+                <h2>Alocação Sequencial</h2>
+          </header>
+          <ul>
+          <li>Função de Remoção em lista Sequencial:</li>
+              <ul>
+                  <li>A remoção, além de fazer uso da função de busca, tem que movimentar outros nós da lista, tornado-o <span class="flash">mais lento</span> que os demais.</li>
+                  <li>A complexidade, mesmo assim é \(O(n)\).</li>
+                  <li>Como melhorar?</li>
+              </ul>
+     </ul>
+         <footer class="notes">
+         </footer>
+        </section>
+    </div>
+</div>
+
+<!-- ============================================================================== -->
+<div id="sld-31" class="slide">
+    <div>
+        <section>
+            <header>
+                <h2>Questões...</h2>
+            </header>
+            <figure class="middle" style="top: 57%">
+                <img style="height: 400px" src="images/common/pontos-de-interrogacao.png">
+            </figure>
+            <footer class="notes">
+            </footer>
+        </section>
+    </div>
+</div>
+
+<!-- ============================================================================== -->
+<!-- Se não quiser a barra de progressão, tem apenas que eliminar esta tag <div> -->
+<div class="progress">
+    <div></div>
+</div>
+
+<!-- ============================================================================== -->
+<!-- Scripts -->
+<script type="text/javascript" src="../../common/scripts/presentations/script.js"></script>
+<script type="text/javascript" src="../../common/scripts/code-prettify/prettify.js"></script>
+<script type="text/javascript" src="../../common/scripts/animation/jsmove.js"></script>
+<script type="text/javascript" src="../../common/scripts/mathjax/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+
+</body>
+
+</html>

@@ -1,0 +1,264 @@
+<!DOCTYPE HTML>
+<html lang="pt-BR" class="nonumbers">
+<head>
+	<title>Estrutura de Dados Básicas</title>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=1274, user-scalable=no">
+	<link rel="stylesheet" href="../../common/themes/presentations/styles/style.css" type="text/css">
+	<link rel="stylesheet" href="../../common/themes/presentations/styles/print.css" type="text/css"  media="print">
+	<link rel="stylesheet" href="../../common/themes/edb/styles/presentation.css" type="text/css">
+	<link rel="stylesheet" href="../../common/themes/code-prettify/styles/prettify.css" type="text/css">
+</head>
+
+<body class="list" onload="prettyPrint();">
+
+	<header class="caption">
+		<h1>Estruturas de Dados Básicas I</h1>
+		<h2>Aula 03 - Corretude de algoritmos</h2>
+	</header>
+	<div id="capa" class="slide cover w">
+		<div>
+			<section>
+				<header>
+					<h3>Estruturas de Dados Básicas I</h3>
+					<h2>Aula 03 - Corretude de algoritmos</h2>
+					<img src="./images/aula03/capa.png">
+				</header>
+			</section>
+		</div>
+	</div>
+	<div id="sld-01" class="slide">
+		<div>
+			<section>
+				<header>
+					<h2>Motivação e objetivos</h2>
+				</header>
+				<ul class="inner">
+					<li class="active">Motivação</li>
+					<ul>
+						<li>Ao elaborar um algoritmo, precisamos nos certificar que, dado uma entrada, ele irá gerar uma saída esperada.</li>
+					</ul>
+					<br>
+					<li class="active">Objetivos</li>
+					<ul>
+						<li>Apresentar técnicas de verificação<br>
+							e demonstração de corretude de<br>
+							algortimos</li>
+					</ul>
+					<img src="./images/aula03/cash_machine.jpg"
+						style="position: absolute; top: 45%; right: 10%; width:30%">
+				</ul>
+				<footer class="notes"></footer>
+			</section>
+		</div>
+	</div>
+	<div id="sld-02" class="slide">
+		<div>
+			<section>
+				<header>Técnica 1 - testar!!!</header>
+				<ul class="inner">
+					<li class="active">Para verificar se um algoritmo está correto, podemos confrontar dados produzidos e esperados</li>
+					<ul class="inner">
+						<li>Usar uma bateria de testes</li>
+						<li>Executar o algoritmo para cada entrada<br/>de teste</li>
+						<li>Comparar a saída produzida com a esperada</li>
+						<br/><br/>
+					</ul>
+					<li>Técnica bastante utilizada: <strong>Desenvolvimento Orientado a Testes</strong></li>
+					<li>...porém, garante a corretude apenas para a bateria de testes...</li>
+					<li><strong>Bugs não ocorrem em situações previstas!!!</strong></li>
+					<img src="./images/aula03/tests.png"
+						style="position: absolute; top: 30%; right: 5%; width:30%">
+				</ul>
+				<footer class="notes"></footer>
+			</section>
+		</div>
+	</div>
+	<div id="sld-03" class="slide">
+		<div>
+			<section>
+				<div>
+				<header>Técnica 2 - generalizar!</header>
+				<ul class="inner">
+					<li class="active">Um algoritmo deve gerar a saída correta para <strong>qualquer entrada</strong>
+					</li>
+					<li>Podemos demonstrar a corretude de algoritmos usando as mesmas técnicas que se demonstra uma função matemática</li>
+					<li>Exemplo: <strong>indução</strong></li>
+					<ul class="inner">
+						<li>Escrever um algoritmo para calcular a \(n\)-ésima potência de um número \(x\), denotada por \(x^n\)</li>
+						<li>Definição recursiva:<br/>
+						\[ x^n = \begin{cases} 1, & \mbox{se } n = 0 \\x.x^{n-1}, & \mbox{se } n > 0 \end{cases} \]
+						</li>
+					</ul>
+				</ul>
+				</div>
+				<footer class="notes"></footer>
+			</section>
+		</div>
+	</div>
+	<div id="sld-04" class="slide">
+		<div>
+			<section>
+				<header>Código e demo de corretude</header>
+				<pre><code class="prettyprint">int pot(int x, int n) {
+  if (n == 0)
+    return 1;
+  else
+    return x * pot(x, n-1);
+}</code></pre>
+				<ul class="inner">
+					<li>Se \(n = 0\), então <code>pot()</code> retorna \(1 = x^0 = x^n\)</li>
+					<li>Suponha que <code>pot(x,k)</code> está correto para todo \(k\), com \(0 < k < n\)</li>
+					<li>Por <strong>hipótese de indução</strong>, <code>pot(x,n-1)</code> devolve corretamente o valor de \(x^{n-1}\)</li>
+					<li>Assim, para \(n > 0\), a chamada <code>pot(x,n)</code> devolve \(x.x^{n-1} = x^n\)</li>
+				</ul>
+				<footer class="notes"></footer>
+			</section>
+		</div>
+	</div>
+	<div id="sld-05" class="slide">
+		<div>
+			<section>
+				<header>Exemplo 2: busca binária</header>
+				<pre><code class="prettyprint">int buscaBin(int v[], int N, int x) {
+  int i = N/2;          /* índice do elemento do meio */
+  int y = v[i];         /* valor do elemento do meio */
+
+  if (N == 0)           /* se o arranjo está vazio */
+    return -1;          /* ... é porque não achou */
+  else if (x == y)
+    return i;                             /* achou na posição i */
+  else if (x &lt; y)
+    return buscaBin(v, i, x);             /* pode estar na 1a met. */
+  else if (x &gt; y)
+    return buscaBin(&v[i+1], N-(i+1), x); /* ...ou na 2a metade */
+}</code></pre>
+				<footer class="notes"></footer>
+			</section>
+		</div>
+	</div>
+	<div id="sld-06" class="slide">
+		<div>
+			<section>
+				<header>Exemplo 2: busca binária</header>
+				<ul class="inner">
+					<li>Se \(V = \{\}\), ou seja \(n = 0\), retorna \(-1\), indicando que \(x \notin V\)</li>
+					<li>Se \(x = V_{n/2}\), então <code>buscaBin()</code> indica que \(x \in V\) e se encontra na posição \(n/2\)</li>
+					<li>Suponha que <code>buscaBin(v,k,x)</code> está correto para todo \(k\), com \(0 \leq k \leq n/2\), e considerando que \(v\) está <strong>ordenado</strong>:</li>
+					<ul>
+						<li>se \(x < V_k \Rightarrow x \neq V_j \) para todo \(j \geq k\)</li>
+						<li>se \(x > V_k \Rightarrow x \neq V_j \) para todo \(j \leq k\)</li>
+					</ul>
+					<li>Se \(x < V_{n/2}\), então, <strong>por hipótese de indução</strong>, <code>buscaBin(v, n/2, x)</code> retorna corretamente a posição de \(x\) ou indica que \(x \notin V\)</li>
+					<li>Idem para \(x > V_{n/2}\)</li>
+				</ul>
+				<footer class="notes"></footer>
+			</section>
+		</div>
+	</div>
+	<div id="sld-07" class="slide">
+		<div>
+			<section>
+				<header>Funções não-recursivas</header>
+				<ul class="inner">
+					<li class="active">Demonstração de corretude requer um trabalho mais árduo</li>
+					<li class="active">É necessário extrair informações úteis que:
+						<ul class="inner">
+							<li>Expliquem o funcionamento iterativo do algoritmo</li>
+							<li>Permitam usar indução matemática para demonstrar corretude</li>
+						</ul>
+					</li>
+					<li>Solução: <strong>Invariantes</strong> de um processo iterativo</li>
+					<li>Devemos demonstrar as seguintes propriedades:
+						<ul>
+							<li>Inicialização: \(X\) verdadeiro antes da 1a iteração</li>
+							<li>Manutenção: se \(X\) é verdadeiro antes de uma iteração, ele permanece verdadeiro antes da próxima</li>
+							<li>Garantia de término</li>
+						</ul>
+					</li>
+				</ul>
+				<footer class="notes"></footer>
+			</section>
+		</div>
+	</div>
+	<div id="sld-08" class="slide">
+		<div>
+			<section>
+				<header>Exemplo: somatório</header>
+<pre><code class="prettyprint">int sum(int v[], int N) {
+  int i;
+  int s = 0;
+  
+  for (i = 0; i < N; i++) {
+    /* variável s contém o somatório dos
+       i primeiros números de v */
+    s = s + v[i];
+  }
+  return s;
+}</code></pre>
+					<p>Mostrar que o algoritmo calcula, de fato, \(\sum_{i=1}^{n}v_i\) (no caso, \(\sum_{i=0}^{n-1}v_i\))</p>
+				<footer class="notes"></footer>
+			</section>
+		</div>
+	</div>
+	<div id="sld-09" class="slide">
+		<div>
+			<section>
+				<header>Demo de corretude</header>
+				<ul class="inner">
+					<li class="active"><strong>Invariante: \(s\) contém a soma dos \(i\) primeiros números de \(V\)</strong></li>
+					<ul>
+						<li>Inicialização: \(s = 0\) e \(i = 0\). Assim, é verdadeiro que \(s\) contém a soma dos \(0\) primeiros números de \(V\).
+						</li>
+						<li>Manutenção:<br/>
+							Suponha que a invariante é válida no início da (\(i-1\))-ésima iteração. Por <strong>hipótese de indução</strong>, quando \(i = n-2\), \(s\) terá o valor de \(\sum_{i=0}^{n-2}v_i\).
+							Na iteração seguinte, \(s\) receberá o valor de<br/>
+							\[(s) + v_{n-1} = (\sum_{i=0}^{n-2}v_i) + v_{n-1} = \sum_{i=0}^{n-1}v_i\]
+							Ao final, \(s\) continua contendo a soma dos \(i\) primeiros números.
+						</li>
+					</ul>
+				</ul>
+				<footer class="notes"></footer>
+			</section>
+		</div>
+	</div>
+	<div id="sld-10" class="slide">
+		<div>
+			<section>
+				<header>Garantia de término</header>
+				<ul class="inner">
+					<li class="active">Precisamos encontrar uma expressão de decresça ao longo das iterações e que obrigatoriamente chegue a \(0\). Por exemplo:</li>
+					<pre><code class="prettyprint">for (int i = 0; i < n; ++i)</code></pre>
+					<li>Dado um tamanho fixo \(n\), com \(n \geq i\), a função:
+						\[f(i) = n - i\]
+						é decrescente para cada \(i\)-ésima iteração e chega a \(0\) quando \(i = n\).
+					</li>
+					<li class="obs">Obs: o \(i\) aqui representa a \(i\)-ésima iteração, e não a variável <code>i</code> do algoritmo</li>
+					<li>Garantimos, assim, que o algoritmo calcula corretamente o valor e que o laço tem fim (termina).</li>
+				</ul>
+				<footer class="notes"></footer>
+			</section>
+		</div>
+	</div>
+	<div id="sld-11" class="slide">
+		<div>
+			<section>
+				<header>Atividades</header>
+				<ol>
+					<li>Escreva uma função recursiva que realize uma busca sequencial num vetor de inteiros.</li>
+					<li>Demonstre que seu programa (da atividade 1) responde corretamente o desejado (indução).</li>
+					<li>Escreva uma função iterativa da atividade 1.</li>
+					<li>Demonstre que seu programa (da atividade 3) responde corretamente o desejado (invariantes).</li>
+				</ol>
+				<footer class="notes"></footer>
+			</section>
+		</div>
+	</div>
+
+<script type="text/javascript" src="../../common/scripts/presentations/script.js"></script>
+<script type="text/javascript" src="../../common/scripts/code-prettify/prettify.js"></script>
+<script type="text/javascript" src="../../common/scripts/animation/jsmove.js"></script>
+<script type="text/javascript" src="../../common/scripts/mathjax/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+
+</body>
+</html>

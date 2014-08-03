@@ -1,0 +1,353 @@
+<!DOCTYPE HTML>
+<html lang="pt-BR" class="nonumbers">
+<head>
+    <title>Estrutura de Dados Básicas</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=1274, user-scalable=no">
+    <link rel="stylesheet" href="../../common/themes/presentations/styles/style.css" type="text/css">
+    <link rel="stylesheet" href="../../common/themes/presentations/styles/print.css" type="text/css"  media="print">
+    <link rel="stylesheet" href="../../common/themes/edb/styles/presentation.css" type="text/css">
+    <link rel="stylesheet" href="../../common/themes/code-prettify/styles/prettify.css" type="text/css">
+</head>
+<body class="list" onload="prettyPrint();">
+
+    <header class="caption">
+        <h1>Estruturas de Dados Básicas I</h1>
+        <h2>Aula 08 - Algoritmos de ordenação</h2>
+    </header>
+    <div id="capa" class="slide cover w">
+        <div>
+            <section>
+                <header>
+                    <h3>Estruturas de Dados Básicas I</h3>
+                    <h2>Aula 08 - Algoritmos de ordenação</h2>
+                    <img src="./images/aula08/estantes.jpg">
+                </header>
+            </section>
+        </div>
+    </div>
+
+    <div id="sld-01" class="slide">
+        <div>
+            <section>
+                <header>
+                    <h2>Motivação e objetivos</h2>
+                </header>
+                <ul class="inner">
+                    <li class="active">Motivação</li>
+                    <ul>
+                        <li>O problema de ordenação é de fácil entendimento, no entanto possui várias soluções possíveis.</li>
+                    </ul>
+                    <br>
+                    <li class="active">Objetivo</li>
+                    <ul>
+                        <li>Apresentar outros dois algoritmos de ordenação;</li>
+                        <li>Insertion Sort e Shell Sort.</li>
+                    </ul>
+                </ul>
+                <footer class="notes"></footer>
+            </section>
+        </div>
+    </div>
+
+    <div id="sld-02" class="slide">
+        <div>
+            <section>
+                <header>Insertion Sort</header>
+                <ul class="inner">
+                    <li class="active">Ordenação a partir de uma estrutura <strong>ordenada</strong> ou <strong>não-ordenada</strong>;</li>
+                    <li>Separa a estrutura a ser ordenada em duas partes: <strong>já ordenada</strong> e <strong>não-ordenada</strong>.</li>
+                    <li>Procedimento:</li>
+                        <ol>
+                            <li>Para todo item da parte não-ordenada faça:<br>
+                                - Procurar sua (nova) posição na parte já ordenada;<br>
+                                - Inserir o item na posição apropriada na parte ordenada.
+                            </li>
+                        </ol>
+                        <li>Note que para vetores, a procura também envolve <strong>deslocar</strong> elementos para abrir espaço para inserção</li>
+                </ul>
+                <footer class="notes"></footer>
+            </section>
+        </div>
+    </div>
+
+    <div id="sld-03" class="slide">
+        <div>
+            <section>
+                <header>Insertion Sort</header>
+                <img src="./images/aula08/Insertion-sort-dance-625x346.png" alt="Insertion sort dance">
+                <a href="http://www.youtube.com/watch?v=ROalU379l3U" target="_blank">
+                        http://www.youtube.com/user/AlgoRythmics
+                </a>
+                <footer class="notes"></footer>
+            </section>
+        </div>
+    </div>
+    
+    <div id="sld-04" class="slide">
+        <div>
+            <section>
+                <div>
+                <header>Algoritmo recursivo</header>
+                <ul class="inner">
+                    <li class="nobullet"><pre><code>ordena(A, B)
+    se tam(A) > 0 então
+        remove um elemento qualquer de A
+        insere-o em uma posição ordenada em B
+        ordena(A, B)
+</code></pre>       </li>
+                <li class="nobullet">
+                    <div style="position: absolute; bottom:2%; right:5%; width:40%">
+                        <img src="./images/aula08/insertion_sort.png"
+                            style="position: absolute; bottom: 0%; right: 60%; width:92%">
+                    </div>
+                </li>
+                </ul>
+                </div>
+                <footer class="notes"></footer>
+            </section>
+        </div>
+    </div>
+
+    <div id="sld-05" class="slide">
+        <div>
+            <section>
+                <header>Complexidade</header>
+                    <pre><code>ordena(B, A)
+    se tam(A) > 0 então
+        remove um elemento qualquer de A
+        insere-o em uma posição ordenada em B
+        ordena(A, B)</code></pre>
+                <ul class="inner">
+                    <li style="font-size: smaller">Remover um elemento qualquer de A é \(O(1)\)</li>
+                    <li style="font-size: smaller">Inseri-lo em uma posição ordenada em B é \(O(tam(B))\)</li>
+                    <ul>
+                        <li style="font-size: smaller">A cada recursão, tam(B) aumenta e tam(A) reduz de uma unidade</li>
+                        <li style="font-size: smaller">Levando em conta as várias chamadas recursivas, podemos, então, considerar que inserir em uma posição ordenada de B é \(O(n)\)</li>
+                    </ul>
+                    <li style="font-size: smaller" class="nobullet">
+                        \[f(n) = \begin{cases} 1, & \mbox{se } n = 0 \\1 + n + f(n-1), & \mbox{se } n > 0 \end{cases} \]
+                    </li>
+                </ul>
+                <footer class="notes"></footer>
+            </section>
+        </div>
+    </div>
+
+
+    <div id="sld-05-recorrencia" class="slide">
+        <div>
+            <section>
+                <header>Complexidade</header>
+                <ul class="inner">
+                    <li style="font-size: smaller">Simplificando (deixando os termos de maior grandeza)...</li>
+                    <li style="font-size: smaller" class="nobullet">\(1: f(n) = n + f(n-1)\)</li>
+                    <li style="font-size: smaller" class="nobullet">\(2: f(n) = n + (n-1 + f(n-2)) = 2n - 1 + f(n-2)\)</li>
+                    <li style="font-size: smaller" class="nobullet">\(3: f(n) = 2n - 1 + (n-2 + f(n-3)) = 3n - 3 + f(n-3)\)</li>
+                    <li style="font-size: smaller" class="nobullet">\(4: f(n) = 3n - 3 + (n-3 + f(n-4)) = 4n - 6 + f(n-4)\)</li>
+                    <li style="font-size: smaller" class="nobullet">na i-\(esima\) iteração...</li>
+                    <li style="font-size: smaller" class="nobullet">\(i: f(n) = i.n - \sum_{j=1}^{i-1} j + f(n-i)\)</li>
+                    <li style="font-size: smaller" class="nobullet">No caso base, \(n-i = 0 \Rightarrow n = i\)</li>
+                    <li style="font-size: smaller" class="nobullet">\(f(n) = n.n - \sum_{j=1}^{n-1} j + f(0) = n^2 - n(n-1)/2\)</li>
+                    <li style="font-size: smaller" class="nobullet">\(f(n) = (n^2 + n)/2\)</li>
+                    <li style="font-size: smaller" class="nobullet">\(f(n)\) é \(O(n^2)\)</li>
+                </ul>
+                <footer class="notes"></footer>
+            </section>
+        </div>
+    </div>
+
+    <div id="sld-06" class="slide">
+        <div>
+            <section>
+                <header>Implementação iterativa</header>
+                <ul class="inner">
+                    <li class="active">Como seria o código (em C) do algoritmo de ordenação <strong>Insertion sort</strong>?</li>
+                    <li class="nobullet">
+<pre><code class="prettyprint">void insertionSort (int v[], int N) {
+    int i, j, key;
+    for (i = 1; i < N; i++) {
+        /* considera o elemento i removido de A */
+        key = v[i];
+        j = i - 1;
+        
+        while (j >= 0 && key < v[j]){
+            /* deslocando os elementos em B */
+            v[j+1] = v[j];
+            j--;
+        }
+        /* insere o elemento na posição ordenada em B */
+        v[j+1] = key;
+    }
+}</code></pre>
+                    </li>
+                </ul>
+                <footer class="notes"></footer>
+            </section>
+        </div>
+    </div>
+
+    <div id="sld-07" class="slide">
+        <div>
+            <section>
+                <header>Análise</header>
+                <ul class="inner">
+                    <li class="active">O <strong>melhor</strong> e o <strong>pior</strong> casos do <i>insertion sort</i> ocorrem quando \(A\) está 
+                                       ordenado em ordem <strong>crescente</strong> e <strong>decrescente</strong>, respectivamente: <br>
+                                       * No melhor caso, o tempo de execução é \(O(n)\);<br>
+                                       * No pior caso, o tempo de execução é  \(O(n^2)\).</li>
+                    <li>É de fácil implementação;</li>
+                    <li>É relativamente eficiente para ordenar poucos dados;</li>
+                    <li>É estável, ou seja, não altera a ordem relativa de elementos com chaves repetidas;</li>
+                    <li>É <strong><i>in-place</i></strong>, ou seja, apenas requer uma quantidade de memória constante (\(O(1)\)) para funcionar.</li>
+                </ul>
+                <footer class="notes"></footer>
+            </section>
+        </div>
+    </div>
+    
+    <div id="sld-08" class="slide">
+        <div>
+            <section>
+                <header>Shell Sort</header>
+                <ul class="inner">
+                    <li class="active">Proposto por Shell em 1959;</li>
+                    <li>É uma extensão do algoritmo de ordenação por inserção (<i>insertion sort</i>);</li>
+                    <li>Problema com o algoritmo de ordenação por inserção:</li>
+                        <ul>
+                            <li>Troca itens adjacentes para determinar o ponto de inserção;</li>
+                            <li>São efetuadas \(n - 1\) comparações e movimentações quando o menor item está na posição mais à direita no vetor.</li>
+                        </ul>
+                        <li>O método de Shell contorna este problema permitindo trocas de registros distantes um do outro.</li>
+                </ul>
+                <footer class="notes"></footer>
+            </section>
+        </div>
+    </div>
+
+    <div id="sld-09" class="slide">
+        <div>
+            <section>
+                <header>Shell Sort</header>
+                <ul class="inner">
+                    <li class="active">Os itens separados de \(h\) posições são rearranjados;</li>
+                    <li>Todo \(h\)-ésimo item leva a uma sequência ordenada;</li>
+                    <li>Tal sequência é dita estar \(h\)-ordenada.</li>
+                    <li>Como escolher o valor de \(h\):</li>
+                        <ul>
+                            <li>O método original, proposto por Donald Shell foi \(h = n/2\), sendo atualizado a passo \(h = h/2\);</li>
+                            <li>Um método mais eficiente foi propost por Knuth, onde \(h\) é definido pela sequência \(h = 3h+1\). Sequência gerada: 1, 4, 13, 40, 121, 364, 1093, 3280, ...</li>
+                        </ul>
+                </ul>
+                <footer class="notes"></footer>
+            </section>
+        </div>
+    </div>
+    
+    <div id="sld-10" class="slide">
+        <div>
+            <section>
+                <header>Shell Sort</header>
+                <img src="./images/aula08/Shell-sort-dance-625x346.png" alt="Shell sort dance">
+                <a href="http://www.youtube.com/watch?v=CmPA7zE8mx0" target="_blank">
+                        http://www.youtube.com/user/AlgoRythmics
+                </a>
+                <footer class="notes"></footer>
+            </section>
+        </div>
+    </div>
+    
+    <div id="sld-11" class="slide">
+        <div>
+            <section>
+                <div>
+                <header>Passos do algoritmo</header>
+                <ul class="inner">
+                <li class="nobullet">
+                    <div style="position: absolute; top:20%; right:5%; width:40%">
+                        <img src="./images/aula08/shell_sort.png"
+                            style="position: absolute; top: 0%; right: 80%; width:80%">
+                    </div>
+                </li>
+                </ul>
+                </div>
+                <footer class="notes"></footer>
+            </section>
+        </div>
+    </div>
+
+    <div id="sld-12" class="slide">
+        <div>
+            <section>
+                <header>Implementação</header>
+                <ul class="inner">
+                    <li class="active">Como seria o código (em C) do algoritmo de ordenação <strong>Shell sort</strong>?</li>
+                    <li class="nobullet">
+<pre><code class="prettyprint">void shellSort (int v[], int N) {
+   int h = 1, i , j , value;
+   while(h < N) {
+        h = 3*h+1;}
+   do {
+        h /= 3;
+        for(i = h; i < N; i++) {
+            value = v[i];
+            j = i - h;
+            while (j >= 0 && value < v[j]) {
+                v [j + h] = v[j];
+                j -= h;
+            }
+            v[j + h] = value;
+        }
+    } while ( h > 1);
+}</code></pre>
+                    </li>
+                </ul>
+                <footer class="notes"></footer>
+            </section>
+        </div>
+    </div>
+    
+    <div id="sld-13" class="slide">
+        <div>
+            <section>
+                <header>Análise</header>
+                <ul class="inner">
+                    <li class="active">A razão da eficiência do algoritmo depende do passo h;</li>
+                    <li>A análise contém problemas matemáticos não-triviais</li>
+                    <ul>
+                        <li>Problema de Frobenius (das moedas): encontrar o maior valor que não pode ser obtido com um conjunto de moedas</li>
+                    </ul>
+                    <li>Porém, sabe-se que:</li>
+                    <ul>
+                        <li>Para o passo de \(h = h/2\), a complexidade é \(O(n^2)\) </li>
+                        <li>Para o passo de \(h = 3h + 1\), a complexidade é \(O(n^{2/3})\) </li>
+                    </ul>
+                    <li>De qualquer forma, o algoritmo é considerado quadrático \(O(n^2)\)</li>
+                </ul>
+                <footer class="notes"></footer>
+            </section>
+        </div>
+    </div>  
+    
+    <div id="sld-14" class="slide">
+        <div>
+            <section>
+                <header>Atividade</header>
+                <ul>
+                    <li>Dado uma sequência \(A\) = \(\left \langle 65, 75, 6, 57, 99, 27, 0, 96 \right \rangle\) de \(8\) elementos, demonstre passo a passo as 
+                        interações necessárias para ordenar a sequência \(A\), usando para tal os algoritmos de ordenação abaixo.
+                    </li>
+                        <img src="images/aula08/Insertion_and_Shell.png" style="position: absolute; top: 50%; left: 10%; width: 73%">
+                    </li>   
+                <footer class="notes"></footer>
+            </section>
+        </div>
+</div>  
+
+
+<script type="text/javascript" src="../../common/scripts/presentations/script.js"></script>
+<script type="text/javascript" src="../../common/scripts/code-prettify/prettify.js"></script>
+<script type="text/javascript" src="../../common/scripts/animation/jsmove.js"></script>
+<script type="text/javascript" src="../../common/scripts/mathjax/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+</body>
+</html>

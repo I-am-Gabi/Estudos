@@ -1,0 +1,155 @@
+/*
+  UFRN theme for presentation template
+  Used with scripts/mozilla/presentations/scripts.js
+  https://github.com/mozilla-ro/presentations
+*/
+
+/* Body */
+body:after {
+    background:url(../images/tab-ufrn.png);
+}
+
+/* Picture simple_frame */
+.simple_frame {
+    display: block;
+}
+.simple_frame img {
+    border: 5px solid #f8f8f8; z-index: 2; display: block; 
+}
+
+/* Header */
+.slide header {
+    margin: 0 0 58px -35px;
+    color: #000;
+    text-transform: none;
+    font: 40px/1.13 'OpenSansBold', sans-serif;
+}
+
+/* Elements */
+.slide p {
+    margin:-30px 0 35px;
+}
+
+.slide mark {
+    -webkit-border-radius: 5px;
+    -moz-border-radius: 5px;
+    border-radius: 5px;
+    background: #FAFAA2;
+    color: #000;
+}
+
+/* Shout */
+.slide.shout h2 {
+    font-size: 80px;
+}
+
+/* Lists */
+.slide ol,
+.slide ul {
+    margin: -30px 0 45px;
+}
+
+/* Inner navigation */
+.inner li {
+    opacity: 0;
+}
+
+/* Code */
+.slide pre {
+    font-family: 'monaco', 'courier', monospace;
+    font-size: 18px;
+    line-height: 20px;
+    letter-spacing: -1px;
+}
+
+/* Cover */
+.slide.cover section {
+    background: url(../images/bg-sandstone-2.png);
+}
+.slide.cover h1 {
+    font: bold 60px/1 'OpenSansRegular', sans-serif;
+    text-align: center;
+    text-shadow: 0 7px 7px #8D8E90;
+    padding-top: 10%;
+}
+.slide.cover p {
+    font: 40px/1 'OpenSansRegular', sans-serif;
+    text-align: center;
+    font-weight: normal;
+}
+
+/* Caption */
+.list .caption h1 {
+    font: bold 40px/1 'OpenSansRegular', sans-serif;
+}
+
+/* Progress */
+.full .progress {
+    bottom: 5px;
+}
+
+/* Special content styles */
+.photo-credits {
+    font-size: 12px;
+    position: absolute;
+    bottom: 20px;
+    left: 120px;
+}
+.video-credits {
+    font-size: 12px;
+    position: absolute;
+    bottom: 53px;
+    left: 120px;
+}
+.slide ol.longlist  li:before
+.slide ul.longlist  li:before {
+    content: '\2022'; /* bull */
+    line-height: 1.1;
+    font-size: 30px;
+}
+
+/* Font */
+.flash {
+    color: rgb(0, 102, 204);
+}
+.flash_bold {
+    color: rgb(0, 102, 204);
+    font-weight: bold;
+}
+.scrc {
+    color: rgb(0, 128, 0);
+    font-size: 18px;
+    font-weight: bold;
+} /* screen command */
+.scrt {
+    color: rgb(196, 196, 0);
+    font-size: 18px;
+    font-weight: bold;
+} /* screen text */
+
+.algo {
+    font-family: 'monaco', 'courier', monospace;
+    font-size: 16px;
+    font-weight: bold;
+    letter-spacing: -1px;
+}
+
+/* Tables */
+table.table-borders {
+    border: 2px solid white;
+    font-size: 18px;
+    text-align: center;
+}
+table.table-borders th {
+    border: 1px solid white;
+    padding: 5px;
+    background-color: rgb(79, 129, 189);
+    color: white;
+}
+table.table-borders tr {
+    background-color: rgb(208, 216, 232);
+}
+table.table-borders td {
+    border: 1px solid white;
+    padding: 1px;
+}

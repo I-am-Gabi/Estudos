@@ -1,0 +1,7 @@
+OBSERVAÇÕES:
+
+	HÁ UM EASTER EGG (segredo oculto) NO JOGO.
+	
+	Os elementos vazio da matriz são preenchidos com asterisco *, Então, Se no menu inicial do jogo 
+	digitar asterisco * vai para uma tela de jogo com a matriz toda preenchida em 1024 
+	e assim com qualquer movimento, vence o jogo.

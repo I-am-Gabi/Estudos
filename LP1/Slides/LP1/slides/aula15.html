@@ -1,0 +1,1224 @@
+<!DOCTYPE HTML>
+<html lang="pt-BR" class="fade nonumbers">
+<!-- 
+    Podemos controlar um certo número de configurações com as classes do elemento <html>:
+    "fade"      - passagem suave entre os slides
+    "nonumbers" - remove o número do slide na barra de progressão
+-->
+
+<head>
+    <title>Laboratório de Programação I</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=1274, user-scalable=no">
+    <link rel="stylesheet" href="../../common/themes/presentations/styles/style.css" type="text/css">
+    <link rel="stylesheet" href="../../common/themes/presentations/styles/print.css" type="text/css"  media="print">
+    <link rel="stylesheet" href="../../common/themes/code-prettify/styles/prettify.css" type="text/css">
+    <link rel="stylesheet" href="../../common/themes/lp1/styles/presentation.css" type="text/css">
+    <link rel="stylesheet" href="../../common/themes/lp1/styles/ufrn.css" type="text/css">
+    <link rel="stylesheet" href="../../common/themes/lp1/styles/codeprettify.css" type="text/css">
+<style>
+.highlight {
+    border: 2px solid red;
+    -webkit-border-radius: 10px;
+    -moz-border-radius: 10px;
+    border-radius: 10px;
+    background-color: rgba(200, 200, 200, 0.3);
+}
+
+.highlight-text {
+    padding: 10px;
+    font-size: 14pt;
+    border: 1px solid;
+    -webkit-border-radius: 10px;
+    -moz-border-radius: 10px;
+    border-radius: 10px;
+    background-color: rgb(240, 240, 240);
+}
+</style>
+
+</head>
+
+<body class="list" onload="prettyPrint();">
+
+<!-- ============================================================================== -->
+<!-- Informações para a lista de slides -->
+<header class="caption">
+    <h1>Laboratório de Programação I</h1>
+    <h1>Aula 15 - Biblioteca Padrão de C++: contêineres e iteradores</h1>
+</header>
+
+<!-- 
+    O seguinte código é um slide. Ele utiliza uma classe do tipo "slide" e agrega no seu
+    interior todos os elementos semânticos que se mostrem necessários.
+    IMPORTANTE: cada slide requer seu próprio e único ID - este sistema permite de gerar
+    uma URL própria para cada slide e apresenta como o código deve ser organizado!
+-->
+
+<!-- ============================================================================== -->
+<!-- Laboratório de Programação 1 -->
+<div id="capa" class="slide cover w">
+    <div>
+        <section>
+            <header>
+                <h1>Laboratório de Programação I</h1>
+                <h1 style="font-size: 45px">Aula 15 - Biblioteca Padrão de C++: contêineres e iteradores</h1>
+                <br><br>
+            </header>
+            <table>
+                <thead>
+                    <tr>
+                        <td></td>
+                        <td><img style="top:90%; height:5px" src="images/common/colorbar.png"></td>
+                        <td></td>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td><img style="left:1%; top:95%; width:200px; height:48px;" src="images/common/azul.png"></td>
+                        <td><img style="left:41%; top:95%; width:150px; height:52px;" src="images/common/ufrn.png"></td>
+                        <td><img style="left:85%; top:95%; width:140px; height:52px;" src="images/common/dimap.png"></td>
+                    </tr>
+                </tbody>
+            </table>
+            <footer class="notes">
+            </footer>
+        </section>
+    </div>
+</div>
+
+<!-- ============================================================================== -->
+<!-- Objetivos da aula -->
+<div id="objetivos_aula" class="slide">
+    <div>
+        <section>
+            <header>
+                <h2>Objetivos da aula</h2>
+            </header>
+            <ul>
+                <li>Introduzir a biblioteca padrão de <span class="flash">C++</span> e seus componentes</li>
+                <li>Para isto estudaremos:
+                    <ul>
+                        <li>Elementos da biblioteca padrão</li>
+                        <li>Standard Template Library (STL)</li>
+                        <li>Contêineres</li>
+                        <li>Iteradores</li>
+                    </ul>
+                </li>
+                <li>Ao final da aula espera-se que o aluno saiba fazer uso de algumas estruturas existentes na biblioteca padrão de <span class="flash">C++</span></li>
+            </ul>
+            <footer class="notes">
+            </footer>
+        </section>
+    </div>
+</div>
+
+<!-- ============================================================================== -->
+<!-- Biblioteca padrão de C++ -->
+<div id="biblioteca_padrao_1" class="slide">
+    <div>
+        <section>
+            <header>
+                <h2>Biblioteca padrão de C++</h2>
+            </header>
+            <ul>
+                <li><span class="flash">Facilita o desenvolvimento</span> de aplicações em <span class="flash">C++</span></li>
+                <li>Código fornecido:
+                    <ul>
+                        <li>Contêineres genéricos</li>
+                        <li>Funções para manipular os contêineres</li>
+                        <li>Streams genéricos</li>
+                        <li>Suporte para facilidades da linguagem</li>
+                        <li>Funções de uso geral</li>
+                    </ul>
+                </li>
+                <li>Todas suas funcionalidades estão declaradas no <span class="flash">namespace <span class="flash_bold">std</span></span></li>
+                <li>Ela também incorpora a <span class="flash">biblioteca padrão de C</span>
+                    <ul>
+                        <li>Elimina a extensão <span class="flash_bold">.h</span> e adiciona o prefixo <span class="flash_bold">c</span> nos cabeçalhos</li>
+                    </ul>
+                </li>
+                <li><span class="flash">Padronizada pela ISO</span> em 1998, 2003 e 2011</li>
+            </ul>
+            <figure class="simple_frame shadow" style="position: absolute; left: 730px; top: 60px;">
+                <img style="height: 200px" src="images/aula15/c++.jpg">
+            </figure>
+            <footer class="notes">
+            </footer>
+        </section>
+    </div>
+</div>
+
+<!-- ============================================================================== -->
+<!-- Biblioteca padrão de C++ -->
+<div id="biblioteca_padrao_2" class="slide">
+    <div>
+        <section>
+            <header>
+                <h2>Biblioteca padrão de C++</h2>
+            </header>
+            <ul>
+                <li>Contêineres genéricos implementam tipos abstratos conhecidos em <span class="flash">estruturas de dados</span> (alguns deles foram vistos em <span class="flash">EDB1</span>)</li>
+                <li>Contêineres compartilham uma <span class="flash">mesma interface</span>, a forma de acesso à eles sendo a mesma</li>
+                <li>A escolha do uso de um contêiner depende da sua <span class="flash">eficiência na tarefa requerida</span>
+                    <ul>
+                        <li>A eficiência está relacionada com a estrutura interna</li>
+                        <li>Alguns contêineres são mais eficientes em <span class="flash">busca</span> e menos eficientes em <span class="flash">inserção/remoção</span> de elementos, e vice-versa</li>
+                    </ul>
+                </li>                
+                <li>O código da biblioteca padrão é na sua maior parte construído com <span class="flash">templates</span> e tem como base a <span class="flash">Standard Template Library (STL)</span></li>
+            </ul>
+            <footer class="notes">
+            </footer>
+        </section>
+    </div>
+</div>
+
+<!-- ============================================================================== -->
+<!-- Por que usar a biblioteca padrão de C++? -->
+<div id="biblioteca_padrao_3" class="slide">
+    <div>
+        <section>
+            <header>
+                <h2>Por que usar a biblioteca padrão de C++?</h2>
+            </header>
+            <ul>
+                <li><span class="flash">Redução do tempo de desenvolvimento</span>
+                    <ul>
+                        <li>Código pronto, testado e otimizado</li>
+                    </ul>
+                </li>
+                <li><span class="flash">Legibilidade de código</span>
+                    <ul>
+                        <li>Além de utilizar código padrão, o programa fica mais enxuto</li>
+                    </ul>
+                </li>
+                <li><span class="flash">Robustez</span>
+                    <ul>
+                        <li>As estruturas são dinâmicas e a gestão de memória automática</li>
+                    </ul>
+                </li>
+                <li><span class="flash">Código portável</span>
+                    <ul>
+                        <li>Usa o padrão ISO</li>
+                    </ul>
+                </li>
+                <li><span class="flash">Facilidade de manutenção</span>
+                    <ul>
+                        <li>As estruturas de dados são, até certo ponto, intercambiáveis</li>
+                    </ul>
+                </li>
+                <li><span class="flash">Facilidade de uso</span></li>
+            </ul>
+            <footer class="notes">
+            </footer>
+        </section>
+    </div>
+</div>
+
+
+<!-- ============================================================================== -->
+<!-- Elementos da biblioteca padrão (1) -->
+<div id="elementos_biblioteca_padrao_1" class="slide">
+    <div>
+        <section>
+            <header>
+                <h2>Elementos da biblioteca padrão (1)</h2>
+            </header>
+            <table class="table-borders" style="position: absolute; left: 120px; top: 95px; font-weight: bold">
+                <tr>
+                    <th style="width: 180px">Contêineres<br><br></th>
+                    <th style="width: 620px">Descrição</th>
+                </tr>
+                <tr>
+                    <td class="flash_bold">&lt;vector&gt;</td>
+                    <td>Arranjo dinâmico unidimensional com acesso em tempo constante e inserção e remoção no final</td>
+                </tr>
+                <tr style="background-color: rgb(233, 237, 244);">
+                    <td class="flash_bold">&lt;deque&gt;</td>
+                    <td>Arranjo dinâmico unidimensional com acesso em tempo constante e inserção e remoção no início e no final</td>
+                </tr>
+                <tr>
+                    <td class="flash_bold">&lt;list&gt;</td>
+                    <td>Lista duplamente encadeada com acesso em tempo linear e inserção e remoção em qualquer ponto em tempo constante</td>
+                </tr>
+                <tr style="background-color: rgb(233, 237, 244);">
+                    <td class="flash_bold">&lt;bitset&gt;</td>
+                    <td>Arranjo dinâmico de bits</td>
+                </tr>
+                <tr>
+                    <td class="flash_bold">&lt;queue&gt;</td>
+                    <td>Lista FIFO (First-In-First-Out) ou fila</td>
+                </tr>
+                <tr style="background-color: rgb(233, 237, 244);">
+                    <td class="flash_bold">&lt;stack&gt;</td>
+                    <td>Lista LIFO (Last-In-First-Out) ou pilha</td>
+                </tr>
+                <tr>
+                    <td class="flash_bold">&lt;set&gt;</td>
+                    <td>Conjunto ordenado de elementos únicos</td>
+                </tr>
+                <tr>
+                    <td class="flash_bold">&lt;multiset&gt;</td>
+                    <td>Conjunto ordenado de elementos duplicados</td>
+                </tr>
+                <tr style="background-color: rgb(233, 237, 244);">
+                    <td class="flash_bold">&lt;map&gt;</td>
+                    <td>Conjunto ordenado de pares (chave-elemento) únicos</td>
+                </tr>
+                <tr style="background-color: rgb(233, 237, 244);">
+                    <td class="flash_bold">&lt;multimap&gt;</td>
+                    <td>Conjunto ordenado de pares (chave-elemento) duplicados</td>
+                </tr>
+            </table>
+            <footer class="notes">
+            </footer>
+        </section>
+    </div>
+</div>
+
+<!-- ============================================================================== -->
+<!-- Elementos da biblioteca padrão (2) -->
+<div id="elementos_biblioteca_padrao_2" class="slide">
+    <div>
+        <section>
+            <header>
+                <h2>Elementos da biblioteca padrão (2)</h2>
+            </header>
+            <table class="table-borders" style="position: absolute; left: 120px; top: 100px; font-weight: bold">
+                <tr>
+                    <th style="width: 180px">String, streams e entrada/saída<br></th>
+                    <th style="width: 620px">Descrição</th>
+                </tr>
+                <tr>
+                    <td class="flash_bold">&lt;string&gt;</td>
+                    <td>Cadeia de caracteres especializada para o tipo de dados char</td>
+                </tr>
+                <tr style="background-color: rgb(233, 237, 244);">
+                    <td class="flash_bold">&lt;ios&gt;</td>
+                    <td>Classes bases de fluxo de dados</td>
+                </tr>
+                <tr>
+                    <td class="flash_bold">&lt;iosfwd&gt;</td>
+                    <td>Declaração dos fluxos de dados da linguagem</td>
+                </tr>
+                <tr style="background-color: rgb(233, 237, 244);">
+                    <td class="flash_bold">&lt;istream&gt;</td>
+                    <td>Fluxo de dados de entrada</td>
+                </tr>
+                <tr>
+                    <td class="flash_bold">&lt;ostream&gt;</td>
+                    <td>Fluxo de dados de saída</td>
+                </tr>
+                <tr style="background-color: rgb(233, 237, 244);">
+                    <td class="flash_bold">&lt;iostream&gt;</td>
+                    <td>Fluxo de dados padrão do sistema (entrada, saída e erros)</td>
+                </tr>
+                <tr>
+                    <td class="flash_bold">&lt;streambuf&gt;</td>
+                    <td>Buffers do fluxo de dados</td>
+                </tr>
+                <tr style="background-color: rgb(233, 237, 244);">
+                    <td class="flash_bold">&lt;sstream&gt;</td>
+                    <td>Fluxo de dados em cadeias de caracteres</td>
+                </tr>
+                <tr>
+                    <td class="flash_bold">&lt;fstream&gt;</td>
+                    <td>Fluxo de dados em arquivos</td>
+                </tr>
+                <tr style="background-color: rgb(233, 237, 244);">
+                    <td class="flash_bold">&lt;iomanip&gt;</td>
+                    <td>Apresentação e processamento de fluxos de dados</td>
+                </tr>
+            </table>
+            <footer class="notes">
+            </footer>
+        </section>
+    </div>
+</div>
+
+<!-- ============================================================================== -->
+<!-- Elementos da biblioteca padrão (3) -->
+<div id="elementos_biblioteca_padrao_3" class="slide">
+    <div>
+        <section>
+            <header>
+                <h2>Elementos da biblioteca padrão (3)</h2>
+            </header>
+            <table class="table-borders" style="position: absolute; left: 120px; top: 100px; font-weight: bold">
+                <tr>
+                    <th style="width: 180px">Funcionalidades numéricas e de suporte<br></th>
+                    <th style="width: 620px">Descrição</th>
+                </tr>
+                <tr>
+                    <td class="flash_bold">&lt;complex&gt;</td>
+                    <td>Números complexos e operações</td>
+                </tr>
+                <tr style="background-color: rgb(233, 237, 244);">
+                    <td class="flash_bold">&lt;valarray&gt;</td>
+                    <td>Arranjo de valores mutáveis</td>
+                </tr>
+                <tr>
+                    <td class="flash_bold">&lt;numeric&gt;</td>
+                    <td>Operações com conjuntos numéricos</td>
+                </tr>
+                <tr style="background-color: rgb(233, 237, 244);">
+                    <td class="flash_bold">&lt;limits&gt;</td>
+                    <td>Limites numéricos dos tipos primitivos da linguagem</td>
+                </tr>
+                <tr>
+                    <td class="flash_bold">&lt;new&gt;</td>
+                    <td>Alocação e liberação dinâmica de memória</td>
+                </tr>
+                <tr style="background-color: rgb(233, 237, 244);">
+                    <td class="flash_bold">&lt;typeinfo&gt;</td>
+                    <td>Identificação de tipos de dados em tempo de execução</td>
+                </tr>
+                <tr>
+                    <td class="flash_bold">&lt;exception&gt;</td>
+                    <td>Manipulação de exceções</td>
+                </tr>
+            </table>
+            <footer class="notes">
+            </footer>
+        </section>
+    </div>
+</div>
+
+<!-- ============================================================================== -->
+<!-- Elementos da biblioteca padrão (4) -->
+<div id="elementos_biblioteca_padrao_4" class="slide">
+    <div>
+        <section>
+            <header>
+                <h2>Elementos da biblioteca padrão (4)</h2>
+            </header>
+            <table class="table-borders" style="position: absolute; left: 120px; top: 100px; font-weight: bold">
+                <tr>
+                    <th style="width: 180px">Uso geral<br><br></th>
+                    <th style="width: 620px">Descrição</th>
+                </tr>
+                <tr>
+                    <td class="flash_bold">&lt;utility&gt;</td>
+                    <td>Operações com pares de elementos (comparação e construção)</td>
+                </tr>
+                <tr style="background-color: rgb(233, 237, 244);">
+                    <td class="flash_bold">&lt;functional&gt;</td>
+                    <td>Funções-objeto</td>
+                </tr>
+                <tr>
+                    <td class="flash_bold">&lt;iterator&gt;</td>
+                    <td>Definição e suporte de iteradores</td>
+                </tr>
+                <tr style="background-color: rgb(233, 237, 244);">
+                    <td class="flash_bold">&lt;algorithm&gt;</td>
+                    <td>Algoritmos genéricos para busca, ordenação e transformação de contêineres</td>
+                </tr>
+                <tr>
+                    <td class="flash_bold">&lt;memory&gt;</td>
+                    <td>Funções para gerenciamento de memória</td>
+                </tr>
+                <tr style="background-color: rgb(233, 237, 244);">
+                    <td class="flash_bold">&lt;stdexcept&gt;</td>
+                    <td>Especialização de &lt;exception&gt; para geração de relatórios</td>
+                </tr>
+                <tr>
+                    <td class="flash_bold">&lt;locale&gt;</td>
+                    <td>Representação de diferenças culturais como números, moedas e datas</td>
+                </tr>
+            </table>
+            <footer class="notes">
+            </footer>
+        </section>
+    </div>
+</div>
+
+<!-- ============================================================================== -->
+<!-- Elementos da biblioteca padrão (5)-->
+<div id="elementos_biblioteca_padrao_5" class="slide">
+    <div>
+        <section>
+            <header>
+                <h2>Elementos da biblioteca padrão (5)</h2>
+            </header>
+            <table class="table-borders" style="position: absolute; left: 120px; top: 90px; font-weight: bold">
+                <tr>
+                    <th style="width: 180px">Biblioteca padrão de C<br></th>
+                    <th style="width: 620px">Descrição</th>
+                </tr>
+                <tr>
+                    <td class="flash_bold">&lt;ctime&gt;</td>
+                    <td>Funções para manipulação de data e hora</td>
+                </tr>
+                <tr style="background-color: rgb(233, 237, 244);">
+                    <td class="flash_bold">&lt;cstdlib&gt;</td>
+                    <td>Conversão, geração de números pseudo-aleatórios, alocação de memória, controle de processo, sinais, busca e ordenação</td>
+                </tr>
+                <tr>
+                    <td class="flash_bold">&lt;cassert&gt;</td>
+                    <td>Detecção de erros lógicos e outros tipos de erros</td>
+                </tr>
+                <tr style="background-color: rgb(233, 237, 244);">
+                    <td class="flash_bold">&lt;cerrno&gt;</td>
+                    <td>Teste de códigos de erro reportados pelas funções</td>
+                </tr>
+                <tr>
+                    <td class="flash_bold">&lt;cctype&gt;</td>
+                    <td>Classificação e conversão de caracteres</td>
+                </tr>
+                <tr style="background-color: rgb(233, 237, 244);">
+                    <td class="flash_bold">&lt;cstring&gt;</td>
+                    <td>Tratamento de cadeia de caracteres</td>
+                </tr>
+                <tr>
+                    <td class="flash_bold">&lt;cstdio&gt;</td>
+                    <td>Manipulação de entrada e saída</td>
+                </tr>
+                <tr style="background-color: rgb(233, 237, 244);">
+                    <td class="flash_bold">&lt;climits&gt;</td>
+                    <td>Macros com limites numéricos&gt;</td>
+                </tr>
+                <tr>
+                    <td class="flash_bold">&lt;cfloat&gt;</td>
+                    <td>Macros com limites de ponto flutuante</td>
+                </tr>
+                <tr style="background-color: rgb(233, 237, 244);">
+                    <td class="flash_bold">&lt;cmath&gt;</td>
+                    <td>Funções matemáticas</td>
+                </tr>
+                <tr>
+                    <td class="flash_bold">&lt;cstdargs&gt;</td>
+                    <td>Criação de funções com lista de argumentos variável</td>
+                </tr>
+                <tr style="background-color: rgb(233, 237, 244);">
+                    <td class="flash_bold">&lt;cstddef&gt;</td>
+                    <td>Diversos tipos e macros úteis</td>
+                </tr>
+            </table>
+            <footer class="notes">
+            </footer>
+        </section>
+    </div>
+</div>
+
+<!-- ============================================================================== -->
+<!-- Standard Template Library (STL) -->
+<div id="stl_1" class="slide">
+    <div>
+        <section>
+            <header>
+                <h2>Standard Template Library (STL)</h2>
+            </header>
+            <ul>
+                <li>Uma parte da biblioteca padrão de C++</li>
+                <li>Desenvolvida inicialmente por <span class="flash">Alex Stepanov</span> em 1992 na<br> HP, e em seguida pela SGI, até sua padronização</li>
+                <li>Objetivo principal
+                    <ul>
+                        <li>Representação de conceitos (dados e algoritmos)<br> <span class="flash">genéricos, eficientes e flexíveis</span></li>
+                    </ul>
+                <li>Como é totalmente baseada em templates, <span class="flash">pode<br> manipular qualquer tipo de dado</span></li>
+                <li>Documentação
+                    <ul>
+                        <li><a href="http://www.sgi.com/tech/stl/" target="_blank">http://www.sgi.com/tech/stl/</a></li>
+                        <li><a href="http://www.cplusplus.com/reference/" target="_blank">http://www.cplusplus.com/reference/</a></li>
+                    </ul>
+                </li>
+            </ul>
+            <figure class="simple_frame shadow" style="position: absolute; left: 810px; top: 60px;">
+                <img style="height: 230px" src="images/aula15/alexander_stepanov.jpg">
+            </figure>
+            <figure class="simple_frame shadow" style="position: absolute; left: 820px; top: 420px;">
+                <img style="height: 150px" src="images/aula15/stl-logo.jpg">
+            </figure>
+            <footer class="notes">
+            </footer>
+        </section>
+    </div>
+</div>
+
+<!-- ============================================================================== -->
+<!-- Standard Template Library (STL) -->
+<div id="stl_2" class="slide">
+    <div>
+        <section>
+            <header>
+                <h2>Standard Template Library (STL)</h2>
+            </header>
+            <ul>
+                <li>Componentes básicos:
+                    <ul>
+                        <li><span class="flash">Contêineres</span>
+                            <ul>
+                                <li>Estruturas de dados para armazenamento na memória</li>
+                                <li>Exemplos: arranjo, lista, fila, pilha, árvore,...</li>
+                            </ul>
+                        </li>
+                        <li><span class="flash">Algoritmos</span>
+                            <ul>
+                                <li>Funções para manipulação das estruturas de dados</li>
+                                <li>Exemplos: inserção, remoção, busca, ordenação,...</li>
+                            </ul>
+                        </li>
+                        <li><span class="flash">Iteradores</span>
+                            <ul>
+                                <li>Generalização de ponteiros para navegação nas estruturas</li>
+                                <li>Exemplos: incremento para passar ao próximo elemento, decremento para voltar ao elemento anterior,...</li>
+                            </ul>
+                        </li>
+                    </ul>
+                </li>
+            </ul>
+            <footer class="notes">
+            </footer>
+        </section>
+    </div>
+</div>
+
+<!-- ============================================================================== -->
+<!-- Modelo básico da STL -->
+<div id="modelo_basico" class="slide">
+    <div>
+        <section>
+            <header>
+                <h2>Modelo básico da STL</h2>
+            </header>
+            <ul>
+                <li>Algoritmos</li>
+                <br><br><br><br><br><br><br>
+                <li>Contêineres</li>
+            </ul>
+            <p class="flash" style="font-size: 24px; position: absolute; left: 180px; top: 200px">sort, &nbsp;&nbsp;&nbsp;&nbsp;find, &nbsp;&nbsp;search, &nbsp;&nbsp;copy, ...</p>
+            <p class="flash" style="font-size: 24px; position: absolute; left: 280px; top: 560px">vector, &nbsp;&nbsp;&nbsp;&nbsp;list, &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;set, &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;multimap, ...</p>
+            <figure style="position: absolute; left: 200px; top: 210px;">
+                <img style="width: 400px" src="images/aula15/basic_model.png">
+            </figure>
+            <p style="font-size: 20px; position: absolute; left: 770px; top: 150px"><span class="flash">Algoritmos manipulam dados</span>, mas não sabem nada sobre contêineres</p>
+            <p style="font-size: 20px; position: absolute; left: 770px; top: 310px">Algoritmos e contêineres <span class="flash">interagem através de iteradores</span></p>
+            <p style="font-size: 20px; position: absolute; left: 770px; top: 480px"><span class="flash">Contêineres armazenam dados</span>, mas não sabem nada sobre algoritmos</p>
+            <footer class="notes">
+            </footer>
+        </section>
+    </div>
+</div>
+
+<!-- ============================================================================== -->
+<!-- Tipos de contêineres -->
+<div id="tipos_conteineres" class="slide">
+    <div>
+        <section>
+            <header>
+                <h2>Tipos de contêineres</h2>
+            </header>
+            <ul>
+                <li><span class="flash">Contêineres sequenciais</span>
+                    <ul>
+                        <li>Armazenam elementos em um arranjo estritamente linear</li>
+                        <li>Exemplos: <span class="flash">vector, deque, list</span></li>
+                    </ul>
+                </li>
+                <li><span class="flash">Contêineres associativos</span>
+                    <ul>
+                        <li>Armazenam elementos como chaves ordenadas que podem ser rapidamente recuperadas</li>
+                        <li>Exemplos: <span class="flash">set, multiset, map, multimap</span></li>
+                    </ul>
+                </li>                
+                <li><span class="flash">Contêineres adaptadores</span>
+                    <ul>
+                        <li>Armazenam elementos através de outros contêineres com suas estruturas de armazenamento subjacentes</li>
+                        <li>Exemplos: <span class="flash">stack, queue, priority_queue</span></li>
+                    </ul>
+                </li>
+            </ul>
+            <footer class="notes">
+            </footer>
+        </section>
+    </div>
+</div>
+
+<!-- ============================================================================== -->
+<!-- Diagrama da STL -->
+<div id="diagrama" class="slide">
+    <div>
+        <section>
+            <figure style="position: absolute; left: 38px; top: 0px">
+                <img style="width: 950px" src="images/aula15/diagrama_uml_stl.png">
+            </figure>
+            <footer class="notes">
+            </footer>
+        </section>
+    </div>
+</div>
+
+<!-- ============================================================================== -->
+<!-- Exemplos Contêineres -->
+<div id="exmplos_conteineres" class="slide">
+    <div>
+        <section>
+            <header>
+                <h2>Exemplos de contêineres</h2>
+            </header>
+            <ul>
+                <li>vector< T ></li>
+                <br><br>
+                <li>list< T ><br><span style="font-size: 16px">(duplamente encadeada)</span></li>
+                <br><br>
+                <li>set< T ><br><span style="font-size: 16px">(árvore)</span></li>
+            </ul>
+            <figure style="position: absolute; left: 270px; top: 110px;">
+                <img style="width: 650px" src="images/aula15/containers.png">
+            </figure>
+            <footer class="notes">
+            </footer>
+        </section>
+    </div>
+</div>
+
+<!-- ============================================================================== -->
+<!-- Iteradores -->
+<div id="iteradores" class="slide">
+    <div>
+        <section>
+            <header>
+                <h2>Iteradores</h2>
+            </header>
+            <ul>
+                <li>Um par de iteradores definem uma sequência
+                    <ul>
+                        <li><span class="flash">begin</span>: ponteiro para o primeiro elemento</li>
+                        <li><span class="flash">end</span>: ponteiro para um elemento após o último elemento</li>
+                    </ul>
+                </li>
+                <br><br><br><br>
+                <li>Um iterador é um tipo que permite operações de iteração
+                    <ul class="longlist">
+                        <li><span class="flash_bold">++</span> passa ao próximo elemento</li>
+                        <li><span class="flash_bold">*</span> recebe o conteúdo do elemento</li>
+                        <li><span class="flash_bold">==</span> compara se está apontando para o mesmo elemento do iterador</li>
+                    </ul>
+                </li>
+                <li>Alguns iteradores permitem também outras operações (<span class="flash_bold">--</span>, <span class="flash_bold">+</span>, <span class="flash_bold">[ ]</span>)</li>
+            </ul>
+            <figure style="position: absolute; left: 200px; top: 260px;">
+                <img style="width: 600px" src="images/aula15/iterators.png">
+            </figure>
+            <footer class="notes">
+            </footer>
+        </section>
+    </div>
+</div>
+
+<!-- ============================================================================== -->
+<!-- Contêiner vector< T > -->
+<div id="conteiner_vector" class="slide">
+    <div>
+        <section>
+            <header>
+                <h2>Contêiner <span class="flash">vector< T ></span></h2>
+            </header>
+            <ul>
+                <li>Arranjo dinâmico (tamanho variável) unidimensional</li>
+                <li>A inserção e a remoção de um elemento só pode ser feita no final</li>
+                <li>Seus elementos podem ser acessados através do operador [ ]</li>
+            </ul>
+            <figure style="position: absolute; left: 560px; top: 60px;">
+                <img src="images/aula15/listaSequencial.png">
+            </figure>
+            <figure style="position: absolute; left: 250px; top: 350px;">
+                <img style="width: 550px" src="images/aula15/vector.png">
+            </figure>
+<pre class="prettyprint" style="position: absolute; top: 235px; left: 50px">
+int array[5] = {12, 7, 9, 21, 13};
+std::vector< int > v( array, array + 5 );
+</pre>
+            <p style="font-size: 22px; position: absolute; left: 260px; top: 425px"><span class="flash">v.pop_back();</p>
+            <p style="font-size: 22px; position: absolute; left: 530px; top: 425px"><span class="flash">v.push_back( 15 );</p>
+            <p style="font-size: 22px; position: absolute; left: 425px; top: 520px"><span class="flash">0 &nbsp;&nbsp;&nbsp;1 &nbsp;&nbsp;&nbsp;2 &nbsp;&nbsp;&nbsp;3 &nbsp;&nbsp;&nbsp;4</p>
+            <p style="font-size: 22px; position: absolute; left: 385px; top: 620px"><span class="flash">v.begin();</p>
+            <p style="font-size: 22px; position: absolute; left: 525px; top: 620px"><span class="flash">v[3];</p>
+            <footer class="notes">
+            </footer>
+        </section>
+    </div>
+</div>
+
+<!-- ============================================================================== -->
+<!-- Ajguns métodos do contêiner vector< T > -->
+<div id="metodos_vector" class="slide">
+    <div>
+        <section>
+            <header>
+                <h2>Alguns métodos do contêiner <span class="flash">vector< T ></span></h2>
+            </header>
+            <table class="table-borders" style="position: absolute; left: 120px; top: 110px; font-weight: bold">
+                <tr>
+                    <th style="width: 450px">Método<br></th>
+                    <th style="width: 720px">Descrição</th>
+                </tr>
+                <tr>
+                    <td class="flash_bold">void push_back ( const T& e )</td>
+                    <td>Insere um novo elemento no fim</td>
+                </tr>
+                <tr style="background-color: rgb(233, 237, 244);">
+                    <td class="flash_bold">void pop_back()</td>
+                    <td>Remove o último elemento</td>
+                </tr>
+                <tr>
+                    <td class="flash_bold">unsigned int size () const</td>
+                    <td>Retorna o número de elementos do vetor</td>
+                </tr>
+                <tr style="background-color: rgb(233, 237, 244);">
+                    <td class="flash_bold">bool empty () const</td>
+                    <td>Retorna true (1) se o vetor estiver vazio</td>
+                </tr>
+                <tr>
+                    <td class="flash_bold">void clear ()</td>
+                    <td>Remove todos os elementos do vetor</td>
+                </tr>
+                <tr style="background-color: rgb(233, 237, 244);">
+                    <td class="flash_bold">T at ( unsigned int n )</td>
+                    <td>Retorna o elemento que está na posição indicada, fazendo o teste de limites</td>
+                </tr>
+                <tr>
+                    <td class="flash_bold">vector& operator= ( const vector& e )</td>
+                    <td>Substitui o conteúdo do vetor destino com o conteúdo do vetor informado</td>
+                </tr>
+                <tr style="background-color: rgb(233, 237, 244);">
+                    <td class="flash_bold">T operator[] ( unsigned int n )</td>
+                    <td>Acesso à uma posição do vetor, sem teste de limites</td>
+                </tr>
+            </table>
+            <footer class="notes">
+            </footer>
+        </section>
+    </div>
+</div>
+
+<!-- ============================================================================== -->
+<!-- Exemplo de uso do contêiner vector< T > -->
+<div id="exemplo_vector" class="slide">
+    <div>
+        <section>
+            <header>
+                <h2>Exemplo de uso do contêiner <span class="flash">vector< T ></span></h2>
+            </header>
+<pre class="prettyprint linenums" style="position: absolute; top: 80px; left: 100px">
+#include &lt;iostream&gt;
+#include &lt;vector&gt;
+
+int main()
+{
+    std::vector< int > v1( 10 );     // Cria um vetor de inteiros de tamanho 10
+    v1[8]  = 23;                     // Ok!
+    v1[20] = 12;                     // Problema, o elemento não foi alocado!
+    
+    int i;
+    std::vector< int > v2;           // Cria um vetor vazio
+    while( std::cin >> i )
+        v2.push_back( i );           // Insere um novo valor no fim do vetor
+
+    v2.push_back( 10 );              // Insere o valor 10 no fim do vetor
+    for( i = 0; i < v2.size(); i++ )
+        std::cout << v2[i] << " ";   // Acessa ao elemento indicado
+
+    std::cout << std::endl;
+    v1 = v2;                         // Copia o vetor v2 no vetor v1
+    for( i = 0; i < v1.size(); i++ ) // Método de verificação do tamanho 
+        std::cout << v1[i] << " ";
+    return 0;
+}
+</pre>
+            <footer class="notes">
+            </footer>
+        </section>
+    </div>
+</div>
+
+<!-- ============================================================================== -->
+<!-- Iterador iterator< T > -->
+<div id="iterator" class="slide">
+    <div>
+        <section>
+            <header>
+                <h2>Iterador <span class="flash">iterator< T ></span></h2>
+            </header>
+            <ul>
+                <li>Tipo utilizado para navegar nos contêineres da STL</li>
+                <li>Cada contêiner possui uma classe com este nome</li>
+                <li>Objetos deste tipo são ponteiros</li>
+                <li>Exemplos de métodos e operadores que podemos usar para percorrer um contêiner:
+                    <ul>
+                        <li><span class="flash">begin()</span>: ponteiro para o início do contêiner</li>
+                        <li><span class="flash">end()</span>: ponteiro para o fim do contêiner</li>
+                        <li><span class="flash_bold">++</span>: passa ao próximo elemento</li>
+                        <li><span class="flash_bold">==</span>: igualdade entre dois iteradores</li>
+                        <li><span class="flash_bold">!=</span>: desigualdade entre dois iteradores</li>
+                        <li><span class="flash_bold">*</span>: acesso ao conteúdo do iterador</li>
+                    </ul>
+                </li>
+            </ul>
+            <footer class="notes">
+            </footer>
+        </section>
+    </div>
+</div>
+
+<!-- ============================================================================== -->
+<!-- Exemplo de uso do iterador iterator< T > -->
+<div id="exemplo_iterator" class="slide">
+    <div>
+        <section>
+            <header>
+                <h2>Exemplo de uso do iterador <span class="flash">iterator< T ></span></h2>
+            </header>
+<pre class="prettyprint linenums" style="position: absolute; top: 90px; left: 60px">
+#include &lt;iostream&gt;
+#include &lt;vector&gt;
+
+int main()
+{
+    std::vector< int > v;                      // Cria um vetor vazio
+    std::vector< int >::iterator it;           // Cria um iterador para vector
+
+    for( int i = 0; i < 10; ++i )
+        v.push_back( i );                      // 0 1 2 3 4 5 6 7 8 9
+
+    for( it = v.begin(); it != v.end(); ++it ) // Do início ao fim do contêiner
+        std::cout << *it << " ";               // Acessa o conteúdo do iterador
+
+    it = v.begin();                            // Acessa o iterador do primeiro elemento
+    *it = 313;                                 // Modifica o conteúdo do iterador
+                                               // 313 1 2 3 4 5 6 7 8 9
+    std::cout << std::endl;
+    for( it = v.begin(); it != v.end(); ++it )
+        std::cout << *it << " ";
+
+    return 0;
+}
+</pre>
+            <footer class="notes">
+            </footer>
+        </section>
+    </div>
+</div>
+
+<!-- ============================================================================== -->
+<!-- Contêiner list< T > -->
+<div id="conteiner_list" class="slide">
+    <div>
+        <section>
+            <header>
+                <h2>Contêiner <span class="flash">list< T ></span></h2>
+            </header>
+            <ul>
+                <li>Lista duplamente encadeada</li>
+                <li>A inserção e a remoção de um elemento pode ser feita em qualquer posição em tempo constante</li>
+            </ul>
+            <figure style="position: absolute; left: 460px; top: 70px;">
+                <img src="images/aula15/listaDupla.png">
+            </figure>
+            <figure style="position: absolute; left: 250px; top: 300px;">
+                <img style="width: 550px" src="images/aula15/list.png">
+            </figure>
+<pre class="prettyprint" style="position: absolute; top: 240px; left: 50px">
+int array[5] = {12, 7, 9, 21, 13};
+std::list< int > li( array, array + 5 );
+</pre>
+            <p style="font-size: 22px; position: absolute; left: 270px; top: 380px"><span class="flash">li.pop_back();</p>
+            <p style="font-size: 22px; position: absolute; left: 530px; top: 380px"><span class="flash">li.push_back( 15 );</p>
+            <p style="font-size: 22px; position: absolute; left: 325px; top: 470px"><span class="flash">li.pop_front();</p>
+            <p style="font-size: 22px; position: absolute; left: 570px; top: 470px"><span class="flash">li.push_front( 8 );</p>
+            <p style="font-size: 22px; position: absolute; left: 590px; top: 560px"><span class="flash">li.insert();</p>
+            <footer class="notes">
+            </footer>
+        </section>
+    </div>
+</div>
+
+<!-- ============================================================================== -->
+<!-- Alguns métodos do contêiner list< T > -->
+<div id="metodos_list" class="slide">
+    <div>
+        <section>
+            <header>
+                <h2>Alguns métodos do contêiner <span class="flash">list< T ></span></h2>
+            </header>
+            <table class="table-borders" style="position: absolute; left: 120px; top: 110px; font-weight: bold">
+                <tr>
+                    <th style="width: 450px">Método<br></th>
+                    <th style="width: 720px">Descrição</th>
+                </tr>
+                <tr>
+                    <td class="flash_bold">void push_front ( const T& e )</td>
+                    <td>Insere um novo elemento no início</td>
+                </tr>
+                <tr style="background-color: rgb(233, 237, 244);">
+                    <td class="flash_bold">void push_back ( const T& e )</td>
+                    <td>Insere um novo elemento no fim</td>
+                </tr>
+                <tr>
+                    <td class="flash_bold">void pop_front ( const T& e )</td>
+                    <td>Remove um elemento do início</td>
+                </tr>
+                <tr style="background-color: rgb(233, 237, 244);">
+                    <td class="flash_bold">void pop_back ( const T& e )</td>
+                    <td>Remove um elemento do fim</td>
+                </tr>
+                <tr>
+                    <td class="flash_bold">T front()</td>
+                    <td>Retorna o primeiro elemento</td>
+                </tr>
+                <tr style="background-color: rgb(233, 237, 244);">
+                    <td class="flash_bold">T back()</td>
+                    <td>Retorna o último elemento</td>
+                </tr>
+                <tr>
+                    <td class="flash_bold">iterator insert ( iterator pos, const T& e )</td>
+                    <td>Insere um elemento após a posição indicada</td>
+                </tr>
+                <tr style="background-color: rgb(233, 237, 244);">
+                    <td class="flash_bold">list& operator= ( const list& e )</td>
+                    <td>Substitui o conteúdo da lista destino com o conteúdo da lista informada</td>
+                </tr>
+                <tr>
+                    <td class="flash_bold">empty, clear, swap, resize, split, merge, ...</td>
+                    <td></td>
+                </tr>
+            </table>
+            <footer class="notes">
+            </footer>
+        </section>
+    </div>
+</div>
+
+<!-- ============================================================================== -->
+<!-- Exemplo de uso do contêiner list< T > -->
+<div id="exemplo_list" class="slide">
+    <div>
+        <section>
+            <header>
+                <h2>Exemplo de uso do contêiner <span class="flash">list< T ></span></h2>
+            </header>
+<pre class="prettyprint linenums" style="position: absolute; top: 80px; left: 70px">
+#include &lt;iostream&gt;
+#include &lt;list&gt;
+
+int main()
+{
+    std::list< int > li;            // Cria um vetor vazio
+    std::list< int >::iterator it;  // Cria um iterador para list
+ 
+    for( int i = 0; i <= 5; ++i )
+        li.push_back( i );          // Insere um novo valor no fim da lista
+                                    // 0 1 2 3 4 5
+    for( int i = 10; i > 5; --i )
+        li.push_front( i );         // Insere um novo valor no início da lista
+                                    // 6 7 8 9 10 0 1 2 3 4 5
+ 
+    it = li.begin();                // Aponta para o primeiro elemento
+    ++it;                           // Aponta para o segundo elemento
+    li.insert( it, 15 );            // Insere um novo valor entre o primeiro e segundo
+                                    // 6 15 7 8 9 10 0 1 2 3 4 5
+    --it;                           // Aponta novamente para o primeiro elemento
+
+    for( it = li.begin(); it != li.end(); ++it )
+        std::cout << *it << " ";
+    return 0;
+}
+</pre>
+            <footer class="notes">
+            </footer>
+        </section>
+    </div>
+</div>
+
+<!-- ============================================================================== -->
+<!-- Contêiner string< T > -->
+<div id="conteiner_string" class="slide">
+    <div>
+        <section>
+            <header>
+                <h2>Contêiner <span class="flash">string< T ></span></h2>
+            </header>
+            <ul>
+                <li>A biblioteca padrão possui um contêiner dinâmico <span class="flash">basic_string</span> que é capaz de representar uma <span class="flash">string</span> de qualquer tipo de dado</li>
+                <li>O <span class="flash">namespace std</span> possui uma definição que gera o tipo <span class="flash">string</span> com cadeia de caracteres de <span class="flash">char</span>
+<pre class="prettyprint" style="width: 400px">
+typedef basic_string&lt; char &gt; string;
+</pre>
+                </li>
+                <li>Este contêiner oferece uma forma simples e poderosa de manipular cadeias de caracteres</li>
+                <li>O contêiner <span class="flash">base_string</span> possui um grande número de métodos bastante úteis e completos</li>
+                <li>Seus elementos podem ser acessados através do operador <span class="flash_bold">[ ]</span></li>
+            </ul>
+            <footer class="notes">
+            </footer>
+        </section>
+    </div>
+</div>
+
+<!-- ============================================================================== -->
+<!-- alguns métodos do contêiner string< T > -->
+<div id="metodos_string" class="slide">
+    <div>
+        <section>
+            <header>
+                <h2>Alguns métodos do contêiner <span class="flash">string< T ></span></h2>
+            </header>
+            <table class="table-borders" style="position: absolute; left: 120px; top: 100px; font-weight: bold">
+                <tr>
+                    <th style="width: 570px">Método<br></th>
+                    <th style="width: 720px">Descrição</th>
+                </tr>
+                <tr>
+                    <td class="flash_bold">bool empty ()</td>
+                    <td>Se a string estiver vazia, retorna true (1). Caso contrário, false (0)</td>
+                </tr>
+                <tr style="background-color: rgb(233, 237, 244);">
+                    <td class="flash_bold"> unsigned int size()</td>
+                    <td>Retorna o número de caracteres da string</td>
+                </tr>
+                <tr>
+                    <td class="flash_bold"> string& operator+ ( const string& e )</td>
+                    <td>Concatenação de duas strings</td>
+                </tr>
+                <tr style="background-color: rgb(233, 237, 244);">
+                    <td class="flash_bold">string& insert( unsigned int pos, const string& str )</td>
+                    <td>Insere uma string dentro de outra string a partir da posição especificada</td>
+                </tr>
+                <tr>
+                    <td class="flash_bold">string& replace ( unsigned int pos, unsigned int n, const string& str )</td>
+                    <td>Substitui uma substring por outra string a partir da posição especificada, n sendo o número de caracteres a substituir</td>
+                </tr>
+                <tr style="background-color: rgb(233, 237, 244);">
+                    <td class="flash_bold">string& erase ( unsigned int pos, unsigned int n )</td>
+                    <td>Apaga uma substring dentro da string a partir da posição especificada, n sendo o número de caracteres a apagar</td>
+                </tr>
+                <tr>
+                    <td class="flash_bold">unsigned int find ( const string& str, unsigned int pos ) const</td>
+                    <td>Procura pela primeira ocurrência da substring str a partir da posição especificada</td>
+                </tr>
+            </table>
+            <footer class="notes">
+            </footer>
+        </section>
+    </div>
+</div>
+
+<!-- ============================================================================== -->
+<!-- Exemplo de uso do contêiner string< T > -->
+<div id="exemplo_string_1" class="slide">
+    <div>
+        <section>
+            <header>
+                <h2>Exemplo de uso do contêiner <span class="flash">string< T ></span></h2>
+            </header>
+<pre class="prettyprint linenums" style="position: absolute; top: 75px; left: 70px">
+#include &lt;iostream&gt;
+#include &lt;string&gt;
+
+int main()
+{
+    std::string string1; // chamada ao construtor padrão (não atribuimos valor)
+    std::string string2( "Bem vindo ao mundo das strings em C++" ); // com valor
+    std::string string3( "Agora vai ser muito mais facil usar cadeias de caracteres" );
+    std::string string4( string3 ); // chamada ao construtor de cópia padrão
+
+    string1 = string3; // chamada ao operador de atribuição                      
+    string3 = string2; // o redimensionamento é feito automaticamente
+
+    std::cout << "string1: " << string1 << std::endl;
+    std::cout << "string2: " << string2 << std::endl;
+    std::cout << "string3: " << string3 << std::endl;
+    std::cout << "string4: " << string4 << std::endl;
+
+    for( int i = 0; i < string4.size(); i++ ) { // tamanho da cadeia de caracteres
+        // mostra cada caractere sequencialmente
+        std::cout << i + 1 << ", caractere: " << string4[i] << std::endl;
+    }
+
+    return 0;
+}
+</pre>
+            <footer class="notes">
+            </footer>
+        </section>
+    </div>
+</div>
+
+<!-- ============================================================================== -->
+<!-- Exemplo de uso do contêiner string< T > -->
+<div id="exemplo_string_2" class="slide">
+    <div>
+        <section>
+            <header>
+                <h2>Exemplo de uso do contêiner <span class="flash">string< T ></span></h2>
+            </header>
+<pre class="prettyprint linenums" style="position: absolute; top: 70px; left: 70px">
+#include &lt;iostream&gt;
+#include &lt;string&gt;
+
+int main()
+{
+    std::string str1, str2, str3;
+    str1 = "Bem vindo";
+    if( str2.empty() ) {            // é de esperar que esteja vazia...
+        std::cout << "A string 2 esta vazia!" << std::endl;
+    }
+    int tamanho = str1.size();      // retorna o tamanho de str1
+    std::cout << "string 1 tem " << tamanho << " caracteres." << std::endl;
+    std::cout << "Insira o seu nome: ";
+    std::cin >> str2;
+    str3 = str1 + " " + str2;       // str3 será a concatenação de str1, espaço e str2
+    tamanho = str3.size();
+    str3.insert( tamanho, ", gosta do programa?" ); // insere no fim
+    std::cout << str3 << std::endl;
+    tamanho = str2.size();          // tamanho do nome
+    str3.replace( 10, tamanho, "Eu" ); // substitui o nome começando na posiçao 10
+    std::cout << "\n\n" << str3 << std::endl;
+    str3.erase( 0, 10 );            // apaga os primeiros 10 caracteres
+    std::cout << str3 << std::endl;
+    int pos = str3.find( "gosta" ); // procura a primeira ocorrência de "gosta" em str3
+    return 0;
+}
+</pre>
+            <footer class="notes">
+            </footer>
+        </section>
+    </div>
+</div>
+
+<!-- ============================================================================== -->
+<!-- Resumo da aula -->
+<div id="resumo" class="slide">
+    <div>
+        <section>
+            <header>
+                <h2>Resumo da aula</h2>
+            </header>
+            <ul>
+                <li>Devemos aprender a utilizar a <span class="flash">biblioteca padrão de C++</span> pois ela é bastante útil</li>
+                <li>Ela reduz o tempo de desenvolvimento, padroniza o código, é robusta, gera eficazmente o uso da memória, é portável, etc.</li>
+                <li>Ela possui suporte a <span class="flash">inúmeras funcionalides</span> que são declaradas no namespace std e engloba a Standard Template Library (STL)</li>
+                <li>Os componentes básicos da STL são <span class="flash">contêineres, iteradores e algoritmos</span> (veremos algoritmos e outros contêineres na próxima aula)</li>
+                <li>Diversas estruturas de dados genéricas estão implementas na STL</li>
+            </ul>
+            <footer class="notes">
+            </footer>
+        </section>
+    </div>
+</div>
+
+<!-- ============================================================================== -->
+<!-- Se não quiser a barra de progressão, tem apenas que eliminar esta tag <div> -->
+<div class="progress">
+    <div></div>
+</div>
+
+<!-- ============================================================================== -->
+<!-- Scripts -->
+<script type="text/javascript" src="../../common/scripts/presentations/script.js"></script>
+<script type="text/javascript" src="../../common/scripts/code-prettify/prettify.js"></script>
+<script type="text/javascript" src="../../common/scripts/jquery.js"></script>
+
+</body>
+
+</html>

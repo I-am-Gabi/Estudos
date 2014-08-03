@@ -1,0 +1,39 @@
+/*
+  UFRN pretty printing styles for presentation template
+  Used with scripts/google/code-prettify/prettify.js
+  https://code.google.com/p/google-code-prettify
+*/
+
+
+pre .str, code .str { color: rgb(255, 0, 255); } /* string */
+pre .kwd, code .kwd { color: rgb(0, 102, 204); font-weight: bold; } /* keyword */
+pre .com, code .com { color: rgb(127, 127, 127); font-style: italic; } /* comment */
+pre .typ, code .typ { color: rgb(0, 0, 0); } /* type */
+pre .lit, code .lit { color: rgb(204, 0, 0); } /* literal */
+pre .pun, code .pun { color: rgb(127, 127, 127); } /* punctuation */
+pre .pln, code .pln { color: rgb(0, 0, 0); font-weight: bold; } /* plaintext */
+pre .tag, code .tag { color: rgb(0, 102, 204); } /* html/xml tag */
+pre .atn, code .atn { color: rgb(0, 0, 0); } /* html/xml attribute name */
+pre .atv, code .atv { color: rgb(0, 0, 0); } /* html/xml attribute value */
+pre .dec, code .dec { color: rgb(0, 0, 0); } /* decimal */
+
+pre code.prettyprint:before {
+    content: '';
+}
+
+li.L0, li.L1, li.L2, li.L3, li.L4, li.L5, li.L6, li.L7, li.L8, li.L9 {
+    list-style-type: decimal;
+}
+
+@media print {
+    pre .str, code .str { color: #060; }
+    pre .kwd, code .kwd { color: #006; font-weight: bold; }
+    pre .com, code .com { color: #600; font-style: italic; }
+    pre .typ, code .typ { color: #404; font-weight: bold; }
+    pre .lit, code .lit { color: #044; }
+    pre .pun, code .pun { color: #440; }
+    pre .pln, code .pln { color: #000; }
+    pre .tag, code .tag { color: #006; font-weight: bold; }
+    pre .atn, code .atn { color: #404; }
+    pre .atv, code .atv { color: #060; }
+}

@@ -1,0 +1,811 @@
+<!DOCTYPE HTML>
+<html lang="pt-BR" class="nonumbers">
+<head>
+    <title>Estrutura de Dados Básicas</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=1274, user-scalable=no">
+    <link rel="stylesheet" href="../../common/themes/presentations/styles/style.css" type="text/css">
+    <link rel="stylesheet" href="../../common/themes/presentations/styles/print.css" type="text/css"  media="print">
+    <link rel="stylesheet" href="../../common/themes/edb/styles/presentation.css" type="text/css">
+    <link rel="stylesheet" href="../../common/themes/code-prettify/styles/prettify.css" type="text/css">
+</head>
+
+<body class="list" onload="prettyPrint();">
+
+<!-- ============================================================================== -->
+<!-- Informações para a lista de slides -->
+<header class="caption">
+    <h1>Algoritmos e Estruturas de Dados I</h1>
+    <h1>Aula 14 - Tipos Abstratos de Dados (TADs)</h1>
+</header>
+
+<!-- ============================================================================== -->
+<div id="capa" class="slide cover w">
+     <div>
+    <section>
+        <header>
+            <h3>Estruturas de Dados Básicas I</h3>
+            <h2>Aula 14 - Tipos Abstratos de Dados (TADs)</h2>
+            <img src="./images/aula13/bg.png">
+        </header>
+    </section>
+    </div>
+</div>
+
+<!-- ============================================================================== -->
+<div id="sld-01" class="slide">
+    <div>
+        <section>
+            <header>
+                <h2>Motivação e objetivos</h2>
+            </header>
+            <ul class="inner">
+                <li class="active">Motivação</li>
+                <ul>
+                    <li>alocação sequencial possuem algoritmos mais simples, porém o recurso memória pode constituir uma desvantagem pois nem sempre a memória armazenada estará em uso</li>
+                    <li>Alocação encadeada ou dinâmica, por outro lado, minimiza o problema de desperdício de memória uma vez que blocos de memória são alocados (ou desalocados) quando necessários (ou dispensados)</li>
+                </ul>
+                <li class="active">Objetivos</li>
+                  <ul>
+                    <li>Apresentar como listas podem ser implementadas usando alocação dinâmica de memória</li>
+                  </ul>
+               </ul>
+           <footer class="notes">
+            </footer>
+        </section>
+    </div>
+</div>
+
+<!-- ============================================================================== -->
+<div id="sld-02" class="slide">
+    <div>
+        <section>
+            <header>
+                <h2>TAD Lista</h2>
+            </header>
+            <ul class="inner">
+                <li>Um TAD é definido por dados e operações (que modificam os dados)</li>
+                <li>Especificando a Lista de forma abstrata
+<pre><code>TAD Lista &lt;tipo&gt;
+    - dados:
+        quantidade: inteiro 
+        valores:    Sequência de elementos do tipo &lt;tipo&gt;
+    - operações:
+        acesso(pos)        -> &lt;tipo&gt;
+        busca(elm)         -> inteiro
+        inserção(elm)      -> booleano
+        inserção(pos, elm) -> booleano
+        inserção(ref, elm) -> booleano
+        remoção(pos)       -> booleano
+        remoção(ref)       -> booleano
+        junção(lst1, lst2) -> booleano
+        ...
+</code></pre></li>
+            </ul>
+            <footer class="notes">
+            </footer>
+        </section>
+    </div>
+</div>
+
+<!-- ============================================================================== -->
+<div id="sld-02a" class="slide">
+    <div>
+        <section>
+            <header>
+                <h2>Formas de implementar listas</h2>
+            </header>
+            <ul class="inner">
+                <li>Um TAD pode ser implementado de diferentes formas</li>
+                <li>A lista pode ser implementada de forma
+                    <ul>
+                        <li>Sequencial</li>
+                        <li>Encadeada (alocação dinâmica de memória)</li>
+                        <li class="obs">
+                            <img src="images/aula13/seq_encad2.png" style="position: absolute; right: 5%; top: 10%; height: 80%">
+                        </li>
+                        <li class="obs">
+                            <img src="images/aula13/seq_encad.png" style="position: absolute; bottom: 10%; left: 10%; width: 45%">
+                        </li>
+                    </ul>
+                </li>
+            </ul>
+            <footer class="notes">
+            </footer>
+        </section>
+    </div>
+</div>
+
+<!-- ============================================================================== -->
+<div id="sld-03" class="slide">
+    <div>
+        <section>
+            <header>
+                <h2>Operações e complexidade</h2>
+            </header>
+            <table class="table-borders">
+                <tr>
+                    <th rowspan="2">Listas</th>
+                    <th colspan="2">Não-ordenadas</th>
+                    <th colspan="2">Ordenadas</th>
+                </tr>
+                <tr>
+                    <th>Sequencial</th>
+                    <th>Encadeada</th>
+                    <th>Sequencial</th>
+                    <th>Encadeada</th>
+                </tr>
+                <tr>
+                    <th>Acesso (pos)</th>
+                    <td>\(O(1)\)</td>
+                    <td>\(O(pos)\)</td>
+                    <td>\(O(1)\)</td>
+                    <td>\(O(pos)\)</td>
+                </tr>
+                <tr>
+                    <th>Busca (elm)</th>
+                    <td>\(O(n)\)</td>
+                    <td>\(O(n)\)</td>
+                    <td>\(O(log_2 n)\)</td>
+                    <td>\(O(n)\)</td>
+                </tr>
+                <tr>
+                    <th>Inserção (elm)</th>
+                    <td>\(O(1)\)</td>
+                    <td>\(O(1)\)</td>
+                    <td>\(O(n)\)</td>
+                    <td>\(O(n)\)</td>
+                </tr>
+                <tr>
+                    <th>Inserção (pos, elm)</th>
+                    <td>\(O(n-pos)^*\)</td>
+                    <td>\(O(pos)\)</td>
+                    <td>-</td>
+                    <td>-</td>
+                </tr>
+                <tr>
+                    <th>Inserção (ref, elm)</th>
+                    <td>\(O(n - pos(ref))^*\)</td>
+                    <td>\(O(1)\)</td>
+                    <td>-</td>
+                    <td>-</td>
+                </tr>
+                <tr>
+                    <th>Remoção (pos)</th>
+                    <td>\(O(n-pos)^*\)</td>
+                    <td>\(O(pos)\)</td>
+                    <td>\(O(n-pos)\)</td>
+                    <td>\(O(pos)\)</td>
+                </tr>
+                <tr>
+                    <th>Remoção (ref)</th>
+                    <td>\(O(n-pos(ref))^*\)</td>
+                    <td>\(O(1)\)</td>
+                    <td>\(O(n-pos(ref))\)</td>
+                    <td>\(O(1)\)</td>
+                </tr>
+                <tr>
+                    <th>Junção (lst1, lst2)</th>
+                    <td>\(O(min(n,m))\)</td>
+                    <td>\(O(1)\)</td>
+                    <td>\(O(n+m)\)</td>
+                    <td>\(O(n+m)\)</td>
+                </tr>
+            </table>
+            <img src="images/aula13/sequenc.png" style="position: absolute; bottom: 5%; left:  10%; height: 11%">
+            <img src="images/aula13/encad.png"   style="position: absolute; bottom: 5%; right: 10%; height: 11%">
+            <footer class="notes">
+            </footer>
+        </section>
+    </div>
+</div>
+
+<!-- ============================================================================== -->
+
+<div id="sld-04a" class="slide">
+    <div>
+        <section>
+            <header>
+                <h2>Acesso</h2>
+            </header>
+            <table class="table-borders">
+                <tr>
+                    <th rowspan="2">Listas</th>
+                    <th colspan="2">Não-ordenadas</th>
+                    <th colspan="2">Ordenadas</th>
+                </tr>
+                <tr>
+                    <th>Sequencial</th>
+                    <th>Encadeada</th>
+                    <th>Sequencial</th>
+                    <th>Encadeada</th>
+                </tr>
+                <tr>
+                    <th>Acesso (pos)</th>
+                    <td>\(O(1)\)</td>
+                    <td>\(O(pos)\)</td>
+                    <td>\(O(1)\)</td>
+                    <td>\(O(pos)\)</td>
+                </tr>
+            </table>
+            <br>
+            <ul class="inner short">
+                <li>Em listas sequenciais, o acesso ao elemento de posição <code>pos</code> é direto</li>
+                <li>Em listas encadeadas, deve-se percorrer <code>pos</code> elementos para acessar o elemento do posição <code>pos</code></li>
+            </ul>
+            <img src="images/aula13/sequenc.png" style="position: absolute; bottom: 5%; left:  10%; height: 11%">
+            <img src="images/aula13/encad.png"   style="position: absolute; bottom: 5%; right: 10%; height: 11%">
+            <footer class="notes">
+            </footer>
+        </section>
+    </div>
+</div>
+
+<!-- ============================================================================== -->
+
+<div id="sld-04b" class="slide">
+    <div>
+        <section>
+            <header>
+                <h2>Busca</h2>
+            </header>
+            <table class="table-borders">
+                <tr>
+                    <th rowspan="2">Listas</th>
+                    <th colspan="2">Não-ordenadas</th>
+                    <th colspan="2">Ordenadas</th>
+                </tr>
+                <tr>
+                    <th>Sequencial</th>
+                    <th>Encadeada</th>
+                    <th>Sequencial</th>
+                    <th>Encadeada</th>
+                </tr>
+                <tr>
+                    <th>Busca (elm)</th>
+                    <td>\(O(n)\)</td>
+                    <td>\(O(n)\)</td>
+                    <td>\(O(log_2 n)\)</td>
+                    <td>\(O(n)\)</td>
+                </tr>
+            </table>
+            <br>
+            <ul class="inner short">
+                <li>Em listas não-ordenadas não há relação de ordem: tem que percorrer <strong>todos</strong> elementos</li>
+                <li>Em listas ordenadas, há relação de ordem e pode-se fazer uma busca binária</li>
+                <li>Em listas encadeadas, não há índices de acesso direto: não há como fazer busca binária</li>
+            </ul>
+            <img src="images/aula13/sequenc.png" style="position: absolute; bottom: 5%; left:  10%; height: 11%">
+            <img src="images/aula13/encad.png"   style="position: absolute; bottom: 5%; right: 10%; height: 11%">
+            <footer class="notes">
+            </footer>
+        </section>
+    </div>
+</div>
+
+<!-- ============================================================================== -->
+
+<div id="sld-05" class="slide">
+    <div>
+        <section>
+            <header>
+                <h2>Inserção</h2>
+            </header>
+            <table class="table-borders">
+                <tr>
+                    <th rowspan="2">Listas</th>
+                    <th colspan="2">Não-ordenadas</th>
+                    <th colspan="2">Ordenadas</th>
+                </tr>
+                <tr>
+                    <th>Sequencial</th>
+                    <th>Encadeada</th>
+                    <th>Sequencial</th>
+                    <th>Encadeada</th>
+                </tr>
+                <tr>
+                    <th>Inserção (elm)</th>
+                    <td>\(O(1)\)</td>
+                    <td>\(O(1)\)</td>
+                    <td>\(O(n)\)</td>
+                    <td>\(O(n)\)</td>
+                </tr>
+            </table>
+            <br>
+            <ul class="inner short">
+                <li>Em não-ordenadas, pode-se inserir em qualquer lugar. Então, pode-se inserir no fim (sequencial) ou no início (encadeada)</li>
+                <li>Em ordenadas, a relação de ordem deve ser mantida, sendo, portanto, achar onde inserir (busca)</li>
+                <li>Mesmo usando busca binária na sequencial, é necessário deslocar os elementos</li>
+            </ul>
+            <img src="images/aula13/sequenc.png" style="position: absolute; bottom: 5%; left:  10%; height: 11%">
+            <img src="images/aula13/encad.png"   style="position: absolute; bottom: 5%; right: 10%; height: 11%">
+            <footer class="notes">
+            </footer>
+        </section>
+    </div>
+</div>
+
+<!-- ============================================================================== -->
+
+<div id="sld-06" class="slide">
+    <div>
+        <section>
+            <header>
+                <h2>Inserção numa posição</h2>
+            </header>
+            <table class="table-borders">
+                <tr>
+                    <th rowspan="2">Listas</th>
+                    <th colspan="2">Não-ordenadas</th>
+                    <th colspan="2">Ordenadas</th>
+                </tr>
+                <tr>
+                    <th>Sequencial</th>
+                    <th>Encadeada</th>
+                    <th>Sequencial</th>
+                    <th>Encadeada</th>
+                </tr>
+                <tr>
+                    <th>Inserção (pos, elm)</th>
+                    <td>\(O(n-pos)^*\)</td>
+                    <td>\(O(pos)\)</td>
+                    <td>-</td>
+                    <td>-</td>
+                </tr>
+            </table>
+            <br>
+            <ul class="inner short">
+                <li>É válido apenas para listas não ordenadas (não há relacão de ordem)</li>
+                <li>Na sequencial, precisa-se deslocar os elementos de <code>pos</code> ao final</li>
+                <li class="obs">A complexidade pode baixar para \(O(1)\) se a sequência dos elementos não precisar ser mantida.
+                    Se não, pode-se enviar o elemento em <code>pos</code> para o fim da lista
+                </li>
+                <li>Na encadeada, precisa-se percorrer <code>pos</code> nós para saber onde inserir</li>
+            </ul>
+            <img src="images/aula13/sequenc.png" style="position: absolute; bottom: 5%; left:  10%; height: 11%">
+            <img src="images/aula13/encad.png"   style="position: absolute; bottom: 5%; right: 10%; height: 11%">
+            <footer class="notes">
+            </footer>
+        </section>
+    </div>
+</div>
+
+<!-- ============================================================================== -->
+
+<div id="sld-07" class="slide">
+    <div>
+        <section>
+            <header>
+                <h2>Inserção numa referência</h2>
+            </header>
+            <table class="table-borders">
+                <tr>
+                    <th rowspan="2">Listas</th>
+                    <th colspan="2">Não-ordenadas</th>
+                    <th colspan="2">Ordenadas</th>
+                </tr>
+                <tr>
+                    <th>Sequencial</th>
+                    <th>Encadeada</th>
+                    <th>Sequencial</th>
+                    <th>Encadeada</th>
+                </tr>
+                <tr>
+                    <th>Inserção (ref, elm)</th>
+                    <td>\(O(n - pos(ref))^*\)</td>
+                    <td>\(O(1)\)</td>
+                    <td>-</td>
+                    <td>-</td>
+                </tr>
+            </table>
+            <br>
+            <ul class="inner short">
+                <li>A inserção de um elemento em uma referência de posição (endereço) também é válida apenas para listas não ordenadas</li>
+                <li>Na sequencial, é similar à inserção com a posição (pode ser também \(O(1)\)</li>
+                <li>Na encadeada, basta apontar para um novo bloco de memória alocado e fazê-lo encadear com o seguinte</li>
+            </ul>
+            <img src="images/aula13/sequenc.png" style="position: absolute; bottom: 5%; left:  10%; height: 11%">
+            <img src="images/aula13/encad.png"   style="position: absolute; bottom: 5%; right: 10%; height: 11%">
+            <footer class="notes">
+            </footer>
+        </section>
+    </div>
+</div>
+
+<!-- ============================================================================== -->
+
+<div id="sld-08" class="slide">
+    <div>
+        <section>
+            <header>
+                <h2>Remoção dada uma posição</h2>
+            </header>
+            <table class="table-borders">
+                <tr>
+                    <th rowspan="2">Listas</th>
+                    <th colspan="2">Não-ordenadas</th>
+                    <th colspan="2">Ordenadas</th>
+                </tr>
+                <tr>
+                    <th>Sequencial</th>
+                    <th>Encadeada</th>
+                    <th>Sequencial</th>
+                    <th>Encadeada</th>
+                </tr>
+                <tr>
+                    <th>Remoção (pos)</th>
+                    <td>\(O(n-pos)^*\)</td>
+                    <td>\(O(pos)\)</td>
+                    <td>\(O(n-pos)\)</td>
+                    <td>\(O(pos)\)</td>
+                </tr>
+            </table>
+            <br>
+            <ul class="inner short">
+                <li>Na sequencial (ordenada ou não), os elementos depois de <code>pos</code> devem ser deslocados</li>
+                <li class="obs">Obs: Novamente, pode-se fazer O(1), passando o último para <code>pos</code></li>
+                <li>Na encadeada, é necessário percorrer <code>pos</code> para saber quem deve ser removido</li>
+            </ul>
+            <img src="images/aula13/sequenc.png" style="position: absolute; bottom: 5%; left:  10%; height: 11%">
+            <img src="images/aula13/encad.png"   style="position: absolute; bottom: 5%; right: 10%; height: 11%">
+            <footer class="notes">
+            </footer>
+        </section>
+    </div>
+</div>
+
+<!-- ============================================================================== -->
+
+<div id="sld-09" class="slide">
+    <div>
+        <section>
+            <header>
+                <h2>Remoção dada uma referência</h2>
+            </header>
+            <table class="table-borders">
+                <tr>
+                    <th rowspan="2">Listas</th>
+                    <th colspan="2">Não-ordenadas</th>
+                    <th colspan="2">Ordenadas</th>
+                </tr>
+                <tr>
+                    <th>Sequencial</th>
+                    <th>Encadeada</th>
+                    <th>Sequencial</th>
+                    <th>Encadeada</th>
+                </tr>
+                <tr>
+                    <th>Remoção (ref)</th>
+                    <td>\(O(n-pos(ref))^*\)</td>
+                    <td>\(O(1)\)</td>
+                    <td>\(O(n-pos(ref))\)</td>
+                    <td>\(O(1)\)</td>
+                </tr>
+            </table>
+            <br>
+            <ul class="inner short">
+                <li>Raciocínio similar ao anterior...</li>
+            </ul>
+            <img src="images/aula13/sequenc.png" style="position: absolute; bottom: 5%; left:  10%; height: 11%">
+            <img src="images/aula13/encad.png"   style="position: absolute; bottom: 5%; right: 10%; height: 11%">
+            <footer class="notes">
+            </footer>
+        </section>
+    </div>
+</div>
+
+<!-- ============================================================================== -->
+
+<div id="sld-10" class="slide">
+    <div>
+        <section>
+            <header>
+                <h2>Junção de duas listas</h2>
+            </header>
+            <table class="table-borders">
+                <tr>
+                    <th rowspan="2">Listas</th>
+                    <th colspan="2">Não-ordenadas</th>
+                    <th colspan="2">Ordenadas</th>
+                </tr>
+                <tr>
+                    <th>Sequencial</th>
+                    <th>Encadeada</th>
+                    <th>Sequencial</th>
+                    <th>Encadeada</th>
+                </tr>
+                <tr>
+                    <th>Junção (lst1, lst2)</th>
+                    <td>\(O(min(n,m))\)</td>
+                    <td>\(O(1)\)</td>
+                    <td>\(O(n+m)\)</td>
+                    <td>\(O(n+m)\)</td>
+                </tr>
+            </table>
+            <br>
+            <ul class="inner short">
+                <li>Considerando que não haverá <i>overflow</i>, a junção na sequencial não-ordenada é copiar os elementos da menor sequência no final da maior</li>
+                <li>Na encadeada não-ordenada, basta fazer com que o último de um aponte para o início do outro</li>
+                <li>Nas ordenadas, em ambos os casos, será necessário percorrer os elementos das duas listas para manter a relação de ordem</li>
+            </ul>
+            <img src="images/aula13/sequenc.png" style="position: absolute; bottom: 5%; left:  10%; height: 11%">
+            <img src="images/aula13/encad.png"   style="position: absolute; bottom: 5%; right: 10%; height: 11%">
+            <footer class="notes">
+            </footer>
+        </section>
+    </div>
+</div>
+
+<!-- ============================================================================== -->
+<div id="sld-11" class="slide">
+    <div>
+        <section>
+            <header>
+                <h2>Qual é a melhor forma de implementar?</h2>
+            </header>
+            <ul class="inner">
+                <li>Depende... vantagens e desvantagens devem ser analisadas em função da aplicação</li>
+                <li>Além das complexidades apresentadas, deve-se verificar o uso de memória</li>
+                <li>De uma forma geral, listas encadeadas são mais convenientes quando se requer flexibilidade (no uso de memória)</li>
+            </ul> 
+            <footer class="notes">
+            </footer>
+        </section>
+    </div>
+</div>
+
+<!-- ============================================================================== -->
+<div id="sld-12" class="slide">
+    <div>
+        <section>
+          <header>
+                <h2>Listas simplesmente encadeadas</h2>
+          </header>
+          <ul class="inner">
+            <li>Cada elemento (dado) é armazenado em um componente maior chamado <strong>nó</strong></li>
+            <li>Além do dado, o nó possui uma referência para o nó seguinte</li>
+            <li>É necessário termos a referência para o 1o elemento da lista</li>
+            <li class="nobullet">
+                <img src="images/aula13/node.png" style="position: absolute; top: 60%; right: 5%; width: 30%">
+                <br>
+<pre><code class="prettyprint">typedef struct node {
+    int          data;
+    struct node* next;
+} Node;
+
+Node* list;
+</code></pre>                
+            </li>
+            <footer class="notes">
+            </footer>
+        </section>
+    </div>
+</div>
+
+<!-- ============================================================================== -->
+<div id="sld-13" class="slide">
+    <div>
+        <section>
+            <header>
+                <h2>op1: acesso a um elemento</h2>
+            </header>
+            <ul class="short">
+                <li>Recebe o 1o nó da lista e a posição na qual o elemento que deve ser retornado se encontra</li>
+                <li>Percorre a a lista a partir do 1o nó (<code>list</code>), acessando-se sucessivamente os campos <code>next</code> de cada nó da lista</li>
+                <li>O laço para quando <code>pos</code> chegar a zero (já fez <code>pos</code> iterações) ou chegar ao fim da lista (<code>list</code> é <code>NULL</code>)</li>
+<pre><code class="prettyprint">Node* getElm(Node* list, int pos) {
+    if (pos <= 0)
+        return NULL;
+
+    while(--pos && list) {
+        list = list->next;
+    }
+    return list;
+}
+</code></pre>
+            </ul>
+            <footer class="notes">
+            </footer>
+        </section>
+    </div>
+</div>
+
+<!-- ============================================================================== -->
+<div id="sld-14" class="slide">
+    <div>
+        <section>
+            <header>
+                <h2>op2: busca por um elemento</h2>
+            </header>
+            <ul>
+                <li>Percorre os elementos da lista, atualizando o contador <code>i</code> e acessandoe sucessivamente os campos <code>next</code></li>
+                <li>Quando o dado for o mesmo que o da lista, então achou na posição <code>i</code></li>
+                <li>Se não achou nenhum, é porque não encontra-se no doc.</li>
+<pre><code class="prettyprint">int getPos(Node* list, int data) {
+    for (int i = 1; list; i++, list = list->next)
+        if (list->data == data)
+            return i;
+
+    return -1;
+}</code></pre>
+            </ul>
+            <footer class="notes">
+            </footer>
+        </section>
+    </div>
+</div>
+
+<!-- ============================================================================== -->
+<div id="sld-15" class="slide">
+    <div>
+        <section>
+            <header>
+                <h2>op3: inserção no início</h2>
+            </header>
+            <ul>
+                <li>Aloca espaço dinamicamente para mais um nó e faz o <code>next</code> dele apontar para o antigo início da lista</li>
+                <li>Novo início deve ser agora o novo elemento criado</li>
+<pre><code class="prettyprint">int add(Node* list, int data) {
+    Node* aux = (Node*) malloc(sizeof(Node));
+    if (aux) {
+        aux->data = data;
+        aux->next = list;
+        list = aux;         /* isso está certo??? */
+        return 1;
+    }
+    return 0;
+}</code></pre>
+            </ul>
+            <img src="images/aula13/addlist.png" style="position: absolute; bottom: 5%; right: 5%; width: 60%">
+            <footer class="notes">
+            </footer>
+        </section>
+    </div>
+</div>
+
+<!-- ============================================================================== -->
+<div id="sld-16" class="slide">
+    <div>
+        <section>
+          <header>
+                <h2>Dica: cabeça de lista</h2>
+          </header>
+          <ul class="inner">
+          <li>Inserção de um nó especial chamado nó-cabeça</li>
+          <ul>
+              <li>É o nó apontado pelo ponteiro de início da lista</li>
+              <li>Nunca é removido</li>
+              <li>Não contém valor válido</li>
+              <li>Ocasionalmente pode conter informações sobre a lista</li>
+          </ul>
+          <img src="images/aula13/cabeca.png" style="position: absolute; bottom: 15%; right: 20%; width: 60%">
+         <footer class="notes">
+         </footer>
+        </section>
+    </div>
+</div>
+
+
+<!-- ============================================================================== -->
+<div id="sld-17" class="slide">
+    <div>
+        <section>
+            <header>
+                <h2>op3: inserção no início (novo)</h2>
+            </header>
+            <ul>
+                <li>Usa da cabeça da lista</li>
+                <li>Novo início deve ser agora o novo elemento criado</li>
+<pre><code class="prettyprint">int add(Node* list, int data) {
+    Node* aux = (Node*) malloc(sizeof(Node));
+    if (aux) {
+        aux->data  = data;
+        aux->next  = list->next;
+        list->next = aux;
+        return 1;
+    }
+    return 0;
+}</code></pre>
+            </ul>
+            <img src="images/aula13/addcomcabeca.png" style="position: absolute; bottom: 10%; right: 5%; width: 60%">
+            <footer class="notes">
+            </footer>
+        </section>
+    </div>
+</div>
+
+
+<!-- ============================================================================== -->
+<div id="sld-18" class="slide">
+    <div>
+        <section>
+          <header>
+                <h2>op4: Remoção de uma posição</h2>
+            </header>
+            <ul>
+                <li>Usa da cabeça da lista</li>
+<pre><code class="prettyprint">int delElm(Node *node, int pos) {
+    Node *aux;
+
+    if (pos <= 0 || ! node->next)
+        return 0;  /* false: nada a remover */
+
+    for (int i = 1; i < pos && node->next ; i++, node = node->next);
+
+    aux = node->next;
+    if (aux) {
+        node->next = aux->next;
+        free(aux);
+    }
+    return 1;
+}</code></pre>
+            </ul>
+            <img src="images/aula13/delcomcabeca.png" style="position: absolute; bottom: 5%; right: 5%; width: 60%">
+            <footer class="notes">
+            </footer>
+        </section>
+    </div>
+</div>
+
+
+<!-- ============================================================================== -->
+<div id="sld-19" class="slide">
+    <div>
+        <section>
+          <header>
+                <h2>Variações</h2>
+            </header>
+            <ul>
+                <li>Variações de listas</li>
+                <ul>
+                    <li>Circular</li>
+                    <li>Duplamente encadeada</li>
+                </ul>
+                <li>Outros tipos de implementação</li>
+                <ul>
+                    <li>Arranjos realocados dinamicamentes</li>
+                    <li>Listas de arranjos</li>
+                    <li>Poll de objetos, etc</li>
+                </ul>
+            </ul>
+            <footer class="notes">
+            </footer>
+        </section>
+    </div>
+</div>
+
+<!-- ============================================================================== -->
+<div id="sld-20" class="slide">
+    <div>
+        <section>
+          <header>
+                <h2>Exercícios</h2>
+            </header>
+            <ul>
+                <li>Escreva uma função para a operação de inserção de um elemento em uma lista ordenada (na forma sequencial e encadeada).</li>
+                <li>Escreva uma função para a operação de remoção dada uma posição numa lista sequencial</li>
+                <li>Escreva uma função para a operação de junção de duas sequências não ordenadas (na forma sequencial e encadeada)</li>
+                <li>Escreva uma função para a operação de junção de duas sequências ordenadas (na forma sequencial e encadeada)</li>
+            </ul>
+            <footer class="notes">
+            </footer>
+        </section>
+    </div>
+</div>
+
+<!-- ============================================================================== -->
+<!-- Se não quiser a barra de progressão, tem apenas que eliminar esta tag <div> -->
+<div class="progress">
+    <div></div>
+</div>
+
+<!-- ============================================================================== -->
+<!-- Scripts -->
+<script type="text/javascript" src="../../common/scripts/presentations/script.js"></script>
+<script type="text/javascript" src="../../common/scripts/code-prettify/prettify.js"></script>
+<script type="text/javascript" src="../../common/scripts/animation/jsmove.js"></script>
+<script type="text/javascript" src="../../common/scripts/mathjax/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+
+</body>
+
+</html>

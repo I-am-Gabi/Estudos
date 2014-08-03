@@ -1,0 +1,995 @@
+<!DOCTYPE HTML>
+<html lang="pt-BR" class="nonumbers">
+<head>
+    <title>Estrutura de Dados Básicas</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=1274, user-scalable=no">
+    <link rel="stylesheet" href="../../common/themes/presentations/styles/style.css" type="text/css">
+    <link rel="stylesheet" href="../../common/themes/presentations/styles/print.css" type="text/css"  media="print">
+    <link rel="stylesheet" href="../../common/themes/edb/styles/presentation.css" type="text/css">
+    <link rel="stylesheet" href="../../common/themes/code-prettify/styles/prettify.css" type="text/css">
+</head>
+
+<body class="list" onload="prettyPrint();">
+
+<!-- ============================================================================== -->
+<!-- Informações para a lista de slides -->
+<header class="caption">
+    <h1>Algoritmos e Estruturas de Dados I</h1>
+    <h1>Aula 15 - Implementação de TADs</h1>
+</header>
+
+<!-- ============================================================================== -->
+<div id="capa" class="slide cover w">
+     <div>
+	<section>
+		<header>
+			<h3>Estruturas de Dados Básicas I</h3>
+			<h2>Aula 15 - Implementação de TADs</h2>
+			 <img src="./images/aula14/pilha01.jpg" alt="www.educ.fc.ul.pt/docentes/opombo/album/perigos.htm">
+		</header>
+	</section>
+    </div>
+</div>
+
+<!-- ============================================================================== -->
+<div id="sld-01" class="slide">
+   <div>
+        <section>
+            <header>
+                <h2>Motivação e objetivos</h2>
+            </header>
+            <ul class="inner">
+                <li class="active">Motivação</li>
+                <ul>
+                    <li>De uma maneira geral o armazenamento sequencial de listas é adequado quando a estrutura de dados requer poucas remoções e inserções</li>
+                    <li>De preferência em situações em que estas operações não exijam movimentação de nós</li>
+                    <li>Este é o caso de pilhas, filas e deques, onde as operações citadas são executadas nas extremidades</li>
+                </ul>
+                <li class="active">Objetivos</li>
+                  <ul>
+                    <li>Apresentar como Pilhas e Filas podem ser implementadas usando arranjos e alocação dinâmica de memória</li>
+                  </ul>
+               </ul>
+           <footer class="notes">
+            </footer>
+        </section>
+    </div></div>
+
+<!-- ============================================================================== -->
+<div id="cosld-02" class="slide">
+    <div>
+        <section>
+            <header>
+                <h2>Listas com Restrições: Pilhas</h2>
+            </header>
+           <ul class="inner">
+		<li class="active">Propriedade:</li>
+		 <ul>
+		    <li>O último item inserido é o primeiro item que pode ser retirado da lista.</li>
+		    <li>São chamadas listas <span class="flash">LIFO</span> ("last-in, first-out").</li>
+		  </ul>
+		<li>Existe uma ordem linear para pilhas, do "mais recente para o menos recente".</li>
+		<li>É ideal para processamento de estruturas aninhadas de profundidade imprevisível.</li>
+		<li>Uma pilha contém uma sequência de obrigações adiadas.</li>
+		  <ul>
+		      <li>A ordem de remoção garante que as estruturas mais internas serão processadas antes das mais externas.</li>
+		  </ul>
+	   </ul>
+            <footer class="notes">
+            </footer>
+        </section>
+    </div>
+</div>
+
+<!-- ============================================================================== -->
+<div id="sld-03" class="slide">
+    <div>
+        <section>
+            <header>
+                <h2>Listas com Restrições: Pilhas</h2>
+            </header>
+            <ul class="inner">
+		<li class="active">São exemplos de uso de pilha:</li>
+		<ul>
+		   <li>Funções recursivas em compiladores;</li>
+		   <li>Mecanismo de desfazer/refazer dos editores de texto;</li>
+		   <li>Navegação entre páginas Web;</li>
+		   <li>etc.</li>
+		  </ul>
+		  
+		<li>A implementação de pilhas pode ser realizada de duas maneiras:</li>
+		  <ul>
+		     <li>através de <span class="flash">arranjo</span> (alocação do espaço de memória para os elementos é contígua), ou</li>
+		     <li>através de <span class="flash">listas encadeadas </span> (os elementos não estão necessariamente armazenados sequencialmente na memória).</li>
+		  </ul>
+	   </ul>
+            <footer class="notes">
+            </footer>
+        </section>
+    </div>
+</div>
+
+<!-- ============================================================================== -->
+<div id="sld-04" class="slide">
+    <div>
+        <section>
+            <header>
+                <h2>Listas com Restrições: Pilhas</h2>
+            </header>
+            <ul class="inner">
+		<li class="active">Operações com Pilha</li>
+		     <ul>
+			<li>Criar pilha (create);</li>
+			<li>Empilhar (push);</li>
+			<li>Desempilhar (pop);</li>
+			<li>Mostrar o topo (top).</li>
+		    </ul>
+	   </ul>
+            <footer class="notes">
+           </footer>
+        </section>
+    </div>
+</div>
+
+<!-- ============================================================================== -->
+<div id="sld-05" class="slide">
+    <div>
+        <section>
+          <header>
+                <h2>Definindo uma TAD Pilha</h2>
+          </header>
+          <ul>
+	      <li>Definimos um TAD Pilha da seguinte maneira:</li>
+          </ul> 
+          <pre><code>TAD Pilha <Tipo>
+    Dados:
+          data: Lista <Tipo>
+          size: inteiro
+          
+    Operações:
+          create(): Pilha <Tipo>
+          push (dado)
+          pop(): dado
+          top(): dado</code></pre>          
+          <footer class="notes">
+          </footer>
+        </section>
+    </div>
+</div>
+
+
+<!-- ============================================================================== -->
+<div id="sld-06" class="slide">
+    <div>
+        <section>
+            <header>
+                <h2>Inserção</h2>
+            </header>
+            <ul>
+    <li>Função push( ) da TAD Pilha:</li>
+     </ul>
+     <pre><code>push(dado)
+  insere dado no topo da pilha
+  aponta a cabeça da pilha para o no dado
+  incrementa tamanho da pilha</code></pre>
+           <footer class="notes">
+           </footer>
+        </section>
+    </div>
+</div>
+
+<!-- ============================================================================== -->
+<div id="sld-07" class="slide">
+    <div>
+        <section>
+            <header>
+                <h2>Remoção</h2>
+            </header>
+            <ul>
+    <li>Função pop( ) da TAD Pilha:</li>
+     </ul>
+      <pre><code>pop(): dado
+  armazena o dado no topo da pilha em 'aux'
+  remove topo da pilha
+  decrementa tamanho da pilha
+  retorna o valor armazenado em 'aux'</code></pre>
+           <footer class="notes">
+           </footer>
+        </section>
+    </div>
+</div>
+
+<!-- ============================================================================== -->
+<div id="sld-08" class="slide">
+    <div>
+        <section>
+            <header>
+                <h2>Consulta</h2>
+            </header>
+            <ul>
+    <li>Função top( ) da TAD Pilha:</li>
+     </ul>
+      <pre><code>top(): dado
+  retorna o valor do topo da pilha</code></pre>
+           <footer class="notes">
+           </footer>
+        </section>
+    </div>
+</div>
+
+<!-- ============================================================================== -->
+<div id="sld-09" class="slide">
+    <div>
+        <section>
+            <header>
+                <h2>Operações com Pilha usando arranjo</h2>
+            </header>
+            <ul>
+              <li>Empilhar ou push( ):</li>
+                <img src="images/aula14/pilha_arranjo_push.png" style="position: absolute; top: 40%; left: 15%; width: 70%">
+              </li>
+            </ul>
+           <footer class="notes">
+           </footer>
+        </section>
+    </div>
+</div>
+
+<!-- ============================================================================== -->
+<div id="sld-10" class="slide">
+    <div>
+        <section>
+            <header>
+                <h2>Operações com Pilha usando arranjo</h2>
+            </header>
+            <ul>
+              <li>Desempilhar ou pop( ):</li>
+                <img src="images/aula14/pilha_arranjo_pop.png" style="position: absolute; top: 40%; left: 15%; width: 70%">
+              </li>
+            </ul>
+           <footer class="notes">
+           </footer>
+        </section>
+    </div>
+</div>
+
+<!-- ============================================================================== -->
+<div id="sld-11" class="slide">
+    <div>
+        <section>
+            <header>
+                <h2>Operações com Pilha usando lista encadeada</h2>
+            </header>
+            <ul>
+              <li>Empilhar ou push( ):</li>
+                <img src="images/aula14/pilha_lista_push.png" style="position: absolute; top: 40%; left: 15%; width: 70%">
+              </li>
+            </ul>
+           <footer class="notes">
+           </footer>
+        </section>
+    </div>
+</div>
+
+<!-- ============================================================================== -->
+<div id="sld-12" class="slide">
+    <div>
+        <section>
+            <header>
+                <h2>Operações com Pilha usando lista encadeada</h2>
+            </header>
+            <ul>
+              <li>Desempilhar ou pop( ):</li>
+                <img src="images/aula14/pilha_lista_pop.png" style="position: absolute; top: 40%; left: 15%; width: 70%">
+              </li>
+            </ul>
+           <footer class="notes">
+           </footer>
+        </section>
+    </div>
+</div>
+
+
+<!-- ============================================================================== -->
+<div id="sld-13" class="slide">
+    <div>
+        <section>
+            <header>
+                <h2>Operações e complexidade</h2>
+            </header>
+            <table class="table-borders">
+             <tr>
+                <th colspan="1">Pilhas</th>
+                <th colspan="1">Sequencial</th>
+                <th colspan="1">Encadeada</th>
+              </tr>
+              <tr>
+                 <th>Empilhar (push)</th>
+                 <td>\(O(1)\)</td>
+                 <td>\(O(1)\)</td>
+             </tr>
+              <tr>
+                 <th>Desempilhar (pop)</th>
+                 <td>\(O(1)\)</td>
+                 <td>\(O(1)\)</td>
+             </tr>
+              <tr>
+                 <th>Mostrar topo (top)</th>
+                 <td>\(O(1)\)</td>
+                 <td>\(O(1)\)</td>
+             </tr>
+            </table> 
+            <br>
+            <ul>
+              <li>A complexidade das operações de Pilha push( ), pop( ) e top( ) implementadas (com arranjo ou lista encadeada) é <strong>\(O(1)\)</strong></li>
+            </ul>
+           <footer class="notes">
+           </footer>
+        </section>
+    </div>
+</div>
+
+<!-- ============================================================================== -->
+<div id="sld-14" class="slide">
+    <div>
+        <section>
+            <header>
+                <h2>Implementação : operações</h2>
+            </header>
+            <ul class="inner">
+              <li>O conceito do que cada operação realiza é <strong>independente de implementação</strong></li>
+              <li>Assim, as chamadas às funções <strong>podem</strong> ser idênticas, seja para pilhas implementadas com arranjos ou com listas encadeadas</li>
+              <li>Adotaremos as seguintes assinaturas:
+               <pre><code class="prettyprint">/* operações sobre uma pilha (stack) */
+
+Stack* createStack();
+int push (Stack *stack, int  data);
+int pop  (Stack *stack, int *data);
+int top  (Stack *stack, int *data);</code></pre>
+              </li>
+            </ul>
+           <footer class="notes">
+           </footer>
+        </section>
+    </div>
+</div>
+
+<!-- ============================================================================== -->
+<div id="sld-15" class="slide">
+    <div>
+        <section>
+            <header>
+                <h2>Estrutura usando arranjo</h2>
+            </header>
+            <ul>
+		<li>Definição da Pilha (Stack):</li>
+	   </ul>
+	   <pre><code class="prettyprint">#define STACK_MAXSIZE 20
+	   
+typedef struct {
+	int data[STACK_MAXSIZE];   /* dados */
+	int size;                  /* serve também como ref p/ topo  */
+} Stack;
+</code></pre>
+           <footer class="notes">
+           </footer>
+        </section>
+    </div>
+</div>
+
+<!-- ============================================================================== -->
+<div id="sld-16" class="slide">
+    <div>
+        <section>
+            <header>
+                <h2>Implementação usando arranjo</h2>
+            </header>
+            <ul>
+		<li>Função push( ):</li>
+	   </ul>
+	   <pre><code class="prettyprint">/* insere um elemento no topo da pilha */
+int push (Stack *stack, int data) {
+	if (stack -> size &lt STACK_MAXSIZE) {
+	    stack -> data [ stack -> size ] = data;
+	    stack -> size++;
+	    return 1;
+	}
+	return 0;
+}</code></pre>
+           <footer class="notes">
+           </footer>
+        </section>
+    </div>
+</div>
+
+<!-- ============================================================================== -->
+<div id="sld-17" class="slide">
+    <div>
+        <section>
+            <header>
+                <h2>Implementação usando arranjo</h2>
+            </header>
+            <ul>
+		<li>Função pop( ):</li>
+	   </ul>
+	   <pre><code class="prettyprint">/* remove e retorna o elemento do topo da pilha */
+int pop (Stack *stack, int *data) {
+	if (stack -> size > 0) {
+	    stack -> size--;
+	    *data = stack -> data [ stack -> size ];
+	    return 1;
+	}
+	return 0;
+}</code></pre>
+           <footer class="notes">
+           </footer>
+        </section>
+    </div>
+</div>
+
+<!-- ============================================================================== -->
+<div id="sld-18" class="slide">
+    <div>
+        <section>
+            <header>
+                <h2>Implementação usando arranjo</h2>
+            </header>
+            <ul>
+		<li>Função top( ):</li>
+	   </ul>
+	   <pre><code class="prettyprint">/* retorna o elemento do topo da pilha */
+int top (Stack *stack, int *data) {
+	if (stack -> size > 0) {
+	    *data = stack -> data [ stack -> size - 1 ];
+	    return 1;
+	}
+	return 0;
+}</code></pre>
+           <footer class="notes">
+           </footer>
+        </section>
+    </div>
+</div>
+
+<!-- ============================================================================== -->
+<div id="sld-19" class="slide">
+    <div>
+        <section>
+            <header>
+                <h2>Implementação usando lista encadeada</h2>
+            </header>
+            <ul>
+		<li>Definição da Pilha (Stack):</li>
+	   </ul>
+	   <pre><code class="prettyprint">typedef struct node {
+    int          data;
+    struct node *next;
+} Node;
+
+typedef struct {
+	Node *head; /* nó-cabeça */
+	int   size; /* opcional */
+} Stack;
+</code></pre>
+           <footer class="notes">
+           </footer>
+        </section>
+    </div>
+</div>
+
+<!-- ============================================================================== -->
+<div id="sld-20" class="slide">
+    <div>
+        <section>
+            <header>
+                <h2>Implementação usando lista encadeada</h2>
+            </header>
+            <ul>
+		<li>Função push( ):</li>
+	   </ul>
+	   <pre><code class="prettyprint">/* insere um elemento no topo da pilha */
+int push (Stack *stack, int data) {
+	Node *new_head = (Node*) malloc(sizeof(Node));
+	if (new_head) {
+	    new_head -> data = data;
+	    new_head -> next = stack -> head;
+	    stack -> head    = new_head;
+	    stack -> size++;
+	    return 1;
+	}
+	return 0;	
+}</code></pre>
+           <footer class="notes">
+           </footer>
+        </section>
+    </div>
+</div>
+
+<!-- ============================================================================== -->
+<div id="sld-21" class="slide">
+    <div>
+        <section>
+            <header>
+                <h2>Implementação usando lista encadeada</h2>
+            </header>
+            <ul>
+		<li>Função pop( ):</li>
+	   </ul>
+	   <pre><code class="prettyprint">/* remove e retorna o elemento do topo da pilha */
+int pop (Stack *stack, int *data) {
+	if (stack -> head) {
+	    Node *old_head = stack -> head;
+	    stack -> head  = old_head -> next;
+	    *data = old_head -> data;
+	    free(old_head);
+	    return 1;
+	}
+	return 0;
+}</code></pre>
+           <footer class="notes">
+           </footer>
+        </section>
+    </div>
+</div>
+
+<!-- ============================================================================== -->
+<div id="sld-22" class="slide">
+    <div>
+        <section>
+            <header>
+                <h2>Implementação usando lista encadeada</h2>
+            </header>
+            <ul>
+		<li>Função top( ):</li>
+	   </ul>
+	   <pre><code class="prettyprint">/* retorna o elemento do topo da pilha */
+int top (Stack *stack, int *data) {
+	if (stack->head) {
+	    *data = stack -> head -> data;
+	    return 1;
+	}
+	return 0;
+}</code></pre>
+           <footer class="notes">
+           </footer>
+        </section>
+    </div>
+</div>
+
+<!-- ============================================================================== -->
+<div id="cosld-23" class="slide">
+    <div>
+        <section>
+            <header>
+                <h2>Listas com Restrições: Filas</h2>
+            </header>
+           <ul class="inner">
+		<li class="active">Propriedade:</li>
+		 <ul>
+		    <li>É uma <span class="flash">lista linear</span> em que todas as inserções são realizadas em um <span class="flash">extremo da lista</span>, 
+		        e todas as retiradas e, geralmente, os acessos são realizados no <span class="flash">outro extremo da lista</span>.</li>
+		    <li>São chamadas listas <span class="flash">FIFO</span> ("first-in, first-out").</li>
+		</ul>
+		<li>São utilizadas quando desejamos processar itens de acordo com a ordem "primeiro-que-chega, primeiro-atendido". </li>
+		<li><span class="flash">Sistemas operacionais</span> utilizam filas para regular a ordem na qual tarefas devem receber processamento e recursos devem ser alocados a processos.</li>
+	   </ul>
+            <footer class="notes">
+            </footer>
+        </section>
+    </div>
+</div>
+
+<!-- ============================================================================== -->
+<div id="sld-24" class="slide">
+    <div>
+        <section>
+            <header>
+                <h2>Listas com Restrições: Filas</h2>
+            </header>
+            <ul class="inner">
+		<li class="active">São exemplos de uso de fila:</li>
+		<ul>
+		   <li>Controle de documentos para impressão;</li>
+		   <li>Troca de mensagem entre computadores numa rede;</li>
+		   <li>etc.</li>
+		  </ul>
+		  
+	        <br>	  
+		<li>A implementação de filas pode ser realizada de duas maneiras:</li>
+		  <ul>
+		     <li>através de <span class="flash">arranjo</span> (alocação do espaço de memória para os elementos é contígua), ou</li>
+		     <li>através de <span class="flash">listas encadeadas </span> (os elementos não estão necessariamente armazenados sequencialmente na memória) .</li>
+		  </ul>
+	   </ul>
+            <footer class="notes">
+            </footer>
+        </section>
+    </div>
+</div>
+
+<!-- ============================================================================== -->
+<div id="sld-25" class="slide">
+    <div>
+        <section>
+            <header>
+                <h2>Listas com Restrições: Filas</h2>
+            </header>
+            <ul class="inner">
+		<li class="active">Operações com Fila</li>
+		     <ul>
+			<li>Criar fila (create);</li>
+			<li>Enfileirar (enqueue);</li>
+			<li>Desenfileirar (dequeue);</li>
+			<li>Mostrar o elemento da frente (front).</li>
+		    </ul>
+	   </ul>
+            <footer class="notes">
+           </footer>
+        </section>
+    </div>
+</div>
+
+<!-- ============================================================================== -->
+<div id="sld-26" class="slide">
+    <div>
+        <section>
+          <header>
+                <h2>Definindo uma TAD Fila</h2>
+          </header>
+          <ul>
+	      <li>Definimos um TAD Fila da seguinte maneira:</li>
+          </ul> 
+          <pre><code>TAD Fila <tipo>
+    Dados:
+          data: Lista <tipo>
+          size: inteiro
+          
+    Operações:
+          create(): Fila <tipo>
+          enqueue (dado)
+          dequeue(): dado
+          front(): dado</code></pre>          
+          <footer class="notes">
+          </footer>
+        </section>
+    </div>
+</div>
+
+
+<!-- ============================================================================== -->
+<div id="sld-27" class="slide">
+    <div>
+        <section>
+            <header>
+                <h2>Inserção</h2>
+            </header>
+            <ul>
+    <li>Função enqueue( ) da TAD Fila:</li>
+     </ul>
+     <pre><code>enqueue(dado)
+  insere dado no final da fila
+  ajusta referência do final da fila para o dado inserido
+  incrementa tamanho da fila</code></pre>
+           <footer class="notes">
+           </footer>
+        </section>
+    </div>
+</div>
+
+<!-- ============================================================================== -->
+<div id="sld-28" class="slide">
+    <div>
+        <section>
+            <header>
+                <h2>Remoção</h2>
+            </header>
+            <ul>
+    <li>Função dequeue( ) da TAD Fila:</li>
+     </ul>
+      <pre><code>dequeue(): dado
+  armazena o dado no início da fila em 'aux'
+  retira o elemento do início da fila
+  decrementa tamanho da fila
+  retorna o valor armazenado em 'aux'</code></pre>
+           <footer class="notes">
+           </footer>
+        </section>
+    </div>
+</div>
+
+<!-- ============================================================================== -->
+<div id="sld-29" class="slide">
+    <div>
+        <section>
+            <header>
+                <h2>Consulta</h2>
+            </header>
+            <ul>
+    <li>Função front( ) da TAD Fila:</li>
+     </ul>
+      <pre><code>front(): dado
+  retorna o valor do início da fila</code></pre>
+           <footer class="notes">
+           </footer>
+        </section>
+    </div>
+</div>
+
+<!-- ============================================================================== -->
+<div id="sld-30" class="slide">
+    <div>
+        <section>
+            <header>
+                <h2>Operações com Fila usando arranjo</h2>
+            </header>
+            <ul>
+              <li>Enfileirar ou enqueue( ):
+                <img src="images/aula14/fila_arranjo_enqueue.png" style="position: absolute; top: 30%; left: 15%; width: 70%">
+              </li>
+            </ul>
+           <footer class="notes">
+           </footer>
+        </section>
+    </div>
+</div>
+
+<!-- ============================================================================== -->
+<div id="sld-31" class="slide">
+    <div>
+        <section>
+            <header>
+                <h2>Operações com Fila usando arranjo</h2>
+            </header>
+            <ul>
+              <li>Desenfileirar ou dequeue( ):
+                <img src="images/aula14/fila_arranjo_dequeue.png" style="position: absolute; top: 30%; left: 15%; width: 70%">
+              </li>
+            </ul>
+           <footer class="notes">
+           </footer>
+        </section>
+    </div>
+</div>
+
+<!-- ============================================================================== -->
+<div id="sld-32" class="slide">
+    <div>
+        <section>
+            <header>
+                <h2>Usando lista encadeada</h2>
+            </header>
+            <ul>
+              <li>Enfileirar ou enqueue( ):
+                <img src="images/aula14/fila_lista_enqueue.png" style="position: absolute; top: 30%; left: 15%; width: 70%">
+              </li>
+            </ul>
+           <footer class="notes">
+           </footer>
+        </section>
+    </div>
+</div>
+
+<!-- ============================================================================== -->
+<div id="sld-33" class="slide">
+    <div>
+        <section>
+            <header>
+                <h2>Usando lista encadeada</h2>
+            </header>
+            <ul>
+              <li>Desenfileirar ou dequeue( ):
+                <img src="images/aula14/fila_lista_dequeue.png" style="position: absolute; top: 30%; left: 15%; width: 70%">
+              </li>
+            </ul>
+           <footer class="notes">
+           </footer>
+        </section>
+    </div>
+</div>
+
+<!-- ============================================================================== -->
+<div id="sld-34" class="slide">
+    <div>
+        <section>
+            <header>
+                <h2>Operações e complexidade</h2>
+            </header>
+            <table class="table-borders">
+             <tr>
+                <th colspan="1">Filas</th>
+                <th colspan="1">Sequencial</th>
+                <th colspan="1">Encadeada</th>
+              </tr>
+              <tr>
+                 <th>Enfileirar (queue)</th>
+                 <td>\(O(1)\)</td>
+                 <td>\(O(1)\)</td>
+             </tr>
+              <tr>
+                 <th>Desenfileirar (dequeue)</th>
+                 <td>\(O(1)\)</td>
+                 <td>\(O(1)\)</td>
+             </tr>
+              <tr>
+                 <th>Mostrar o da frente (front)</th>
+                 <td>\(O(1)\)</td>
+                 <td>\(O(1)\)</td>
+             </tr>
+            </table> 
+            <br>
+            <ul>
+	       <li>A complexidade das operações de Fila implementadas com arranjo ou listas encadeadas é <span class="flash">\(O(1)\)</span>;</li>
+	   </ul>
+           <footer class="notes">
+           </footer>
+        </section>
+    </div>
+</div>
+
+<!-- ============================================================================== -->
+<div id="sld-35" class="slide">
+    <div>
+        <section>
+            <header>
+                <h2>Implementação : operações</h2>
+            </header>
+            <ul class="inner">
+              <li>Novamente, o conceito do que cada operação realiza é <strong>independente de implementação</strong></li>
+              <li>Considere as seguintes possíveis assinaturas:
+               <pre><code class="prettyprint">/* operações sobre uma fila (queue) */
+
+Queue* createQueue();
+int enqueue (Queue *queue, int  data);
+int dequeue (Queue *queue, int *data);
+int front   (Queue *queue, int *data);</code></pre>
+              </li>
+            </ul>
+           <footer class="notes">
+           </footer>
+        </section>
+    </div>
+</div>
+
+<!-- ============================================================================== -->
+
+<div id="sld-36" class="slide">
+    <div>
+        <section>
+            <header>
+                <h2>Listas com Restrições: Deque</h2>
+            </header>
+           <ul class="inner">
+            <li>Acrônimo para <strong>Double-ended queue</strong></li>
+            <li>Flexibiliza as restrições de filas e pilhas, fazendo com que seja possível inserir e remover em ambas as extremidades da sequência
+              <img src="images/aula14/deque.png" style="position: absolute; bottom: 10%; left: 15%; width: 70%">
+            </li>
+           </ul>
+           <img src="">
+            <footer class="notes">
+            </footer>
+        </section>
+    </div>
+</div>
+
+<!-- ============================================================================== -->
+<div id="sld-37" class="slide">
+    <div>
+        <section>
+            <header>
+                <h2>Implementação : operações</h2>
+            </header>
+            <ul class="inner">
+              <li>Considere as seguintes possíveis assinaturas:
+               <pre><code class="prettyprint">/* operações sobre um deque */
+
+Deque* createDeque();
+int push_front (Deque *deque, int  data);
+int pop_front  (Deque *deque, int *data);
+int push_back  (Deque *deque, int  data);
+int pop_back   (Deque *deque, int *data);
+int front      (Deque *deque, int *data);
+int back       (Deque *deque, int *data);</code></pre>
+              </li>
+            </ul>
+           <footer class="notes">
+           </footer>
+        </section>
+    </div>
+</div>
+
+<!-- ============================================================================== -->
+
+<div id="sld-38" class="slide">
+    <div>
+        <section>
+            <header>
+                <h2>Atividades</h2>
+            </header>
+            <ol>
+              <li>Implemente uma fila (assinaturas apresentadas) usando:
+                <ol style="list-style-type: lower-alpha">
+                  <li>Arranjos</li>
+                  <li>Lista encadeada</li>
+                </ol>
+              </li>
+              <li>Implemente um deque (assinaturas apresentadas) usando:
+                <ol style="list-style-type: lower-alpha">
+                  <li>Arranjos</li>
+                  <li>Lista encadeada</li>
+                </ol>
+              </li>
+            </ol>
+           <footer class="notes">
+           </footer>
+        </section>
+    </div>
+</div>
+
+<!-- ============================================================================== -->
+
+<div id="sld-39" class="slide">
+    <div>
+        <section>
+            <header>
+                <h2>Atividades</h2>
+            </header>
+            <ol start="3">
+              <li>Nas filas usando arranjos, a inserção de um dado pode resultar em overflow mesmo tendo espaço livre no início do arranjo. Para contornar esse problema, é possível definir filas circulares. A estratégia delas é considerar o primeiro elemento do arranjo como a continuação (próximo) do último elemento. Assim, só haverá overflow se realmente não houver mais espaço livre. Modifique a implementação da fila realizada em I.a para que ela seja circular.</li>
+            </ol>
+           <footer class="notes">
+           </footer>
+        </section>
+    </div>
+</div>
+
+<!-- ============================================================================== -->
+
+<div id="sld-40" class="slide">
+    <div>
+        <section>
+            <header>
+                <h2>Atividades</h2>
+            </header>
+            <ol start="4">
+              <li>O problema de TADs usando arranjos é que normalmente não se sabe o números de elementos a ser usado (para alocação prévia), gerando gastos de memória desnecessários e (talvez) problemas de overflow. Para contornar esse problema, implemente um novo TAD, chamado <code>Vector</code>, com as operações similares ao de um arranjo (acesso direto a um elemento a partir de um índice). Esse novo tipo deve alocar por default 10 espaços para seus dados, mas dobrar de tamanho sempre que uma operação de inserção for gerar um overflow.</li>
+            </ol>
+           <footer class="notes">
+           </footer>
+        </section>
+    </div>
+</div>
+
+<!-- ============================================================================== -->
+
+<div id="sld-41" class="slide">
+    <div>
+        <section>
+            <header>
+                <h2>Questões...</h2>
+            </header>
+            <figure class="middle" style="top: 57%">
+                <img style="height: 400px" src="images/common/pontos-de-interrogacao.png">
+            </figure>
+            <footer class="notes">
+            </footer>
+        </section>
+    </div>
+</div>
+
+<!-- ============================================================================== -->
+<!-- Se não quiser a barra de progressão, tem apenas que eliminar esta tag <div> -->
+<div class="progress">
+    <div></div>
+</div>
+
+<!-- ============================================================================== -->
+<!-- Scripts -->
+<script type="text/javascript" src="../../common/scripts/presentations/script.js"></script>
+<script type="text/javascript" src="../../common/scripts/code-prettify/prettify.js"></script>
+<script type="text/javascript" src="../../common/scripts/animation/jsmove.js"></script>
+<script type="text/javascript" src="../../common/scripts/mathjax/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+
+</body>
+
+</html>

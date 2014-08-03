@@ -1,0 +1,791 @@
+<!DOCTYPE HTML>
+<html lang="pt-BR" class="fade nonumbers">
+<!-- 
+    Podemos controlar um certo número de configurações com as classes do elemento <html>:
+    "fade"      - passagem suave entre os slides
+    "nonumbers" - remove o número do slide na barra de progressão
+-->
+
+<head>
+    <title>Laboratório de Programação I</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=1274, user-scalable=no">
+    <link rel="stylesheet" href="../../common/themes/presentations/styles/style.css" type="text/css">
+    <link rel="stylesheet" href="../../common/themes/presentations/styles/print.css" type="text/css"  media="print">
+    <link rel="stylesheet" href="../../common/themes/code-prettify/styles/prettify.css" type="text/css">
+    <link rel="stylesheet" href="../../common/themes/lp1/styles/presentation.css" type="text/css">
+    <link rel="stylesheet" href="../../common/themes/lp1/styles/ufrn.css" type="text/css">
+    <link rel="stylesheet" href="../../common/themes/lp1/styles/codeprettify.css" type="text/css">
+<style>
+.highlight {
+    border: 2px solid red;
+    -webkit-border-radius: 10px;
+    -moz-border-radius: 10px;
+    border-radius: 10px;
+    background-color: rgba(200, 200, 200, 0.3);
+}
+
+.highlight-text {
+    padding: 10px;
+    font-size: 14pt;
+    border: 1px solid;
+    -webkit-border-radius: 10px;
+    -moz-border-radius: 10px;
+    border-radius: 10px;
+    background-color: rgb(240, 240, 240);
+}
+</style>
+
+</head>
+
+<body class="list" onload="prettyPrint();">
+
+<!-- ============================================================================== -->
+<!-- Informações para a lista de slides -->
+<header class="caption">
+    <h1>Laboratório de Programação I</h1>
+    <h1>Aula 13 - Modularidade: criação e uso de bibliotecas</h1>
+</header>
+
+<!-- 
+    O seguinte código é um slide. Ele utiliza uma classe do tipo "slide" e agrega no seu
+    interior todos os elementos semânticos que se mostrem necessários.
+    IMPORTANTE: cada slide requer seu próprio e único ID - este sistema permite de gerar
+    uma URL própria para cada slide e apresenta como o código deve ser organizado!
+-->
+
+<!-- ============================================================================== -->
+<!-- Laboratório de Programação 1 -->
+<div id="capa" class="slide cover w">
+    <div>
+        <section>
+            <header>
+                <h1>Laboratório de Programação I</h1>
+                <h1 style="font-size: 45px">Aula 13 - Modularidade: criação e 
+uso de bibliotecas</h1>
+                <br><br>
+            </header>
+            <table>
+                <thead>
+                    <tr>
+                        <td></td>
+                        <td><img style="top:90%; height:5px" src="images/common/colorbar.png"></td>
+                        <td></td>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td><img style="left:1%; top:95%; width:200px; height:48px;" src="images/common/azul.png"></td>
+                        <td><img style="left:41%; top:95%; width:150px; height:52px;" src="images/common/ufrn.png"></td>
+                        <td><img style="left:85%; top:95%; width:140px; height:52px;" src="images/common/dimap.png"></td>
+                    </tr>
+                </tbody>
+            </table>
+            <footer class="notes">
+            </footer>
+        </section>
+    </div>
+</div>
+
+<!-- ============================================================================== -->
+<!-- Objetivos da aula -->
+<div id="objetivos_aula" class="slide">
+    <div>
+        <section>
+            <header>
+                <h2>Objetivos da aula</h2>
+            </header>
+            <ul>
+                <li>Desenvolver e manipular bibliotecas estáticas e dinâmicas em <span class="flash">C++</span></li>
+                <li>Para isto estudaremos:
+                    <ul>
+                        <li>Criação de bibliotecas</li>
+                        <li>Uso de bibliotecas</li>
+                    </ul>
+                </li>
+                <li>Ao final da aula espera-se que o aluno saiba tirar proveito das vantagens do uso de bibliotecas em seus programas</li>
+            </ul>
+            <footer class="notes">
+            </footer>
+        </section>
+    </div>
+</div>
+
+<!-- ============================================================================== -->
+<!-- Recapitulativo da compilação em C++ -->
+<div id="recapitulativo_compilacao_1" class="slide">
+    <div>
+        <section>
+            <header>
+                <h2>Recapitulativo da compilação em C++</h2>
+            </header>
+            <ul>
+                <li>A compilação de um programa em <span class="flash">C++</span> envolve 3 passos principais:
+                    <ul>
+                        <li><span class="flash">Pré-processamento</span>
+                            <ul>
+                                <li>Executa as diretivas <span class="flash">#ifdef</span>, <span class="flash">#include</span>, substitui macros, etc.</li>
+                                <li>Gera arquivos temporários com código pré-processado</li>
+                            </ul>
+                        </li>
+                        <li><span class="flash">Compilação</span>
+                            <ul>
+                                <li>Processa os arquivos temporários com código fonte pré-processado seguindo a gramática da linguagem</li>
+                                <li>Gera arquivos objeto (<span class="flash">.obj</span> / <span class="flash">.o</span>) caso não ocorram erros</li>
+                            </ul>
+                        </li>
+                        <li><span class="flash">Linkedição</span>
+                            <ul>
+                                <li>Faz a ligação de todos os arquivos de código-objeto gerados</li>
+                                <li>Gera executável (<span class="flash">.exe</span> / <span class="flash">.out</span>) ou biblioteca dinâmica (<span class="flash">.dll</span> / <span class="flash">.so</span>)</li>
+                            </ul>
+                        </li>
+                    </ul>
+                </li>
+            </ul>
+            <footer class="notes">
+            </footer>
+        </section>
+    </div>
+</div>
+
+<!-- ============================================================================== -->
+<!-- Recapitulativo da compilação em C++ -->
+<div id="recapitulativo_compilacao_2" class="slide">
+    <div>
+        <section>
+            <header>
+                <h2>Recapitulativo da compilação em C++</h2>
+            </header>
+            <figure style="position: absolute; left: 180px; top: 130px">
+                <img style="width: 650px" src="images/aula12/cpp-o-code.png">
+            </figure>
+            <footer class="notes">
+            </footer>
+        </section>
+    </div>
+</div>
+
+<!-- ============================================================================== -->
+<!-- Bibliotecas -->
+<div id="bibliotecas" class="slide">
+    <div>
+        <section>
+            <header>
+                <h2>Bibliotecas</h2>
+            </header>
+            <ul>
+                <li>As bibliotecas são classificadas da seguinte maneira:
+                    <ul>
+                        <li><span class="flash">Bibliotecas Estáticas (união)</span>
+                            <ul class="longlist">
+                                <li><span class="flash">Código objeto</span> que deve ser inserido no programa</li>
+                                <li>Contém os seguintes tipos de arquivos:
+                                    <ul>
+                                        <li>Protótipos (ou cabeçalhos <span class="flash">.h</span>)</li>
+                                        <li>Métodos e/ou sub-rotinas pré-compiladas (<span class="flash">.lib</span> ou <span class="flash">.a</span>)</li>
+                                    </ul>
+                                </li>
+                            </ul>
+                        </li>
+                        <li><span class="flash">Bibliotecas dinâmicas (compartilhamento)</span>
+                            <ul class="longlist">
+                                <li><span class="flash">Código executável</span> que é separado do programa</li>
+                                <li>Contém os seguintes tipos de arquivos:
+                                    <ul>
+                                        <li>Protótipos (ou cabeçalhos <span class="flash">.h</span>)</li>
+                                        <li>Referências para os métodos e/ou sub-rotinas (<span class="flash">.lib</span> ou <span class="flash">.a</span>)</li>
+                                        <li>Executáveis (<span class="flash">.dll</span> ou <span class="flash">.so</span>)</li>
+                                    </ul>
+                                </li>
+                            </ul>
+                        </li>
+                    </ul>
+                </li>
+            </ul>
+            <footer class="notes">
+            </footer>
+        </section>
+    </div>
+</div>
+
+<!-- ============================================================================== -->
+<!-- Bibliotecas estáticas -->
+<div id="Bibliotecas_estaticas" class="slide">
+    <div>
+        <section>
+            <header>
+                <h2>Bibliotecas estáticas</h2>
+            </header>
+            <ul>
+                <li>Para serem geradas, as bibliotecas estáticas necessitam das seguintes etapas:
+                    <ul>
+                        <li>Pré-processamento</li>
+                        <li>Compilação</li>
+                    </ul>
+                </li>
+                <li>Arquivos de cabeçalho e de corpo são utilizados da mesma forma que em um programa comum</li>
+                <li><span style="color: red">OBS:</span> Biblioteca estática não contém o método <span class="flash">main</span></li>
+            </ul>
+            <footer class="notes">
+            </footer>
+        </section>
+    </div>
+</div>
+
+<!-- ============================================================================== -->
+<!-- Criando uma biblioteca estática -->
+<div id="criando_biblioteca_estatica" class="slide">
+    <div>
+        <section>
+            <header>
+                <h2>Criando uma biblioteca estática</h2>
+            </header>
+            <ul>
+                <li>Exemplo:
+                    <ul>
+                        <li>Biblioteca estática que efetua cálculos geométricos</li>
+                    </ul>
+                </li>
+                <li>Passos:
+                    <ul>
+                        <li>Criar um projeto do tipo biblioteca estática</li>
+                        <li>Criar dois arquivos de cabeçalho e inserí-los no projeto
+                            <ul>
+                                <li><span class="flash">Ponto.h</span></li>
+                                <li><span class="flash">Circulo.h</span></li>
+                            </ul>
+                        </li>
+                        <li>Criar dois arquivos de corpo e inserí-los no projeto
+                            <ul>
+                                <li><span class="flash">Ponto.cpp</span></li>
+                                <li><span class="flash">Circulo.cpp</span></li>
+                            </ul>
+                        </li>
+                        <li>Compilar o projeto para gerar o código objeto (<span class="flash">.lib</span> ou <span class="flash">.a</span>)
+                    </ul>
+                </li>
+            </ul>
+            <figure style="position: absolute; left: 830px; top: 300px">
+                <img src="images/aula12/hpp.png">
+            </figure>
+            <figure style="position: absolute; left: 830px; top: 440px">
+                <img src="images/aula12/cpp.png">
+            </figure>
+            <footer class="notes">
+            </footer>
+        </section>
+    </div>
+</div>
+                
+<!-- ============================================================================== -->
+<!-- Arquivo de cabeçalho -->
+<div id="arquivo_cabecalho_1" class="slide">
+    <div>
+        <section>
+            <header>
+                <h2>Arquivo de cabeçalho <span class="flash">Ponto.h</span></h2>
+            </header>
+<pre class="prettyprint linenums" style="position: absolute; top: 100px; left: 225px">
+#ifndef _PONTO_H_
+#define _PONTO_H_
+ 
+namespace geometria
+{
+    class Ponto
+    {
+    private:
+        int x, y;
+ 
+    public:
+        Ponto( int x, int y );
+        Ponto( const Ponto& ponto );
+
+        int  getX     () const;
+        int  getY     () const;
+        int  distancia( const Ponto& ponto ) const;
+        void imprimir () const;
+    };
+}
+
+#endif
+</pre>
+            <footer class="notes">
+            </footer>
+        </section>
+    </div>
+</div>
+
+<!-- ============================================================================== -->
+<!-- Arquivo de corpo -->
+<div id="arquivo_corpo_1" class="slide">
+    <div>
+        <section>
+            <header>
+                <h2>Arquivo de corpo <span class="flash">Ponto.cpp</span></h2>
+            </header>
+<pre class="prettyprint linenums" style="position: absolute; top: 70px; left: 80px">
+#include &lt;iostream&gt;
+#include &lt;cmath&gt;
+#include "Ponto.h"
+
+namespace geometria
+{
+    Ponto::Ponto( int x, int y ) : x( x ), y( y ) {}
+
+    Ponto::Ponto( const Ponto& ponto ) : x( ponto.x ), y( ponto.y ) {}
+ 
+    int inline Ponto::getX() const {
+        return x;
+    }
+
+    int inline Ponto::getY() const {
+        return y;
+    }
+ 
+    int Ponto::distancia( const Ponto& ponto ) const {
+        return std::sqrt( std::pow( x - ponto.x, 2 ) + std::pow( y - ponto.y, 2 ) );
+    }
+
+    void Ponto::imprimir() const {
+        std::cout << x << ", " << y << std::endl;
+    }
+}
+</pre>
+            <footer class="notes">
+            </footer>
+        </section>
+    </div>
+</div>
+
+<!-- ============================================================================== -->
+<!-- Arquivo de cabeçalho -->
+<div id="arquivo_cabecalho_2" class="slide">
+    <div>
+        <section>
+            <header>
+                <h2>Arquivo de cabeçalho <span class="flash">Circulo.h</span></h2>
+            </header>
+<pre class="prettyprint linenums" style="position: absolute; top: 75px; left: 240px">
+#ifndef _CIRCULO_H_
+#define _CIRCULO_H_
+
+#include "Ponto.h"
+
+namespace geometria
+{
+    class Circulo
+    {
+    private:
+        Ponto ponto;
+        int raio;
+
+    public:
+        Circulo( int x, int y, int raio );
+        Circulo( const Ponto& ponto, int raio );
+
+        const Ponto& getPonto() const;
+        int          getRaio () const;
+        int          area    () const;
+        void         imprimir() const;
+    };
+}
+ 
+#endif
+</pre>
+            <footer class="notes">
+            </footer>
+        </section>
+    </div>
+</div>
+
+<!-- ============================================================================== -->
+<!-- Arquivo de corpo -->
+<div id="arquivo_corpo_2" class="slide">
+    <div>
+        <section>
+            <header>
+                <h2>Arquivo de corpo <span class="flash">Circulo.cpp</span></h2>
+            </header>
+<pre class="prettyprint linenums" style="position: absolute; top: 70px; left: 70px">
+#include &lt;iostream&gt;
+#include &lt;cmath&gt;
+#include "Circulo.h"
+#define PI 3.14159
+
+namespace geometria
+{
+    Circulo::Circulo( int x, int y, int raio ) : ponto( x, y ), raio( raio ) {}
+    Circulo::Circulo( const Ponto& ponto, int raio ) : ponto( ponto ), raio( raio ) {}
+
+    const Ponto& Circulo::getPonto() const {
+        return ponto;
+    }
+    int inline Circulo::getRaio() const {
+        return raio;
+    }
+
+    int Circulo::area() const {
+        return PI * raio * raio;
+    }
+
+    void Circulo::imprimir() const {
+        ponto.imprimir();
+        std::cout << ", " << raio << std::endl;
+    }
+}
+</pre>
+            <footer class="notes">
+            </footer>
+        </section>
+    </div>
+</div>
+
+<!-- ============================================================================== -->
+<!-- Usando uma biblioteca estática -->
+<div id="usando_biblioteca_estatica" class="slide">
+    <div>
+        <section>
+            <header>
+                <h2>Usando uma biblioteca estática</h2>
+            </header>
+            <ul>
+                <li>Exemplo:
+                    <ul>
+                        <li>Programa que efetua cálculos geométricos com a biblioteca estática criada anteriormente</li>
+                    </ul>
+                </li>
+                <li>Passos:
+                    <ul class="longlist">
+                        <li>Criar um projeto do tipo aplicação em console</li>
+                        <li>Criar um arquivo de corpo contendo o método principal e inserí-lo no projeto
+                            <ul>
+                                <li>O arquivo deve fazer uso das classes definidas na biblioteca estática</li>
+                            </ul>
+                        </li>
+                        <li>Configurar o projeto para ter acesso aos protótipos e códigos objeto da biblioteca a fim de linkeditá-la juntamente com o programa
+                            <ul>
+                                <li>Inserir os diretórios dos arquivos de cabeçalho e arquivo de código objeto</li>
+                                <li>inserir o arquivo de código objeto (<span class="flash">.lib</span> ou <span class="flash">.a</span>)</li>
+                            </ul>
+                        </li>
+                        <li>Compilar o projeto para gerar o código executável (<span class="flash">.exe</span> ou <span class="flash">.out</span>)</li>
+                        <li>Executar o programa</li>
+                    </ul>
+                </li>
+            </ul>
+            <footer class="notes">
+            </footer>
+        </section>
+    </div>
+</div>
+
+<!-- ============================================================================== -->
+<!-- Arquivo de corpo do método principal -->
+<div id="arquivo_metodo_principal" class="slide">
+    <div>
+        <section>
+            <header>
+                <h2>Arquivo de corpo do método principal</h2>
+            </header>
+<pre class="prettyprint linenums" style="position: absolute; top: 70px; left: 140px">
+#include &lt;iostream&gt;
+#include &lt;Ponto.h&gt;
+#include &lt;Circulo.h&gt;
+
+using namespace geometria;
+int main()
+{
+    Ponto ponto1( 0, 0 );
+    Ponto ponto2( 10, 5 );
+    Ponto ponto3( ponto2 );
+    Circulo circulo1( 100, 50, 10 );
+    Circulo circulo2( ponto2, 20 );
+    
+    ponto1.imprimir();
+    ponto2.imprimir();
+    ponto3.imprimir();
+    circulo1.imprimir();
+    circulo2.imprimir();
+
+    std::cout << ponto1.distancia( ponto2 ) << std::endl;
+    std::cout << circulo1.getPonto().distancia( ponto3 ) << std::endl;
+    std::cout << circulo2.area() << std::endl;
+ 
+    return 0;
+}
+</pre>
+            <footer class="notes">
+            </footer>
+        </section>
+    </div>
+</div>
+
+<!-- ============================================================================== -->
+<!-- Bibliotecas dinâmicas -->
+<div id="Bibliotecas_dinamicas" class="slide">
+    <div>
+        <section>
+            <header>
+                <h2>Bibliotecas dinâmicas</h2>
+            </header>
+            <ul>
+                <li>Para serem geradas, as bibliotecas dinâmicas necessitam das seguintes etapas:
+                    <ul>
+                        <li>Pré-processamento</li>
+                        <li>Compilação</li>
+                        <li>Linkedição</li>
+                    </ul>
+                </li>
+                <li>Arquivos de corpo são utilizados da mesma forma que em um programa comum</li>
+                <li>Arquivos de cabeçalho necessitam de macros para explicitar a exportação ou importação do conteúdo da biblioteca</li>
+                <li><span style="color: red">OBS:</span> Biblioteca dinâmica não contém o método <span class="flash">main</span></li>
+            </ul>
+            <footer class="notes">
+            </footer>
+        </section>
+    </div>
+</div>
+
+<!-- ============================================================================== -->
+<!-- Criando uma biblioteca dinâmica -->
+<div id="criando_biblioteca_dinamica" class="slide">
+    <div>
+        <section>
+            <header>
+                <h2>Criando uma biblioteca dinâmica</h2>
+            </header>
+            <ul>
+                <li>Exemplo:
+                    <ul>
+                        <li>Biblioteca dinâmica que efetua cálculos geométricos</li>
+                    </ul>
+                </li>
+                <li>Passos:
+                    <ul>
+                        <li>Criar um projeto do tipo biblioteca dinâmica</li>
+                        <li>Criar dois arquivos de cabeçalho e inserí-los no projeto
+                            <ul>
+                                <li><span class="flash">Ponto.h</span> (arquivo anterior com macros)</li>
+                                <li><span class="flash">Circulo.h</span> (arquivo anterior com macros)</li>
+                            </ul>
+                        </li>
+                        <li>Criar dois arquivos de corpo e inserí-los no projeto
+                            <ul>
+                                <li><span class="flash">Ponto.cpp</span> (idêntico ao arquivo anterior)</li>
+                                <li><span class="flash">Circulo.cpp</span> (idêntico ao arquivo anterior)</li>
+                            </ul>
+                        </li>
+                        <li>Compilar o projeto para gerar o código executável (<span class="flash">.dll</span> ou <span class="flash">.so</span>)
+                    </ul>
+                </li>
+            </ul>
+            <figure style="position: absolute; left: 830px; top: 300px">
+                <img src="images/aula12/hpp.png">
+            </figure>
+            <figure style="position: absolute; left: 830px; top: 440px">
+                <img src="images/aula12/cpp.png">
+            </figure>
+            <footer class="notes">
+            </footer>
+        </section>
+    </div>
+</div>
+                
+<!-- ============================================================================== -->
+<!-- Arquivo de cabeçalho -->
+<div id="arquivo_cabecalho_3" class="slide">
+    <div>
+        <section>
+            <header>
+                <h2>Arquivo de cabeçalho <span class="flash">Ponto.h</span></h2>
+            </header>
+<pre class="prettyprint linenums" style="position: absolute; top: 100px; left: 140px">
+#ifndef _PONTO_H_
+#define _PONTO_H_
+
+#if defined _WIN32 || defined __CYGWIN__  // Macros para Windows
+    #ifdef BUILDING_DLL  // Identificador a ser definido para linkedição
+        #define DYNAMIC_MODE __declspec(dllexport)
+    #else
+        #define DYNAMIC_MODE __declspec(dllimport)
+    #endif
+#else  // Macros para Linux
+    #define DYNAMIC_MODE __attribute__((visibility("default")))
+#endif
+
+namespace geometria
+{
+    class DYNAMIC_MODE Ponto
+    {
+        // Usar o mesmo código da classe Ponto da biblioteca estática
+    };
+}
+
+#endif
+</pre>
+            <footer class="notes">
+            </footer>
+        </section>
+    </div>
+</div>
+
+<!-- ============================================================================== -->
+<!-- Arquivo de cabeçalho -->
+<div id="arquivo_cabecalho_4" class="slide">
+    <div>
+        <section>
+            <header>
+                <h2>Arquivo de cabeçalho <span class="flash">Circulo.h</span></h2>
+            </header>
+<pre class="prettyprint linenums" style="position: absolute; top: 80px; left: 140px">
+#ifndef _CIRCULO_H_
+#define _CIRCULO_H_
+
+#include "Ponto.h"
+
+#if defined _WIN32 || defined __CYGWIN__  // Macros para Windows
+    #ifdef BUILDING_DLL  // Identificador a ser definido para linkedição
+        #define DYNAMIC_MODE __declspec(dllexport)
+    #else
+        #define DYNAMIC_MODE __declspec(dllimport)
+    #endif
+#else  // Macros para Linux
+    #define DYNAMIC_MODE __attribute__((visibility("default")))
+#endif
+
+namespace geometria
+{
+    class DYNAMIC_MODE Circulo
+    {
+        // Usar o mesmo código da classe Circulo da biblioteca estática
+    };
+}
+ 
+#endif
+</pre>
+            <footer class="notes">
+            </footer>
+        </section>
+    </div>
+</div>
+
+<!-- ============================================================================== -->
+<!-- Usando uma biblioteca dinâmica -->
+<div id="usando_biblioteca_dinamica" class="slide">
+    <div>
+        <section>
+            <header>
+                <h2>Usando uma biblioteca dinâmica</h2>
+            </header>
+            <ul>
+                <li>Exemplo:
+                    <ul>
+                        <li>Programa que efetua cálculos geométricos com a biblioteca dinâmica criada anteriormente</li>
+                    </ul>
+                </li>
+                <li>Passos:
+                    <ul class="longlist">
+                        <li>Criar um projeto do tipo aplicação em console</li>
+                        <li>Criar um arquivo de corpo contendo o método principal e inserí-lo no projeto
+                            <ul>
+                                <li>O arquivo deve fazer uso das classes definidas na biblioteca dinâmica</li>
+                            </ul>
+                        </li>
+                        <li>Configurar o projeto para ter acesso aos protótipos e referências da biblioteca a fim de linkeditar o programa
+                            <ul>
+                                <li>Inserir os diretórios dos arquivos de cabeçalho e arquivo de referências</li>
+                                <li>inserir o arquivo de referências do código objeto (<span class="flash">.lib</span> ou <span class="flash">.a</span>)</li>
+                            </ul>
+                        </li>
+                        <li>Compilar o projeto para gerar o código executável (<span class="flash">.exe</span> ou <span class="flash">.out</span>)</li>
+                        <li>Executar o programa juntamente com o executável da biblioteca (<span class="flash">.dll</span> ou <span class="flash">.so</span>)</li>
+                    </ul>
+                </li>
+            </ul>
+            <footer class="notes">
+            </footer>
+        </section>
+    </div>
+</div>
+
+<!-- ============================================================================== -->
+<!-- Resumo da aula -->
+<div id="resumo" class="slide">
+    <div>
+        <section>
+            <header>
+                <h2>Resumo da aula</h2>
+            </header>
+            <ul>
+                <li>Bibliotecas estáticas necessitam pré-processamento e compilação</li>
+                <li>Bibliotecas dinâmicas necessitam também linkedição</li>
+                <li>Nas bibliotecas estáticas, arquivos de cabeçalho e de corpo são utilizados da mesma forma que em um programa comum</li>
+                <li>Nas bibliotecas dinâmicas, arquivos de cabeçalho necessitam de macros para explicitar a exportação ou importação do conteúdo</li>
+                <li>O uso de bibliotecas em um programa requer configurações para que os arquivos necessários possam ser acessados</li>
+            </ul>
+            <footer class="notes">
+            </footer>
+        </section>
+    </div>
+</div>
+
+<!-- ============================================================================== -->
+<!-- Exercite-se (1) -->
+<div id="exercite_se_1" class="slide">
+    <div>
+        <section>
+            <header>
+                <h2>Exercite-se (1)</h2>
+            </header>
+            <ul>
+                <li>Modificar as bibliotecas apresentadas na aula e os programas que as utilizam para que as classes <span class="flash">Ponto</span> e <span class="flash">Circulo</span> passem a ser genéricas através do uso de <span class="flash">templates</span>
+                    <ul>
+                        <li>Lembrar que a implementação de métodos de classes templates não pode ser feita em arquivos de corpo <span class="flash">.cpp</span>, separada da estrutura das classes situadas em arquivos de cabeçalho <span class="flash">.h</span></li>
+                        <li>Ao invés disto, devemos implementar os métodos das classes templates em arquivos <span class="flash">.inl (inline)</span> que devem ser incluídos no final dos arquivos de cabeçalho</li>
+                    </ul>
+                </li>
+            </ul>
+            <footer class="notes">
+            </footer>
+        </section>
+    </div>
+</div>
+
+<!-- ============================================================================== -->
+<!-- Exercite-se (2) -->
+<div id="exercite_se_2" class="slide">
+    <div>
+        <section>
+            <header>
+                <h2>Exercite-se (2)</h2>
+            </header>
+            <ul>
+                <li>Rever o código fonte desenvolvido para o exercício do <span class="flash">supermercado Vapt-Vupt</span> com o intuito de separar código genérico de código específico
+                    <ul>
+                        <li>Criar uma biblioteca com as estruturas genéricas desenvolvidas</li>
+                        <li>Modificar o programa para fazer uso da biblioteca criada, eliminando do programa todo o código presente na biblioteca</li>
+                    </ul>
+                </li>
+            </ul>
+            <footer class="notes">
+            </footer>
+        </section>
+    </div>
+</div>
+
+<!-- ============================================================================== -->
+<!-- Se não quiser a barra de progressão, tem apenas que eliminar esta tag <div> -->
+<div class="progress">
+    <div></div>
+</div>
+
+<!-- ============================================================================== -->
+<!-- Scripts -->
+<script type="text/javascript" src="../../common/scripts/presentations/script.js"></script>
+<script type="text/javascript" src="../../common/scripts/code-prettify/prettify.js"></script>
+<script type="text/javascript" src="../../common/scripts/jquery.js"></script>
+
+</body>
+
+</html>

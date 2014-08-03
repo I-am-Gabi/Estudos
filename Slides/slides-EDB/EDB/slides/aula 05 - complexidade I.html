@@ -1,0 +1,767 @@
+<!DOCTYPE HTML>
+<html lang="pt-BR" class="nonumbers">
+<head>
+    <title>Estrutura de Dados Básicas</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=1274, user-scalable=no">
+    <link rel="stylesheet" href="../../common/themes/presentations/styles/style.css" type="text/css">
+    <link rel="stylesheet" href="../../common/themes/presentations/styles/print.css" type="text/css"  media="print">
+    <link rel="stylesheet" href="../../common/themes/edb/styles/presentation.css" type="text/css">
+    <link rel="stylesheet" href="../../common/themes/code-prettify/styles/prettify.css" type="text/css">
+    <link rel="stylesheet" href="../../common/themes/edb/styles/code-prettify.css" type="text/css">
+</head>
+<body class="list" onload="prettyPrint();">
+
+    <header class="caption">
+        <h1>Estruturas de Dados Básicas I</h1>
+        <h2>Aulas 05 e 06 - Complexidade de algoritmos</h2>
+    </header>
+    <div id="capa" class="slide cover w">
+        <div>
+            <section>
+                <header>
+                    <h3>Estruturas de Dados Básicas I</h3>
+                    <h2>Aulas 05 e 06- Complexidade de algoritmos</h2>
+                    <img src="./images/aula05/complexity.jpg">
+                </header>
+            </section>
+        </div>
+    </div>
+
+    <div id="sld-01" class="slide">
+        <div>
+            <section>
+                <header>
+                    <h2>Motivação e objetivos</h2>
+                </header>
+                <ul class="inner">
+                    <li class="active">Motivação</li>
+                    <ul>
+                        <li>Não sempre a análise empírica é uma boa alternativa.</li>
+                        <li>As vezes, é necessário se ter alguma indicação de eficiência antes de qualquer investimento em desenvolvimento.</li>
+                        <li>... e todos os demais incovenientes da análise empírica.</li>
+                    </ul>
+                    <br>
+                    <li class="active">Objetivos</li>
+                    <ul>
+                        <li>Mostrar que é possível avaliar a eficiência de algoritmos sem necessariamente ter que implementá-los.</li>
+                        <li>Apresentar como representar e avaliar matematicamente a eficiência de algoritmos.</li>
+                    </ul>
+                </ul>
+                <footer class="notes"></footer>
+            </section>
+        </div>
+    </div>
+
+    <div id="sld-02" class="slide">
+        <div>
+            <section>
+                <header><h2>Análise matemática de algoritmos</h2></header>
+                <ul class="inner">
+                    <li class="active">É possível comparar algoritmos independente<br>de suporte computacional.</li>
+                    <br>
+                    <li>Permite visualizar uma tendência de<br>comportamento independente de ambiente.</li>
+                    <br>
+                    <li>Ideia de "faixa de trabalho" em função<br>dos dados (melhor e pior caso).
+                        <div style="position: absolute; bottom: 10%; right: 10%; width:15%">
+                            <img src="./images/aula05/faixa.png"
+                                style="position: absolute; bottom: 0%; right: 0%; width:100%">
+                        </div>
+                    </li>
+                </ul>
+                <footer class="notes"></footer>
+            </section>
+        </div>
+    </div>
+
+    <div id="sld-03" class="slide">
+        <div>
+            <section>
+                <div>
+                <header>Princípios de análise de algoritmo</header>
+                <ul class="inner">
+                    <li class="active">A maioria dos algoritmos possui um <strong>parâmetro primário \(n\)</strong>, que afeta significativamente o tempo de execução</li>
+                    <li>Normalmente \(n\) é diretamente proporcional ao <strong>tamanho dos dados</strong> a serem processados</li>
+                    <li>Objetivos<br>
+                        <ul>
+                            <li>Expressar a necessidade de recursos<br> em termos de \(n\) (função)
+                                <div style="position: absolute; bottom: 5%; right: 5%; height:40%">
+                                    <img src="./images/aula05/funcao.png"
+                                        style="position: absolute; bottom: 0%; right: 0%; height:100%">
+                                </div>
+                            </li>
+                            <li>Usar expressões algébricas simples, mas<br> que expressem uma tendência</li>
+                            <li>Oferecer uma análise independente<br>de máquina, compilador ou sistema</li>
+                        </ul>
+                    </li>
+                </ul>
+                </div>
+                <footer class="notes"></footer>
+            </section>
+        </div>
+    </div>
+    <div id="sld-04" class="slide">
+        <div>
+            <section>
+                <header>Expressando tendências</header>
+                <ul class="inner">
+                    <li>Simplificações das expressões</li>
+                        <ul>
+                            <li>Não são consideradas <strong>constantes</strong> aditivas ou multiplicativas</li>
+                            <li>Apenas o termos de <strong>maior grandeza</strong> é considerado</li>
+                            <li>Exemplo: \(2n^3 + 5n/2 - 29 \Rightarrow n^3\) </li>
+                        </ul>
+                    </li>
+                    <li>Exemplos de funções com diferentes <strong>tendências</strong> de crescimento
+                        <div style="position: absolute; bottom: 10%; left: 10%; width:80%">
+                            <img src="./images/aula05/funcoes.png"
+                                style="position: absolute; bottom: 0%; right: 0%; width:100%">
+                        </div>
+                    </li>
+                </ul>
+                <footer class="notes"></footer>
+            </section>
+        </div>
+    </div>
+    <div id="sld-05" class="slide">
+        <div>
+            <section>
+                <header>Procedimento</header>
+                <ul class="inner">
+                    <li>Um algoritmo pode ser dividido em etapas</li>
+                    <li>Cada etapa possui uma ou mais operações básicas (ou passos)</li>
+                    <li>Cada passo envolve um número fixo de operações básicas cujos tempos de execução são considerados constantes</li>
+                    <li>A etapa com maior número de execuções é considerada <strong>etapa donimante</strong></li>
+                    <li>A expressão do algoritmo será a que<br>representa a etapa dominante
+                        <div style="position: absolute; bottom: 5%; right: 5%; width:35%">
+                            <img src="./images/aula05/etapas.png"
+                                style="position: absolute; bottom: 0%; right: 0%; width:100%">
+                        </div>
+                    </li>
+                </ul>
+                <footer class="notes"></footer>
+            </section>
+        </div>
+    </div>
+
+<div id="sld-06" class="slide">
+    <div>
+        <section>
+            <header>Principais expressões</header>
+            <ul class="inner">
+                <li><strong>\(1\)</strong> (constante): quando a execução independe dos dados de entrada</li>
+                <li><strong>\(n\)</strong>: quando é necessário processar todos elementos, cada um em tempo constante</li>
+                <li><strong>\(n^2\)</strong>: quando, para cada elemento, é necessário verificar todos os demais</li>
+                <li><strong>\(n^3\)</strong>: quando é necessário verificar combinações triplas dos dados</li>
+                <li><strong>\(\log_2 n\)</strong>: quando o problema é reduzido em 2 subproblemas com a metade do tamanho original e apenas 1 deles é processado.</li>
+                <li><strong>\(n\log_2 n\)</strong>: quando, para cada elemento, o problema é subdividido</li> 
+                <li><strong>\(2^n\)</strong>: normalmente, quando verifica-se todas as possíveis alternativas de solução (em geral, impraticável)</li> 
+            </ul>
+            <footer class="notes"></footer>
+        </section>
+    </div>
+</div>
+
+    <div id="sld-07" class="slide">
+        <div>
+            <section>
+                <header>Exemplo 1: expressão constante</header>
+<pre><code class="prettyprint">/* retorna um elemento do vetor */
+int getValue(int v[], int N, int index) {
+  if (index < 0 || index >= N)
+    ERROR ("Acesso fora dos limites do vetor");
+  else
+    return v[index];
+}</code></pre>
+                <ul class="inner">
+                    <li>Entrada: <code>v</code>, <code>N</code> e <code>index</code>. 
+                    <li>Uma única etapa, cujos passos são:</li>
+                    <ol>
+                        <li>Teste se <code>index</code> < 0 ou <code>index</code> >= <code>N</code></li>
+                        <li>Gera erro ou retorna valor</li>
+                    </ol>
+                    <li>Tempo de execução não depende da entrada: <strong>constante</strong></li>
+                    <li class="nobullet">
+                        <div class="box" style="bottom: 15%; right: 10%; width:20%; height: 30%">
+                            <img src="./images/aula05/constante.png"
+                                style="position: absolute; bottom: 0%; right: 0%; width:100%">
+                        </div>
+                    </li>
+                </ul>
+                <footer class="notes"></footer>
+            </section>
+        </div>
+    </div>
+
+    <div id="sld-08" class="slide">
+        <div>
+            <section>
+                <header>Exemplo 2: linear</header>
+<pre><code class="prettyprint">/* acha o índice do maior valor de um vetor */
+int max (int v[], int N) {
+  if (N > 0) {
+    return -1; /* valor não encontrado, pois o vetor está vazio */
+  }
+  else {
+    int max = 0;                /* inicia com o primeiro índice */
+    for (int i = 1; i < N; ++i) {
+      if (v[i] > v[max])        /* atualiza se for maior */
+        max = i;
+    }
+  }
+  return max;
+}</code></pre>
+                <footer class="notes"></footer>
+            </section>
+        </div>
+    </div>
+
+    <div id="sld-09" class="slide">
+        <div>
+            <section>
+                <header>Exemplo 2: linear</header>
+<pre><code class="prettyprint linenums">/* ... */
+int max (int v[], int N) {
+  if (N > 0) {
+    return -1;
+  }
+  else {
+    int max = 0;
+    for (int i = 1; i < N; ++i) {
+      if (v[i] > v[max])         
+        max = i;                 
+    }
+  }
+  return max;                    
+}</code></pre>
+                <ul class="inner">
+                    <li class="nobullet">
+                    <div class="box" style="top:20%; right:5%;">
+                        <ul class="inner">
+                            <li class="active">Etapa 1: p3 + p4 \(\rightarrow\) constante</li>
+                            <li>Etapa 2: p7 + Etapa 3 + p13</li>
+                            <li>Etapa 3: \((n-1)\).(p8 + p9 + p10)</li>
+                            <li>\(T = c_1 + (n-1).c_2 + c_3\)</li>
+                            <li>\(T = n\) (desprezando as constantes)</li>
+                            <li>O tempo cresce linearmente
+                                <br><br><br><br><br>
+                                <div style="position: absolute; bottom: 0%; right: 25%; width:50%">
+                                    <img src="./images/aula05/linear.png"
+                                        style="position: absolute; bottom: 0%; right: 0%; width:100%">
+                                </div>
+                            </li>
+                        </ul>
+                    </div>
+                    </li>
+                </ul>
+                <footer class="notes"></footer>
+            </section>
+        </div>
+    </div>
+
+    <div id="sld-10" class="slide">
+        <div>
+            <section>
+                <header>Exemplo 3: quadrática</header>
+<pre><code class="prettyprint">int sum (int v[], int N) {
+  for (int i = 0; i < N; ++i) {
+    for (int j = 1, s = v[0]; j <= i; ++j)
+      s += v[j];
+    printf("%i\n", s);
+  }
+}</code></pre>
+                <ul class="inner">
+                    <li>O que esta função faz?</li>
+                    <ul>
+                        <li>Imprime a soma dos subvetores iniciados na posição 0</li>
+                        <li>Para \(v = \{ 34, 21, 35, 28, 57, 12 \}\)<br>
+                            Saída: \(34, 55, 90, 118, 175, 187\)
+                        </li>
+                    </ul>
+                </ul>
+                <footer class="notes"></footer>
+            </section>
+        </div>
+    </div>
+
+
+    <div id="sld-11" class="slide">
+        <div>
+            <section>
+                <header>Exemplo 3: quadrática</header>
+<pre><code class="prettyprint linenums">int sum (int v[], int N) {
+  for (int i = 0; i < N; ++i) {
+    for (int j = 1, s = v[0]; j <= i; ++j)
+      s += v[j];
+    printf("%i\n", s);
+  }
+}</code></pre>
+                <ul class="inner">
+                    <li>Qual a função para expressar a tendência de crescimento?</li>
+                    <li>(2) \(\Rightarrow n\) vezes (de \(0\) a \(n-1\))</li>
+                    <li>(3) \(\Rightarrow i\) vezes, onde \(i \in \{1,..., n-1\}\)</li>
+                    <li>(4) \(c_1\) (constante)</li>
+                    <li>(5) \(c_2\) (constante)</li>
+                    <li class="nobullet">
+                    <div class="box" style="bottom:2%; right:2%;">
+                        <ul class="inner short">
+                            <li>Número de passos
+                            \[\sum_{i=0}^{n-1} (\sum_{j=1}^{i} c_1 + c_2)\]</li>
+                            <li class="nobullet">\[\sum_{i=0}^{n-1} c_1.i + \sum_{i=0}^{n-1} c_2\]</li>
+                            <li class="nobullet">\[c_1.\sum_{i=0}^{n-1} i + c_2.(n-1)\]</li>
+                            <li class="nobullet">\[c_1.(\frac{n(n-1)}{2}) + c_2.(n-1)\]</li>
+                            <li>Simplificando \(\Rightarrow n^2\)</li>
+                        </ul>
+                    </div>
+                    </li>
+                </ul>
+                <footer class="notes"></footer>
+            </section>
+        </div>
+    </div>
+
+    <div id="sld-12" class="slide">
+        <div>
+            <section>
+                <header>Exemplo 4: linear (recursivo)</header>
+<pre><code class="prettyprint">/* calcula o somatório de um arranjo */
+int sum(int v[], int N) {
+    if (N == 0)
+        return 0;
+    else
+        return sum(v, N-1) + v[N-1];
+}</code></pre>
+                <ul class="inner">
+                    <li>Cada chamada recursiva decrementa o tamanho do vetor, até chegar no caso base, quando \(n = 0\)</li>
+                    <li>Haverá \(n+1\) chamadas recursivas</li>
+                    <li>O número de passos de cada chamada é constante (\(c\))</li>
+                    <li>Logo é \((n+1).c\), que simplificando é \(\Rightarrow n\)</li>
+                </ul>
+                <footer class="notes"></footer>
+            </section>
+        </div>
+    </div>
+
+    <div id="sld-13" class="slide">
+        <div>
+            <section>
+                <header>Exemplo 5: logarítmica (recursivo)</header>
+<pre><code class="prettyprint">/* busca binária */
+int buscaBin(int v[], int N, int x) {
+    int i = N/2, y = v[i];
+    if (N == 0)
+        return -1;
+    else if (x == y)
+        return i;
+    else if (x > y)
+        return buscaBin(v, i, x);
+    else
+        return buscaBin(&v[i+1], N-(i+1), x);
+}</code></pre>
+                <ul class="inner short">
+                    <li>Cada chamada recursiva reduz o tamanho do vetor pela metade, até chegar em um dos dois casos base</li>
+                    <li>Como cada chamada é realizada em tempo constante, o número de passos vai ser definido pelo número de chamadas recursivas</li>
+                    <li class="nobullet">
+                        <div class="box" style="bottom: 5%; right: 5%">
+                            <ul class="inner short">
+                                <li>1a chamada: \(n\)</li>
+                                <li>2a chamada: \(n/2\)</li>
+                                <li>3a chamada: \(n/2^2\)</li>
+                                <li>4a chamada: \(n/2^3\)</li>
+                                <li>\(m\)-ésima chamada: \(n/2^{m-1}\)</li>
+                                <li>\(m\)-ésima é em tempo constante
+                                    \[n/2^{m-1} = 1\]
+                                </li>
+                                <li class="nobullet">\[n = 2^{m-1}\]</li>
+                                <li class="nobullet">\[\log_2 n = m - 1\]</li>
+                                <li class="nobullet">\[m \Rightarrow \log_2 n\]</li>
+                            </ul>
+                        </div>
+                    </li>
+                </ul>
+                <footer class="notes"></footer>
+            </section>
+        </div>
+    </div>
+
+    <div id="sld-14" class="slide">
+        <div>
+            <section>
+                <header>
+                    <h2>Atividade de reforço (1)</h2>
+                </header>
+                <ul class="inner">
+                    <li class="active">O que faz e como representar o número de passos do algoritmo:</li>
+<pre><code class="prettyprint">int mystery(int v[], int n) {
+  int count = 0;
+  for (int i = 0; i < n; i++)
+    for (int j = 0, j < n; j++)
+      if (v[i] == v[j])
+        count++;
+  printf("%i\n", count/2);
+}</code></pre>
+                    <li>O 1o laço executa \(n\) vezes, o 2o também executa \(n\) e, dentro do segundo é realizado no máximo 2 operações.</li>
+                    <li>Então, a função executa \(n.n.2 = 2.n^2 \Rightarrow n^2 \) passos.</li>
+                </ul>
+                <footer class="notes"></footer>
+            </section>
+        </div>
+    </div>
+
+    <div id="sld-15" class="slide">
+        <div>
+            <section>
+                <header>Atividade de reforço (2)</header>
+                <ul class="inner">
+                    <li class="active">O que faz e como representar o número de passos do algoritmo:</li>
+<pre><code class="prettyprint">void mystery(int v[], int n) {
+  for (int i = 0; i < n; i++) {
+    for (int j = 1, sum = v[0]; j <= i; j++)
+      sum += v[j];
+    printf("%i: %i\n", i, sum);
+  }
+}</code></pre>
+                    <li>O 1o laço executa \(n\) vezes, porém o número de passo do 2o depende do primeiro</li>
+                    <li>É melhor juntá-los numa única expressão, através de somatórios</li>
+                </ul>
+                <footer class="notes"></footer>
+            </section>
+        </div>
+    </div>
+    <div id="sld-16" class="slide">
+        <div>
+            <section>
+                <div>
+                <header>Atividade de reforço (2)</header>
+                <ul class="inner">
+                    <li class="active">O que faz e como representar o número de passos do algoritmo:</li>
+<pre><code class="prettyprint">void mystery(int v[], int n) {
+  for (int i = 0; i < n; i++) {
+    for (int j = 1, sum = v[0]; j <= i; j++)
+      sum += v[j];
+    printf("%i: %i\n", i, sum);
+  }
+}</code></pre>
+\[\sum^{n}_{i=1}\sum^i_{j=1} 1 = \sum^{n}_{i=1} i = \frac{n(n + 1)}{2} = \frac{n^2}{2} + \frac{n}{2} \Rightarrow n^2\]
+                </ul>
+                </div>
+                <footer class="notes"></footer>
+            </section>
+        </div>
+    </div>
+
+    <div id="sld-17" class="slide">
+        <div>
+            <section>
+                <header>Atividade de reforço (3)</header>
+                <ul>
+                    <li>Escreva uma função para obter o \(k\)-ésimo menor elemento de uma lista sequencial \(L\) com \(n\) elementos (\(1 \leq k \leq n\)), sabendo que não há elementos repetidos em \(L\).
+                    </li>
+                    <li>Que função expressa seu algoritmo?
+                    </li>
+                    <li>Forneça um exemplo ilustrativo com, pelo menos, \(n\) = 5 elementos.
+                    </li>
+                </ul>
+                <footer class="notes"></footer>
+            </section>
+        </div>
+    </div>
+
+<div id="sld-18" class="slide">
+    <div>
+        <section>
+            <header>Uma possível solução</header>
+<pre><code class="prettyprint">int findSmallest(int k, int v[], int N) {
+    int min, aux, i, j;
+    for (i = 0; i < k-1; ++i) {
+        min = i;
+        for (j = i+1; j < N; ++j) {
+            if (v[j] < v[min])
+                min = j;
+        }
+        aux = v[i];
+        v[i] = v[min];
+        v[min] = aux;
+    }
+    return v[i];
+}</code></pre>  
+            <ul class="inner">
+                <li class="nobullet">\[\sum_{i=0}^{k-2}(c_1 + \sum_{j=i+1}^{n-1}c_2) \Rightarrow k + k.n \Rightarrow k.n \]</li>
+            </ul>       
+            <footer class="notes"></footer>
+        </section>
+    </div>
+</div>
+
+<!--div id="sld-19" class="slide">
+    <div>
+        <section>
+            <header>Outra possível solução</header>
+<pre><code class="prettyprint">int findSmallest(int k, int v[], int N) {
+    int min, i, j, lastmin=v[0];
+    for (i = 0; i < k-1; i++) {
+        for (j = 1, min = v[0]; j < N && v[j] <= lastmin; j++);
+        min = v[j];
+        for (j = 0; j < N; j++) {
+            if (lastmin < v[j] && v[j] < min) {
+                min = v[j];
+            }
+        }
+        lastmin = min;
+    }
+    return lastmin;
+}</code></pre>          
+            <ul class="inner">
+                <li class="nobullet">\[\sum_{i=0}^{k-2}(\sum_{1}^{n-1}c_1 + \sum_{j=0}^{n-1}c_2 + c_3) \Rightarrow k.n + k.n +k \Rightarrow k.n \]</li>
+            </ul>       
+            <footer class="notes"></footer>
+        </section>
+    </div>
+</div-->
+
+    <div id="sld-20" class="slide">
+        <div>
+            <section>
+                <header>Alguns padrões (para identificar)</header>
+                <ul class="inner">
+                    <li>Uma sequência sem laço ou recursão conta passo constante (<strong>\(1\)</strong>)
+<pre><code class="prettyprint">/* bloco com número de passos constante */</code></pre>
+                    </li>
+                    <li>Um único laço com \(n\) passos internos constante: linear (<strong>\(n\)</strong>)
+<pre><code class="prettyprint">for(i=0; i < n; i++)
+    /* bloco com número de passos constante */</code></pre>
+                    </li>
+
+                    <li>Dois laços de tamanho \(n\) aninhados: quadrático (<strong>\(n^2\)</strong>)
+<pre><code class="prettyprint">for(i=0; i < n; i++)
+    for(j=0; j < n; j++)
+        /* bloco com número de passos constante */</code></pre>
+                    </li>
+                </ul>
+                <footer class="notes"></footer>
+            </section>
+        </div>
+    </div>
+
+    <div id="sld-21" class="slide">
+        <div>
+            <section>
+                <header>Alguns padrões (para identificar)</header>
+                <ul class="inner">
+                    <li>Um laço interno dependente de um externo: quadrático (<strong>\(n^2\)</strong>)<br>
+                        (requer uso de somatório duplo)
+<pre><code class="prettyprint">for(i=0; i < n; i++)
+    for(j=0; j < i ; j++)
+        /* bloco com número de passos constante */</code></pre>
+                    </li>
+                    <li>Quando divide o problema pela metade: logarítmico (<strong>\(log_2 n\)</strong>)
+<pre><code class="prettyprint">if (test)
+    subprob(0, n/2);    /* do início à metade */
+else
+    subprob(n/2+1, n-1) /* da metade ao fim */
+</code></pre>
+                    </li>
+                </ul>
+                <footer class="notes"></footer>
+            </section>
+        </div>
+    </div>
+
+    <div id="sld-23" class="slide">
+        <div>
+            <section>
+                <header>Dependência dos dados</header>
+                <ul class="inner">
+                    <li>Nem sempre a análise é trivial: o número de iterações nos laços <strong>pode depender</strong> dos dados de entrada</li>
+                    <li>Exemplo (comprimento do maior subvetor ordenado)
+<pre><code class="prettyprint">int longest(int v[], int N) {
+  int i, j, k, length, max = 0;
+  for (i = 0; i < N-1; ++i) {
+    for (j = i; j < N-1 && v[j] < v[j+1]; j++);
+    length = j - i + 1;
+    if ( length > max )
+      max = length;
+  }
+  return max; /* solução ineficiente, mas server para ilustrar */
+}</code></pre></li>
+                <li>Qual a expressão se <code>v</code> estiver em ordem crescente? ou decrescente?</li>
+                </ul>
+                <footer class="notes"></footer>
+            </section>
+        </div>
+    </div>
+
+    <div id="sld-24" class="slide">
+        <div>
+            <section>
+                <header>Dependência dos dados</header>
+<pre style="margin-bottom: 25px;"><code class="prettyprint linenums">int longest(int v[], int N) {
+  int i, j, k, length, max = 0;
+  for (i = 0; i < N-1; ++i) {
+    for (j = i; j < N-1 && v[j] < v[j+1]; j++);
+    length = j - i + 1;
+    if ( length > max )
+      max = length;
+  }
+  return max;
+}</code></pre>
+                <ul class="inner">
+                    <li class="active"><code>v</code> em ordem decrescente</li>
+                    <ul class="short">
+                        <li>(3) \(\Rightarrow n-1\) vezes e (4) \(\Rightarrow 1\) vez</li>
+                        <li>Expressão é \(\Rightarrow n\) (crescimento linear)</li>
+                    </ul>
+                    <li class="active"><code>v</code> em ordem crescente</li>
+                    <ul class="short">
+                        <li>(3) \(\Rightarrow n-1\) vezes e (4) \(\Rightarrow j\) vezes, para \(j \in \{i,...,n-1\}\)</li>
+                        <li>Expressão é \(\Rightarrow n^2\) (crescimento quadrático)</li>
+                    </ul>
+                </ul>
+                <footer class="notes"></footer>
+            </section>
+        </div>
+    </div>
+
+<div id="sld-25" class="slide">
+    <div>
+        <section>
+            <header>Complexidade de algoritmos</header>
+            <ul class="inner">
+                <li>Dependendo dos dados, um algoritmo pode, então funcionar de forma eficiente ou não</li>
+                <li>A análise dos casos avalia a <strong>complexidade</strong> do algoritmo</li>
+                <li>Há diferentes medidas de complexidade</li>
+                <ul>
+                    <li><strong>Pior caso</strong>: corresponde ao número de passos para a entrada mais desfavorável</li>
+                    <li><strong>Melhor caso</strong>: corresponde ao número de passos para a entrada mais favorável</li>
+                    <li><strong>Caso médio</strong>: corresponde à média dos passos para cada possível entrada de acordo com a probabilidade dela ocorrer</li>
+                </ul>
+            </ul>
+            <footer class="notes"></footer>
+        </section>
+    </div>
+</div>
+
+<div id="sld-26" class="slide">
+    <div>
+        <section>
+            <header>Limite inferior e superior</header>
+            <ul class="inner">
+                <li>A complexidade de pior caso define um <strong>limite superior</strong></li>
+                <li>A complexidade de melhor caso define um limite <strong>inferior</strong></li>
+                <li>Normalmente, o algoritmo funciona entre os dois
+                    <div style="position: absolute; bottom: 10%; left: 35%; width:30%">
+                        <img src="./images/aula05/limites.png"
+                            style="position: absolute; bottom: 0%; right: 0%; width:100%">
+                    </div>
+                </li>
+            </ul>
+            <footer class="notes"></footer>
+        </section>
+    </div>
+</div>
+
+<div id="sld-27" class="slide">
+    <div>
+        <section>
+            <header>Limite superior</header>
+            <ul class="inner">
+                <li>Uma das mais importantes notação (não pode ser pior)</li>
+                <li>Limite representado pela notação <strong>\(O\)</strong> (big-Oh)</li>
+                <li><strong>Definição \(O\)</strong>: Sejam \(f\) e \(g\) funções positivas.
+                    \[g(n) \mbox{ é } O(f(n)) \Leftrightarrow g(n) \leq c_0.f(n) \mbox{ para } c_0 > 0 \mbox{ e } n > n_0\]</li>
+                <li class="nobullet">
+                    <div style="position: absolute; bottom: 2%; left: 35%; width:28%">
+                        <img src="./images/aula05/lim_superior.png"
+                            style="position: absolute; bottom: 0%; right: 0%; width:100%">
+                    </div>
+                </li>
+            </ul>
+            <footer class="notes"></footer>
+        </section>
+    </div>
+</div>
+
+<div id="sld-28" class="slide">
+    <div>
+        <section>
+            <header>Crescimento assintótico</header>
+            <ul class="inner">
+                <li>O objetivo da definição é estabelecer uma <strong>ordem relativa</strong> entre as funções</li>
+                <li>Estamos interessado avaliar o quão rápido cresce uma função</li>
+                <li>Por exemplo, considerando \(g(n) = 1000.n\) e \(f(n) = n^2\)<br>Quem cresce com uma taxa maior?</li>
+                <li class="nobullet">\[g(n) \leq c_0.f(n) \mbox{ }\forall \mbox{ } n > 1000, c_0 = 1\]</li>
+                <li>Então, podemos dizer que \(1000.n\) é \(O(n^2)\)</li>
+                <li>Ou simplesmente \(n\) é \(O(n^2)\)</li>
+            </ul>
+            <footer class="notes"></footer>
+        </section>
+    </div>
+</div>
+
+<div id="sld-29" class="slide">
+    <div>
+        <section>
+            <header>Limite inferior</header>
+            <ul class="inner">
+                <li>Limite representado pela notação <strong>\(\Omega\)</strong> (big-Omega)</li>
+                <li><strong>Definição \(\Omega\)</strong>: Sejam \(f\) e \(g\) funções positivas.
+                    \[g(n) \mbox{ é } \Omega(f(n)) \Leftrightarrow g(n) \geq c_0.f(n) \mbox{ para } c_0 > 0 \mbox{ e } n > n_0\]</li>
+                <li>Exemplo: \(n^2\) é \(\Omega(n)\)</li>
+                <li class="nobullet">
+                    <div style="position: absolute; bottom: 2%; left: 35%; width:28%">
+                        <img src="./images/aula05/lim_inferior.png"
+                            style="position: absolute; bottom: 0%; right: 0%; width:100%">
+                    </div>
+                </li>
+            </ul>
+            <footer class="notes"></footer>
+        </section>
+    </div>
+</div>
+
+<div id="sld-30" class="slide">
+    <div>
+        <section>
+            <header>Limite exato</header>
+            <ul class="inner">
+                <li>A notação \(\Theta\) (big-Theta) permite expressar uma estimativa precisa da complexidade de um algoritmo</li>
+                <li><strong>Definição \(\Theta\)</strong>: Sejam \(f\) e \(g\) funções positivas.
+                    \[g(n) \mbox{ é } \Theta(f(n)) \Leftrightarrow g(n) \mbox{ for } O(f(n)) \mbox{ e } \Omega(f(n))\]</li>
+                <li>Exemplo: \(1000.n^2\) é \(\Theta(n^2)\)</li>
+                <li class="nobullet">
+                    <div style="position: absolute; bottom: 2%; left: 35%; width:28%">
+                        <img src="./images/aula05/lim_exato.png"
+                            style="position: absolute; bottom: 0%; right: 0%; width:100%">
+                    </div>
+                </li>
+            </ul>
+            <footer class="notes"></footer>
+        </section>
+    </div>
+</div>
+
+<div id="sld-31" class="slide">
+    <div>
+        <section>
+            <header>Atividade</header>
+            <ul>
+                <li>Escrever uma função para achar a soma máxima de uma subsequência e expressar seu melhor e pior caso</li>
+                <li>Dada uma sequência de \(n\) valores inteiros (possivelmente negativos) \(A = \{a_1, a_2,..., a_n\}\), encontrar a maior soma de valores contínuos. Ou seja, encontrar \[\max \sum_{k=i}^{j} a_k\]</li>
+                <li>Por exemplo, para \(A = \{ -2, 11, -4, 13, -5, -2 \}\)<br>
+                    a resposta é \(20\) (i.e. a soma de \(a_2\) até \(a_4\))</li>
+            </ul>
+            <footer class="notes"></footer>
+        </section>
+    </div>
+</div>
+<script type="text/javascript" src="../../common/scripts/presentations/script.js"></script>
+<script type="text/javascript" src="../../common/scripts/code-prettify/prettify.js"></script>
+<script type="text/javascript" src="../../common/scripts/animation/jsmove.js"></script>
+<script type="text/javascript" src="../../common/scripts/mathjax/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+</body>
+</html>
+
+
+
+
+

@@ -1,0 +1,509 @@
+<!DOCTYPE HTML>
+<html lang="pt-BR" class="nonumbers">
+<head>
+	<title>Estrutura de Dados Básicas</title>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=1274, user-scalable=no">
+	<link rel="stylesheet" href="../../common/themes/presentations/styles/style.css" type="text/css">
+	<link rel="stylesheet" href="../../common/themes/presentations/styles/print.css" type="text/css"  media="print">
+	<link rel="stylesheet" href="../../common/themes/edb/styles/presentation.css" type="text/css">
+	<link rel="stylesheet" href="../../common/themes/code-prettify/styles/prettify.css" type="text/css">
+</head>
+<body class="list" onload="prettyPrint();">
+
+	<header class="caption">
+		<h1>Estruturas de Dados Básicas I</h1>
+		<h2>Aula 10 - Algoritmos de ordenação</h2>
+	</header>
+	<div id="capa" class="slide cover w">
+		<div>
+			<section>
+				<header>
+					<h3>Estruturas de Dados Básicas I</h3>
+					<h2>Aula 10 - Algoritmos de ordenação</h2>
+					<img src="./images/aula10/bookshelves.jpg">
+				</header>
+			</section>
+		</div>
+	</div>
+
+	<div id="sld-01" class="slide">
+		<div>
+			<section>
+				<header>
+					<h2>Motivação e objetivos</h2>
+				</header>
+				<ul class="inner">
+					<li class="active">Motivação</li>
+					<ul>
+						<li>As soluções aprensentadas até o momento possuem complexidade \(O(n^2)\);</li>
+						<li>Não são soluções ótimas, sendo portanto viáveis apenas para ordenar pequenos conjuntos.</li>
+					</ul>
+					<br>
+					<li class="active">Objetivos</li>
+					<ul>
+						<li>Apresentar algortimos de ordenação mais eficientes;</li>
+						<li>Apresentar a estratégia de "divisão-e-conquista" para resolução de problemas computacionais.</li>
+					</ul>
+				</ul>
+				<footer class="notes"></footer>
+			</section>
+		</div>
+	</div>
+
+    <div id="sld-02" class="slide">
+        <div>
+            <section>
+                <header>Mergesort</header>
+                <ul class="inner">
+                    <li class="active">Segundo alguns pesquisadores, o Mergesort foi inventado pelo matemático <strong>John von Neumann</strong> em 1945;</li>
+                    <li>O Mergesort é semelhante ao Quicksort, pois ambos são fundamentados no paradigma de resolução de problemas: o popular
+         				paradigma <strong>divisão</strong> e <strong>conquista</strong>.</li>
+                    <li>É um algoritmo de ordenação <strong>recursivo</strong>;</li>
+                    <li>É um algoritmo <strong>eficiente</strong>;</li>
+					<li>Tem tempo de execução \(O(n \ log \ n)\).</li>
+                </ul>
+                <footer class="notes"></footer>
+            </section>
+        </div>
+    </div>
+	
+    <div id="sld-03" class="slide">
+        <div>
+            <section>
+                <header>Mergesort</header>
+                <ul class="inner">
+				    <li class="nobullet">Usando divisão e conquista, o Mergesort pode ser descrito como:</li>
+						<ul>
+							<li><strong>Divida</strong>: divida a sequência de \(n\) elementos a ser ordenada em duas subsequências, cada qual com \(n/2\) elementos;</li>
+							<br>
+							<li><strong>Conquiste</strong>: ordene as duas subsequências, recursivamente, usando o Mergesort;</li>
+							<br>
+							<li><strong>Combine</strong>: intercale as duas subsequências ordenadas anteriormente para gerar a sequência de n elementos ordenada.</li>
+						</ul>
+                </ul>
+                <footer class="notes"></footer>
+            </section>
+        </div>
+    </div>
+	
+	<div id="sld-04" class="slide">
+        <div>
+            <section>
+                <header>Mergesort</header>
+                <img src="./images/aula10/Merge-sort-dance-625x346.png" alt="Insertion sort dance">
+                <a href="http://www.youtube.com/watch?v=XaqR3G_NVoo" target="_blank">
+                        http://www.youtube.com/user/AlgoRythmics
+                </a>
+                <footer class="notes"></footer>
+            </section>
+        </div>
+    </div>
+
+	<div id="sld-05" class="slide">
+        <div>
+            <section>
+                <header>Mergesort</header>
+                <ul class="inner">
+				    <li class="nobullet">A condição de parada da recursão do Mergesort ocorre quando a sequência a ser ordenada possui tamanho 1,
+                                         pois ela já está ordenada.</li>
+					<li class="nobullet"><pre><code class="prettyprint">Algoritmo mergesort(ref, A, n)
+		mergesort_aux(A, 1, n)
+fimalgoritmo</code></pre>       </li>					
+                </ul>
+                <footer class="notes"></footer>
+            </section>
+        </div>
+    </div>
+
+	<div id="sld-06" class="slide">
+        <div>
+            <section>
+                <header>Mergesort</header>
+                <ul class="inner">
+				    <li class="nobullet">A condição de parada da recursão do Mergesort ocorre quando a sequência a ser ordenada possui tamanho 1,
+                                         pois ela já está ordenada.</li>
+					<li class="nobullet"><pre><code class="prettyprint">Algoritmo mergesort_aux(ref, A, l, r)
+	se (l < r) então
+        m <- (l+r)/2;
+        mergesort_aux(A, l, m)
+        mergesort_aux(A, m + 1, r)
+        intercala(A, l, m, r)
+	fimse
+fimalgoritmo</code></pre>       </li>					
+                </ul>
+                <footer class="notes"></footer>
+            </section>
+        </div>
+    </div>
+	
+	<div id="sld-07" class="slide">
+        <div>
+            <section>
+                <div>
+                <header>Mergesort</header>
+                <ul class="inner">
+                    <li class="nobullet">Dividindo:</li>
+					<li class="nobullet">
+						<div style="position: absolute; bottom:5%; right:0%; width:65%">
+							<img src="./images/aula10/passos01-merge.png"
+                            style="position: absolute; bottom: 0%; right: 30%; width:100%">
+						</div>
+                </li>
+                </ul>
+                </div>
+                <footer class="notes"></footer>
+            </section>
+        </div>
+    </div>
+
+	<div id="sld-08" class="slide">
+        <div>
+            <section>
+                <div>
+                <header>Mergesort</header>
+                <ul class="inner">
+                    <li class="nobullet">Intercalando:</li>
+					<li class="nobullet">
+						<div style="position: absolute; bottom:5%; right:0%; width:65%">
+							<img src="./images/aula10/passos02-merge.png"
+                            style="position: absolute; bottom: 0%; right: 30%; width:100%">
+						</div>
+                </li>
+                </ul>
+                </div>
+                <footer class="notes"></footer>
+            </section>
+        </div>
+    </div>
+	
+	<div id="sld-09" class="slide">
+        <div>
+            <section>
+                <header>Mergesort</header>
+                <ul class="inner">
+				    <li class="nobullet">Assim como partição é a operação chave do algoritmo quicksort, a intercalação de duas
+										 subsequências é a operação chave do algoritmo mergesort.</li>
+					<br>
+					<li class="nobullet">A intercalação de duas subsequências é realizada por \(intercala()\).</li>
+					<br>
+					<li class="nobullet">O procedimento \(intercala()\) recebe um vetor, \(A\), e três índices, \(l\), \(m\) e \(r\), tais que
+										 \(l \leq m\) e \(m < n\). Assumimos que as subsequências \(A[l], \cdots , A[m]\) e \(A[m + 1], \cdots  , A[r]\) 
+										 estão ordenadas.</li>
+                </ul>
+                <footer class="notes"></footer>
+            </section>
+        </div>
+    </div>
+
+	<div id="sld-10" class="slide">
+        <div>
+            <section>
+                <header>Mergesort</header>
+                <ul class="inner">
+					<li class="nobullet"><pre><code  class="prettyprint">Algoritmo intercala(A, l, m, r)
+	n1 <- m - l + 1
+	n2 <- r − m
+	//defina vetores 
+	L[1, . . . , n1 + 1] e R[1, . . . , n2 + 1]
+	
+	para i = 1 até n1 faça
+       L[i] <- A[l + i − 1]		
+	fimpara
+	
+	para j = 1 até n2 faça
+       R[j] <- A[m + j]		
+	fimpara
+	
+	...
+fimalgoritmo</code></pre>       </li>					
+                </ul>
+                <footer class="notes"></footer>
+            </section>
+        </div>
+    </div>
+	
+	<div id="sld-11" class="slide">
+        <div>
+            <section>
+                <header>Mergesort</header>
+                <ul class="inner">
+					<li class="nobullet"><pre><code  class="prettyprint">Algoritmo intercala(A, l, m, r)
+	...				
+	L[n1 + 1] <- X // (onde a <= X, para todo a pertencente A)
+	R[n2 + 1] <- X // (onde a <= X, para todo a pertencente A)
+	i <- 1  
+	j <- 1
+	para k = l até r faça
+	   se compara (L[j], R[j]) <> 1 então
+	       A[k] <- L[i]
+           i <- i + 1
+	   senão
+           A[k] <- R[j]
+           j <- j + 1		   
+	   fimse
+	fimpara
+fimalgoritmo</code></pre>       </li>					
+                </ul>
+                <footer class="notes"></footer>
+            </section>
+        </div>
+    </div>
+	
+	<div id="sld-12" class="slide">
+        <div>
+            <section>
+                <header>Mergesort</header>
+                <ul class="inner">
+				    <li class="nobullet">A complexidade de tempo de \(intercala()\) é \(O(r − l + 1)\).</li>
+					<br>
+					<li class="nobullet">Qual é a complexidade de tempo de Mergesort?</li>
+					<br>
+					<li class="nobullet">Se \(A\) possui \(n\) elementos, então a complexidade de mergesort é aquela de merge_aux 
+					                     quando chamado com \(A\), \(l = 1\) e \(r = n\).</li>
+					<br>
+					<li class="nobullet">Mas, merge_aux faz duas chamadas a si mesmo. Na primeira, o tamanho do vetor é \([n/2]\) e, na outra, \([n/2]\). 
+					                     Em seguida, \(intercala()\) é chamado com \(A\), \(l = 1\), \(m=[n/2]\) e \(r=n\).</li>										 
+                </ul>
+                <footer class="notes"></footer>
+            </section>
+        </div>
+    </div>
+
+	<div id="sld-13" class="slide">
+        <div>
+            <section>
+                <header>Mergesort</header>
+                <ul class="inner">
+				    <li class="nobullet">Logo, se \(t(n)\) é o número de operações primitivas de mergesort_aux quando \(r − l + 1 = n\), podemos 
+					                     expressar \(t(n)\) como segue:<br>
+										 <span style="padding-left:100px">\( t(n) =\left\{\begin{matrix}
+O(1) \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \                        & se \ n = 1, \ \ \ \ \  \ & \\ 
+t\left [ \frac{n}{2} \right ] + t\left [ \frac{n}{2} \right ] + O(n) & caso \ contrario 
+\end{matrix}\right. \)</span>
+										 </li>
+					<br>
+					<li class="nobullet">Na recorrência acima, \(O(1)\) representa o número de operações primitivas executadas quando mergesort_aux 
+					                     não chama a si próprio.</li>
+					<br>
+					<li class="nobullet">Já \(O(n)\) representa o número de operações primitivas de \(intercala()\).</li>										 
+                </ul>
+                <footer class="notes"></footer>
+            </section>
+        </div>
+    </div>
+
+	<div id="sld-14" class="slide">
+        <div>
+            <section>
+                <header>Mergesort</header>
+                <ul class="inner">
+				    <li class="nobullet">Podemos mostrar que a recorrência anterior tem uma solução, \(t(n)\), tal que:
+										<br>
+										<span style="padding-left:250px">\(t(n)=O(n \ log \ n)\)</span></li>
+										 </li>
+					<br>
+					<li class="nobullet">Isto implica que a complexidade de tempo de mergesort é \(O(n \log \ n)\) para um 
+					                     vetor de entrada, \(A\), com \(n\) elementos. Note que este é o caso para <strong>toda</strong> 
+										 e <strong>qualquer</strong> entrada de tamanho \(n\).</li>									 
+                </ul>
+                <footer class="notes"></footer>
+            </section>
+        </div>
+    </div>
+
+	
+	<div id="sld-15" class="slide">
+        <div>
+            <section>
+                <header>Mergesort</header>
+                <ul class="inner">
+				    <li class="nobullet">Se o mergesort é ótimo, por que o quicksort é preferido na prática?</li>
+					<br>
+					<li class="nobullet">O fato do mergesort ser preterido se deve a dois fatores:
+						<ul>
+							<li>Na grande maioria das entradas, ambos os algoritmos são \(O(n \ log \ n)\). No entanto, a constante 
+							    "escondida" na notação \(O\) da complexidade de tempo do quicksort é bem menor do que aquela do mergesort.</li>
+							<li>O gasto de memória com os vetores auxiliares, \(L\) e \(R\), no procedimento \(intercala()\). O tamanho desses 
+							    vetores chega a ser proporcional a \(n\) (na primeira chamada).</li>
+						</ul>
+					</li>									 
+                </ul>
+                <footer class="notes"></footer>
+            </section>
+        </div>
+    </div>
+
+	<div id="sld-16" class="slide">
+        <div>
+            <section>
+                <header>Mergesort</header>
+                <ul class="inner">
+					<li class="nobullet">Resumindo:
+						<ul>
+							<li>O problema é que não temos como intercalar as duas subsequências sem o uso de vetores auxiliares.</li>
+							<br>
+							<li>Por outro lado, quicksort ordena os elementos em \(A\) usando apenas o próprio \(A\). Dizemos que o 
+							    quicksort realiza ordenação <strong>in-loco</strong>.</li>
+						</ul>
+					</li>									 
+                </ul>
+                <footer class="notes"></footer>
+            </section>
+        </div>
+    </div>
+	
+	<div id="sld-17" class="slide">
+        <div>
+            <section>
+                <header>Radixsort</header>
+                <ul class="inner">
+                    <li class="active">O <strong>Radix sort</strong> é um algoritmo de ordenação rápido e estável que pode ser usado para ordenar itens que 
+					                   estão identificados por chaves únicas. Cada chave pode ser uma cadeia de caracteres (ordem lexicografia) ou número.</li>
+                    <li>Ele possui uma complexidade \(O(n)\), onde \(n\) é o tamanho do vetor a ser ordenado.</li> 
+					<li>Outros algoritmos de ordenação possuem a mesma complexidade:</li>
+						<ul>
+							<li>Counting Sort;</li>
+							<li>Bucket Sort.</li>
+						</ul>
+                </ul>
+                <footer class="notes"></footer>
+            </section>
+        </div>
+    </div>
+
+	<div id="sld-18" class="slide">
+        <div>
+            <section>
+                <header>Radixsort</header>
+                <ul class="inner">
+                    <li class="active">O algoritmo Radixsort surgiu no contexto de ordenação de cartões perfurados, onde a máquina ordenadora 
+					                   so era capaz de ordenar os cartões segundo um de seus dígitos.</li>
+                    <li>Ele é capaz de ordenar um vetor \(A\) de \(n\) números inteiros com um número constante \(d\) de dígitos, 
+					                   através de ordenações parciais dígito a dígito.</li> 		   
+					<li>O Radixsort ordena os números segundo cada um de seus dígitos, começando pelo menos significativo.</li>
+                </ul>
+                <footer class="notes"></footer>
+            </section>
+        </div>
+    </div>
+	
+	<div id="sld-19" class="slide">
+        <div>
+            <section>
+                <div>
+                <header>Radixsort</header>
+                <ul class="inner">
+                    <li class="nobullet"><pre><code class="prettyprint">radixsort(A, d)
+	/* A é o vetor de entrada*/
+	/* d é número de dígitos dos valores de A*/
+    para i de 1 até d faça
+	   ordenar vetor A no dígito i
+	fimpara
+</code></pre>       </li>
+                <li class="nobullet">
+                    <div style="position: absolute; bottom:7%; right:12%; width:40%">
+                        <img src="./images/aula10/passos01-radix.png"
+                            style="position: absolute; bottom: 0%; right: 60%; width:92%">
+                    </div>
+                </li>
+                </ul>
+                </div>
+                <footer class="notes"></footer>
+            </section>
+        </div>
+    </div>
+	
+	<div id="sld-20" class="slide">
+        <div>
+            <section>
+                <div>
+                <header>Radixsort</header>
+                <ul class="inner">
+                    <li class="nobullet"><pre><code class="prettyprint">void radixsort(int vetor[], int tamanho) {
+    int i, exp = 1;
+    int b[tamanho];
+    int maior = vetor[0];
+    for (i = 0; i < tamanho; i++) {
+        if (vetor[i] > maior) maior = vetor[i];
+    }
+    while (maior/exp > 0) {
+        int bucket[10] = { 0 };
+        for (i = 0; i < tamanho; i++)
+            bucket[(vetor[i] / exp) % 10]++; 
+        for (i = 1; i < 10; i++)
+            bucket[i] += bucket[i - 1];
+        for (i = tamanho - 1; i >= 0; i--)
+            b[--bucket[(vetor[i] / exp) % 10]] = vetor[i];
+        for (i = 0; i < tamanho; i++)
+            vetor[i] = b[i];
+        exp *= 10;
+    }
+}
+</code></pre>       </li>
+                </ul>
+                </div>
+                <footer class="notes"></footer>
+            </section>
+        </div>
+    </div>
+	
+
+	<div id="sld-21" class="slide">
+        <div>
+            <section>
+                <header>Complexidade - Radixsort</header>
+                <ul class="inner">
+                    <li class="active">A complexidade do Radixsort depende da implementação de um método estável que irá ordenar cada dígito dos elementos.</li>
+					<br>
+                    <li>Sendo essa complexidade \(O(n)\), obtemos uma complexidade total de \(O(d.(n+k))\).</li> 	
+					<br>
+					<li>Onde \(d\) é o número de dígitos dos valores a serem ordenados, enquanto que \(k\) é o custo do método estável usado juntamente com o Radix.</li>
+                </ul>
+                <footer class="notes"></footer>
+            </section>
+        </div>
+    </div>
+
+
+	<div id="sld-22" class="slide">
+        <div>
+            <section>
+                <header>Complexidade - Radixsort</header>
+                <ul class="inner">
+                    <li class="active">Em contraste, um algoritmo por comparação como o Mergesort teria complexidade \(O(n \ log \ n)\).</li>
+					<li>Assim, O Radixsort é mais vantajoso que o Mergesort quando \(d < log \ n \), ou seja, o número de dígitos 
+					    for menor que \(log \ n \).</li>
+					<li>Se considerarmos que \(n\) também é um limite superior para o maior valor a ser ordenado, então \(O(log \ n)\) é uma
+                        estimativa para o tamanho, em dígitos, desse número.</li>	
+					<li>Isso significa que não há diferença significativa entre o desempenho do MergeSort e do Radix Sort?</li>	
+                </ul>
+                <footer class="notes"></footer>
+            </section>
+        </div>
+    </div>
+	
+	<div id="sld-23" class="slide">
+        <div>
+            <section>
+                <header>Complexidade - Radixsort</header>
+                <ul class="inner">
+                    <li class="active">Tomemos o seguinte exemplo: suponha que desejemos ordenar um conjunto de 10.000 números de 5 dígitos.</li>
+					<br>
+					<li>Mergesort faria cerca de 10.000 x (log 10.000) = 10.000 x 4 = 40.000 comparações e usaria um vetor auxiliar de tamanho \(n\) (10.000).</li>
+					<br>
+					<li>Radixsort com método estável, a complexidade de tempo seria \(O(d.(n+k))\), com \(d * (n + k)\) = 5 * (10.000 + (1 x 10.000)) = 5 * 20.000, totalizando 
+					    então 100.000 operações.</li>	
+                </ul>
+                <footer class="notes"></footer>
+            </section>
+        </div>
+    </div>
+	
+	
+<script type="text/javascript" src="../../common/scripts/presentations/script.js"></script>
+<script type="text/javascript" src="../../common/scripts/code-prettify/prettify.js"></script>
+<script type="text/javascript" src="../../common/scripts/animation/jsmove.js"></script>
+<script type="text/javascript" src="../../common/scripts/mathjax/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+</body>
+</html>

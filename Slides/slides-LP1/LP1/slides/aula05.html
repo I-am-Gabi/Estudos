@@ -1,0 +1,749 @@
+<!DOCTYPE HTML>
+<html lang="pt-BR" class="fade nonumbers">
+<!-- 
+    Podemos controlar um certo número de configurações com as classes do elemento <html>:
+    "fade"      - passagem suave entre os slides
+    "nonumbers" - remove o número do slide na barra de progressão
+-->
+
+<head>
+    <title>Laboratório de Programação I</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=1274, user-scalable=no">
+    <link rel="stylesheet" href="../../common/themes/presentations/styles/style.css" type="text/css">
+    <link rel="stylesheet" href="../../common/themes/presentations/styles/print.css" type="text/css"  media="print">
+    <link rel="stylesheet" href="../../common/themes/code-prettify/styles/prettify.css" type="text/css">
+    <link rel="stylesheet" href="../../common/themes/lp1/styles/presentation.css" type="text/css">
+    <link rel="stylesheet" href="../../common/themes/lp1/styles/ufrn.css" type="text/css">
+    <link rel="stylesheet" href="../../common/themes/lp1/styles/codeprettify.css" type="text/css">
+<style>
+.highlight {
+    border: 2px solid red;
+    -webkit-border-radius: 10px;
+    -moz-border-radius: 10px;
+    border-radius: 10px;
+    background-color: rgba(200, 200, 200, 0.3);
+}
+
+.highlight-text {
+    padding: 10px;
+    font-size: 14pt;
+    border: 1px solid;
+    -webkit-border-radius: 10px;
+    -moz-border-radius: 10px;
+    border-radius: 10px;
+    background-color: rgb(240, 240, 240);
+}
+</style>
+
+</head>
+
+<body class="list" onload="prettyPrint();">
+
+<!-- ============================================================================== -->
+<!-- Informações para a lista de slides -->
+<header class="caption">
+    <h1>Laboratório de Programação I</h1>
+    <h1>Aula 5 - Introdução ao polimorfismo</h1>
+</header>
+
+<!-- 
+    O seguinte código é um slide. Ele utiliza uma classe do tipo "slide" e agrega no seu
+    interior todos os elementos semânticos que se mostrem necessários.
+    IMPORTANTE: cada slide requer seu próprio e único ID - este sistema permite de gerar
+    uma URL própria para cada slide e apresenta como o código deve ser organizado!
+-->
+
+<!-- ============================================================================== -->
+<!-- Laboratório de Programação 1 -->
+<div id="capa" class="slide cover w">
+    <div>
+        <section>
+            <header>
+                <h1>Laboratório de Programação I</h1>
+                <h1 style="font-size: 45px">Aula 5 - Introdução ao polimorfismo</h1>
+                <br><br>
+            </header>
+            <table>
+                <thead>
+                    <tr>
+                        <td></td>
+                        <td><img style="top:90%; height:5px" src="images/common/colorbar.png"></td>
+                        <td></td>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td><img style="left:1%; top:95%; width:200px; height:48px;" src="images/common/azul.png"></td>
+                        <td><img style="left:41%; top:95%; width:150px; height:52px;" src="images/common/ufrn.png"></td>
+                        <td><img style="left:85%; top:95%; width:140px; height:52px;" src="images/common/dimap.png"></td>
+                    </tr>
+                </tbody>
+            </table>
+            <footer class="notes">
+            </footer>
+        </section>
+    </div>
+</div>
+
+<!-- ============================================================================== -->
+<!-- Objetivos da aula -->
+<div id="objetivos_aula" class="slide">
+    <div>
+        <section>
+            <header>
+                <h2>Objetivos da aula</h2>
+            </header>
+            <ul>
+                <li>Introduzir os conceitos de polimorfismo em <span class="flash">C</span> e em <span class="flash">C++</span>
+                    <ul>
+                        <li>Apresentar as formas e as limitações de polimorfismo em <span class="flash">C</span></li>
+                        <li>Introduzir as facilidades da linguagem <span class="flash">C++</span></li>
+                    </ul>
+                    <br>
+                </li>
+                <li>Ao final da aula espera-se que o aluno seja capaz de:
+                    <ul>
+                        <li>Implementar funções polimórficas em <span class="flash">C</span></li>
+                        <li>Usar os recursos de ponteiro de função</li>
+                        <li>Identificar o uso de templates e sobrecarga de função em <span class="flash">C++</span></li>
+                    </ul>
+                </li>
+            </ul>
+            <footer class="notes">
+            </footer>
+        </section>
+    </div>
+</div>
+
+<!-- ============================================================================== -->
+<!-- Contexto -->
+<div id="contexto" class="slide">
+    <div>
+        <section>
+            <header>
+                <h2>A importância do tipo em ponteiros</h2>
+            </header>
+            <ul>
+                <li>Quando declaramos
+                    <ul>
+                        <li><code>int *p</code>, obtemos um endereço de memória...</li>
+                        <li><code>float *p</code>, obtemos um endereço de memória...</li>
+                        <li><code>struct Data *p</code>, obtemos um endereço de memória...</li>
+                    </ul>
+                <li>Se tudo é endereço de memória, por que precisamos declarar o tipo de dado que estará armazenado nesse endereço???</li>
+            </ul>
+            <ol class="inner">
+                <li>Útil para "<span class="flash">dereferenciar</span>" o endereço (acessar o conteúdo)</li>
+                <li>Útil para realizar aritmética de ponteiros (ex: <code>p++</code>, <code>p--</code>)</li>
+            </ol>
+            <ul class="inner">
+                <li>Mas quando se mostra útil usar o <span class="flash_bold">ponteiro genérico</span> (<code>void*</code>) que permite apontar para "<span class="flash">qualquer tipo</span>"?</li>
+            </ul>
+            <footer class="notes">
+            </footer>
+        </section>
+    </div>
+</div>
+
+
+<!-- ============================================================================== -->
+<!-- Ponteiro genérico -->
+<div id="voidPtr1" class="slide">
+    <div>
+        <section>
+            <header>
+                <h2>Ponteiro genérico</h2>
+            </header>
+            <ul>
+                <li>Ponteiro genérico (<code>void*</code>) é útil para permitir<br> <span class="flash">polimorfismo</span> em linguagem <span class="flash">C</span>
+                    <ul>
+                        <li>Polimorfismo permite <span class="flash">diferentes tipos</span><br> serem tratados pela mesma <span style="font-weight: bold; font-style: italic">interface</span></li>
+                    </ul>
+                    <br>
+                </li>
+                <li>Exemplo:
+                    <ul>
+                        <li>O algoritmo da <span class="flash">busca binária</span> que implementamos para o tipo <code>int</code>, na aula passada, também é o mesmo para outros tipos...</li>
+                        <li>Se precisarmos fazer uma busca para os tipos <code>float</code>, <code>char</code>, <code>struct Cao</code> e <code>struct Gato</code>, teremos que implementar uma função para cada tipo???</li>
+                    </ul>
+                </li>
+            </ul>
+            <figure style="position:absolute; left: 670px; top: 100px">
+                <img style="position: absolute; height: 250px" src="images/aula05/polimorfismo.png">
+            </figure>
+            <footer class="notes">
+            </footer>
+        </section>
+    </div>
+</div>
+
+
+<!-- ============================================================================== -->
+<!-- polimorfismo -->
+<div id="polimorfismo" class="slide">
+    <div>
+        <section>
+            <header>
+                <h2>Polimorfismo</h2>
+            </header>
+            <ul>
+                <li>Existem vários tipos de polimorfismo
+                    <ul>
+                        <li><span class="flash">Ah doc</span> (com sobrecarga de funções ou operadores)</li>
+                        <li><span class="flash">Paramétrico</span> (com o uso de <span style="font-style: italic">templates</span>, <span style="font-style: italic">generics</span> e similares)</li>
+                        <li><span class="flash">De subtipos</span> (com orientação a objetos, através de subclasses)</li>
+                    </ul>
+                    <br>
+                </li>
+                <li><span class="flash">C</span> não possui uma forma explícita para fazer polimorfismo
+                    <ul>
+                        <li>Exceto se usarmos uma <span class="flash">união</span> (<code>union</code> visto em ITP) ou um <span class="flash">ponteiro genérico</span> (<code>void*</code>)</li>
+                    </ul>
+                    <br>
+                </li>
+                <li><span class="flash">C++</span> possui as diversas formas de polimorfismo e portanto não requer o uso do recurso do ponteiro genérico</li>
+            </ul>
+            <footer class="notes">
+            </footer>
+        </section>
+    </div>
+</div>
+
+<!-- ============================================================================== -->
+<!-- Uma solução em C: ponteiro genérico -->
+<div id="voidPtr2" class="slide">
+    <div>
+        <section>
+            <header>
+                <h2>Uma solução em C: ponteiro genérico</h2>
+            </header>
+            <ul>
+                <li>Uma solução para a busca binária seria receber os parâmetros do <span class="flash">arranjo</span> e do <span class="flash">valor a ser procurado</span> como <code>void*</code></li>
+                <li>Mas, se declararmos a seguinte assinatura para a busca binária... <br>
+                    <code>int binarySearch( void *array, void *value, int n )</code><br>
+                    Como poderemos saber em que tipo converter (<span class="flash">cast</span>) os parâmetros para poder comparar os seus valores???<br><br>
+                    <ul class="inner">
+                        <li><span class="flash_bold">Solução 1</span>: passar mais um parâmetro para especificar o tipo e tratá-lo com um grande <span class="flash">switch-case</span> (um <span class="flash">case</span> para cada tipo).<br>
+                            Mas, seria +/- equivalente a escrever várias sub-rotinas
+                            <figure style="position: absolute; left: 940px; top: 480px">
+                                <img style="width: 40px" src="images/aula05/red-cross.png">
+                            </figure>
+                        </li>
+                        <li><span class="flash_bold">Solução 2</span>: passar uma função para comparar os valores
+                            <figure style="position: absolute; left: 940px; top: 570px">
+                                <img style="width: 35px" src="images/aula05/check.png">
+                            </figure>
+                        </li>
+                    </ul>
+                </li>
+            </ul>
+            <footer class="notes">
+            </footer>
+        </section>
+    </div>
+</div>
+
+<!-- ============================================================================== -->
+<!-- ideia de passar uma função para a busca binária -->
+<div id="funcPar" class="slide">
+    <div>
+        <section>
+            <header>
+                <h2>Passar uma função como parâmetro de outra função ?!?!?!?</h2>
+            </header>
+            <ul>
+                <li>Ideia da solução (não está em linguagem <span class="flash">C</span>)</li>
+            </ul>
+<pre class="prettyprint linenums" style="position: absolute; top: 200px; left: 90px">
+int binarySearch( TIPO array[], TIPO value, int low, int high, FUNCTION compare )
+{
+    if( low > high )                          // não há elementos em array
+        return -1;
+
+    int mid  = ( low + high ) / 2;            // índice do meio
+    int comp = compare( value, array[mid] );  // compara os elementos
+
+    if( comp == 0 )                           // são iguais --> achou
+        return mid;
+
+    else if( comp &lt; 0 )  // value < array[mid] --> busca a esquerda
+        return binarySearch( array, value, low, mid - 1, comp );
+
+    else  // comp > 0 --> value > array[mid] --> busca a direita
+        return binarySearch( array, value, mid + 1, high, comp );
+}
+</pre>
+            <footer class="notes">
+            </footer>
+        </section>
+    </div>
+</div>
+
+<!-- ============================================================================== -->
+<!-- ponteiro de função -->
+<div id="funcPtr" class="slide">
+    <div>
+        <section>
+            <header>
+                <h2>Tipo: ponteiro de função</h2>
+            </header>
+            <ul>
+                <li>Como visto anteriormente, o código de um programa encontra-se em uma região da memória chamada <span class="flash">segmento de código</span>
+                    <ul>
+                        <li>Logo, existe um <span class="flash">endereço</span> para o início de cada função presente</li>
+                    </ul>
+                </li>
+                <li>O ponteiro que contém o endereço do início de uma função é um <span class="flash">ponteiro de função</span><br></li>
+                <li>Pode-se:
+                    <ul>
+                        <li>passar um ponteiro de função para outra função</li>
+                        <li>usar um ponteiro de função como um campo de um registro</li>
+                        <li>ou... usá-lo como se usa qualquer outro tipo de dado!!!</li>
+                    </ul>
+
+                </li>
+            </ul>
+            <footer class="notes">
+            </footer>
+        </section>
+    </div>
+</div>
+
+<!-- ============================================================================== -->
+<!-- Declarando variável ponteiro de função -->
+<div id="sintaxeFuncPtr" class="slide">
+    <div>
+        <section>
+            <header>
+                <h2>Declarando variável ponteiro de função</h2>
+            </header>
+            <ul>
+                <li>Sintaxe: <code>TIPO (*nome_da_variavel) ( PARÂMETROS )</code></li>
+                <li>Exemplo:</li>
+            </ul>
+<pre class="prettyprint linenums" style="position: absolute; top: 185px; left: 145px">
+#include &lt;iostream&gt;
+int max( int a, int b ) { return a > b ? a : b; }
+int min( int a, int b ) { return a < b ? a : b; }
+
+// ponteiros de função são também passados como parâmetro (ou retorno)
+void imprime( int a, int b, int (*funcao) ( int, int ) )
+{
+    std::cout << funcao( a, b ) << std::endl;
+}
+int main() 
+{
+    /* declara uma variável (funcaoPtr) ponteiro de função que recebe
+       2 inteiros como parâmetros e retorna 1 inteiro como resultado */
+    int (*funcaoPtr) ( int, int );
+    funcaoPtr = max;  // funcaoPtr armazena o endereço inicial de max
+    imprime( 5, 9, funcaoPtr );   // --> imprime 9
+    imprime( 5, 9, min );         // --> imprime 5
+    return 0;
+}
+</pre>
+            <footer class="notes">
+            </footer>
+        </section>
+    </div>
+</div>
+
+
+<!-- ============================================================================== -->
+<!-- Usando typedef para simplificar -->
+<div id="typedefFuncPtr" class="slide">
+    <div>
+        <section>
+            <header>
+                <h2>Usando typedef para simplificar</h2>
+            </header>
+            <ul>
+                <li>O uso de ponteiros de função pode se tornar bastante confuso</li>
+                <li>É aconselhável usar <code>typedef</code> para simplificar o código!</li>
+<pre class="prettyprint">
+#include &lt;iostream&gt;
+int max( int a, int b ) { return a > b ? a : b; }
+int min( int a, int b ) { return a < b ? a : b; }
+
+/* define um tipo (ComparePtr) que permite apontar para funções que
+   recebem 2 inteiros e retornam 1 */
+typedef int (*ComparePtr) ( int a, int b );
+
+// usa o tipo para definir o parâmetro funcao
+void imprime( int a, int b, ComparePtr funcao )
+{
+    std::cout << funcao( a, b ) << std::endl;
+}
+</pre>
+            </ul>
+            <ul class="inner">
+                <li>Mas, e o <span class="flash">polimorfismo</span>??? Os parâmetros de <span class="flash">funcao</span> não mudam</li>
+                <li>Solução: usar o ponteiro genérico (<code>void*</code>) nos parâmetros</li>
+            </ul>
+            <footer class="notes">
+            </footer>
+        </section>
+    </div>
+</div>
+
+
+
+<!-- ============================================================================== -->
+<!-- solução para a busca binária -->
+<div id="soluBinSearch1" class="slide">
+    <div>
+        <section>
+            <header>
+                <h2>Solução para a busca binária (1)</h2>
+            </header>
+            <ul>
+                <li>Definir funções com a mesma assinatura (e um <span class="flash">typedef</span> para elas)</li>
+                <li>Usar <code>void*</code> nas assinaturas para representar um tipo qualquer</li>
+                <li>Em cada função, dereferenciar o conteúdo para o "seu tipo"</li>
+            </ul>
+<pre class="prettyprint linenums" style="position: absolute; top: 225px; left: 115px">
+// compara dois valores inteiros
+int comparaInt( void *a, void *b )
+{
+    int va = *( (int*) a );
+    int vb = *( (int*) b );
+    return va - vb;  // 0 se va = vb, neg. se va < vb ou pos. se va > vb
+}
+
+// compara duas pessoas em função da idade
+int comparaPessoa( void *a, void *b )
+{
+    Pessoa va = *( (Pessoa*) a );
+    Pessoa vb = *( (Pessoa*) b );
+    return va.idade - vb.idade;
+}
+
+typedef int (*CompFunc) (void*, void*);  // tipo para a função de comparação
+</pre>
+            <footer class="notes">
+            </footer>
+        </section>
+    </div>
+</div>
+
+
+<!-- ============================================================================== -->
+<!-- solução para a busca binária -->
+<div id="soluBinSearch2" class="slide">
+    <div>
+        <section>
+            <header>
+                <h2>Solução para a busca binária (2)</h2>
+            </header>
+            <ul>
+                <li>A busca polimórfica</li>
+            </ul>
+<pre class="prettyprint linenums" style="position: absolute; top: 150px; left: 125px">
+int binarySearch( void *array, void *value, int low, int high,
+                  CompFunc compare, int size )
+{
+    if( low > high )
+        return -1;
+
+    int mid = ( low + high ) / 2;
+
+    // é necessário incluir o parâmetro size para poder acessar um
+    // elemento do arranjo sem saber seu tipo
+    void *valueArray = array + size * mid; // equivalente a array[mid]
+    int comp = compare( value, valueArray );
+
+    if( comp == 0 )
+        return mid;
+    else if( comp < 0 )
+        return binarySearch( array, value, low, mid - 1, compare, size );
+    else
+        return binarySearch( array, value, mid + 1, high, compare, size );
+}
+</pre>
+            <footer class="notes">
+            </footer>
+        </section>
+    </div>
+</div>
+
+
+<!-- ============================================================================== -->
+<!-- solução para a busca binária -->
+<div id="soluBinSearch3" class="slide">
+    <div>
+        <section>
+            <header>
+                <h2>Solução para a busca binária (3)</h2>
+            </header>
+            <ul>
+                <li>Podemos, então, passar as diferentes funções de comparação</li>
+            </ul>
+<pre class="prettyprint linenums" style="position: absolute; top: 145px; left: 38px">
+#include &lt;iostream&gt;
+...
+int binarySearch( void *array, void *value, int low, int high,
+                  CompFunc compare, int size ) { ... }
+...
+int main()
+{
+    int intArray[] = { 1, 4, 7, 8, 10, 15 };
+    int intValue = 10;
+ 
+    Pessoa pessoaArray[] = {{ "A", 21 }, { "B", 28 }, { "C", 30 }};
+    Pessoa pessoaValue = { "C", 30 };
+ 
+    if( binarySearch( intArray, &intValue, 0, 5, comparaInt, sizeof( int ) ) >= 0 )
+        std::cout << "Inteiro encontrado!" << std::endl;
+    if( binarySearch( pessoaArray, &pessoaValue, 0, 2, comparaPessoa, sizeof( Pessoa ) ) >= 0 )
+        std::cout << "Pessoa encontrada!" << std::endl;
+ 
+    return 0;
+}
+</pre>
+            <footer class="notes">
+            </footer>
+        </section>
+    </div>
+</div>
+
+<!-- ============================================================================== -->
+<!-- resumo de C -->
+<div id="Csummary" class="slide">
+    <div>
+        <section>
+            <header>
+                <h2>Resumindo (em C)</h2>
+            </header>
+            <ul>
+                <li>Ponteiro genérico (<code>void*</code>) permite simular polimorfismo em <span class="flash">C</span></li>
+                <li>Ponteiro de função possui muitas outras utilidades:
+                    <ul>
+                        <li>Base da programação funcional
+                            <ul>
+                                <li>Funções como elementos de 1ª classe</li>
+                            </ul>
+                        </li>
+                        <li>Programação orientada a eventos (<span class="flash">callbacks</span>)
+                            <ul>
+                                <li>Passa-se uma função a um serviço (ou módulo), associando-a a um evento</li>
+                                <li>Quando o evento ocorre, a função é chamada (callback)</li>
+                                <li>Técnica muito usada em interfaces com o usuário (UI)</li>
+                            </ul>
+                        </li>
+                    </ul>
+                </li>
+            </ul>
+            <footer class="notes">
+            </footer>
+        </section>
+    </div>
+</div>
+
+
+<!-- ============================================================================== -->
+<!-- em C++ -->
+<div id="inCplusplus" class="slide">
+    <div>
+        <section>
+            <header>
+                <h2>Problemas similares em C++</h2>
+            </header>
+            <ul>
+                <li><span class="flash">C++</span> possui funcionalidades que permitem simplificar a solução
+                    <ul>
+                        <li>Parâmetros de função com valores padrão (default)</li>
+                        <li>Uso de "referência" para variáveis (ao invés de ponteiros)</li>
+                        <li>Sobrecarga de funções e operadores</li>
+                        <li>Uso de templates</li>
+                        <li>etc.</li>
+                        <br>
+                        <li>Muito mais simples que em <span class="flash">C</span> !!!</li>
+                    </ul>
+                </li>
+            </ul>
+            <footer class="notes">
+            </footer>
+        </section>
+    </div>
+</div>
+
+
+
+<!-- ============================================================================== -->
+<!-- Exemplo de solução em C++ -->
+<div id="templates-1" class="slide">
+    <div>
+        <section>
+            <header>
+                <h2>Exemplo de solução em C++</h2>
+            </header>
+<pre class="prettyprint linenums">
+int compara( int a, int b )       { return a - b; }
+int compara( Pessoa a, Pessoa b ) { return a.idade - b.idade; }
+
+template &lt;typename Type&gt;
+int binarySearch( Type array[], Type value, int low, int high )
+{
+    if( low > high )                          // não há elementos em array
+        return -1;
+
+    int mid  = ( low + high ) / 2;            // índice do meio
+    int comp = compara( value, array[mid] );  // compara os elementos
+
+    if( comp == 0 )                           // são iguais --> achou
+        return mid;
+
+    else if( comp < 0 )  // value < array[mid] --> busca a esquerda
+        return binarySearch( array, value, low, mid - 1 );
+
+    else  // comp > 0 --> value > array[mid] --> busca a direita
+        return binarySearch( array, value, mid + 1, high );
+}
+</pre>
+            <ul class="inner">
+                <li>
+                    <div class="highlight" style="position: absolute; top: 218px; left: 130px; width: 255px; height: 20px"></div>
+                    <div class="highlight-text" style="position: absolute; top: 150px; left: 125px">
+                        Uso de template para tratar diferentes tipos de dados: <span style="font-weight: bold">polimorfismo paramétrico</span>
+                    </div>
+                </li>
+                <li>
+                    <div class="highlight" style="position: absolute; top: 240px; left:310px; width: 50px; height: 20px"></div>
+                </li>            
+                <li>
+                    <div class="highlight" style="position: absolute; top: 240px; left: 450px; width: 50px; height: 20px"></div>
+                </li>            
+            </ul>
+            <footer class="notes">
+            </footer>
+        </section>
+    </div>
+</div>
+
+<!-- ============================================================================== -->
+<!-- Exemplo de solução em C++ -->
+<div id="templates-2" class="slide">
+    <div>
+        <section>
+            <header>
+                <h2>Exemplo de solução em C++</h2>
+            </header>
+<pre class="prettyprint linenums">
+int compara( int a, int b )       { return a - b; }
+int compara( Pessoa a, Pessoa b ) { return a.age - b.age; }
+
+template &lt;typename Type&gt;
+int binarySearch( Type array[], Type value, int low, int high )
+{
+    if( low > high )                          // não há elementos em array
+        return -1;
+
+    int mid  = ( low + high ) / 2;            // índice do meio
+    int comp = compara( value, array[mid] );  // compara os elementos
+
+    if( comp == 0 )                           // são iguais --> achou
+        return mid;
+
+    else if( comp < 0 )  // value < array[mid] --> busca a esquerda
+        return binarySearch( array, value, low, mid - 1 );
+
+    else  // comp > 0 --> value > array[mid] --> busca a direita
+        return binarySearch( array, value, mid + 1, high );
+}
+</pre>
+            <ul class="inner">
+                <li>
+                    <div class="highlight" style="position: absolute; top: 160px; left: 130px; width: 340px; height: 40px"></div>
+                    <div class="highlight-text" style="position: absolute; top: 220px; left: 130px">
+                        Uso de sobrecarga de função para que uma mesma chamada trate diferentes<br>
+                        tipos: <span style="font-weight: bold">polimorfismo ad hoc</span>
+                    </div>
+                </li>
+                <li>
+                    <div class="highlight" style="position: absolute; top: 360px; left: 280px; width: 300px; height: 20px"></div>
+                </li>            
+            </ul>
+            <footer class="notes">
+            </footer>
+        </section>
+    </div>
+</div>
+
+<!-- ============================================================================== -->
+<!-- Exemplo de solução em C++ -->
+<div id="templates-3" class="slide">
+    <div>
+        <section>
+            <header>
+                <h2>Exemplo de solução em C++</h2>
+            </header>
+            <ul>
+                <li>Podemos, então, passar os diferentes tipos de parâmetros sem nos preocuparmos com as funções de comparação</li>
+            </ul>
+<pre class="prettyprint linenums" style="position: absolute; top: 185px; left: 140px">
+#include &lt;iostream&gt;
+...
+template &lt;typename Type&gt;
+int binarySearch( Type array[], Type value, int low, int high ) { ... }
+...
+int main()
+{
+    int intArray[] = { 1, 4, 7, 8, 10, 15 };
+    int intValue = 10;
+    Pessoa pessoaArray[] = {{ "A", 21 }, { "B", 28 }, { "C", 30 }};
+    Pessoa pessoaValue = { "C", 30 };
+ 
+    if( binarySearch( intArray, intValue, 0, 5 ) >= 0 )
+        std::cout << "Inteiro encontrado!" << std::endl;
+    if( binarySearch( pessoaArray, pessoaValue, 0, 2 ) >= 0 )
+        std::cout << "Pessoa encontrada!" << std::endl;
+ 
+    return 0;
+}
+</pre>
+            <footer class="notes">
+            </footer>
+        </section>
+    </div>
+</div>
+
+<!-- ============================================================================== -->
+<!-- Resumo da aula -->
+<div id="resumo" class="slide">
+    <div>
+        <section>
+            <header>
+                <h2>Resumo da aula</h2>
+            </header>
+            <ul>
+                <li>Polimorfismo é útil para reaproveitar código, definindo funções (ou estruturas) que tratem diferentes tipos de dados</li>
+                <li>Implementar polimorfismo em <span class="flash">C</span> não é trivial, mas (às vezes) necessário</li>
+                <li><span class="flash">C++</span> introduz várias facilidades para implementar polimorfismo</li>
+                <li>Ponteiro de função é algo útil não apenas para soluções polimórficas
+                    <ul>
+                        <li>Pode-se usar em diversas situações (programação funcional, programação orientada a eventos, etc.)</li>
+                    </ul>
+                </li>
+            </ul>
+            <footer class="notes">
+            </footer>
+        </section>
+    </div>
+</div>
+
+<!-- ============================================================================== -->
+<!-- Se não quiser a barra de progressão, tem apenas que eliminar esta tag <div> -->
+<div class="progress">
+    <div></div>
+</div>
+
+<!-- ============================================================================== -->
+<!-- Scripts -->
+<script type="text/javascript" src="../../common/scripts/presentations/script.js"></script>
+<script type="text/javascript" src="../../common/scripts/code-prettify/prettify.js"></script>
+<script type="text/javascript" src="../../common/scripts/jquery.js"></script>
+
+</body>
+
+</html>

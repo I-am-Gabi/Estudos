@@ -1,0 +1,811 @@
+<!DOCTYPE HTML>
+<html lang="pt-BR" class="fade nonumbers">
+<!-- 
+    Podemos controlar um certo número de configurações com as classes do elemento <html>:
+    "fade"      - passagem suave entre os slides
+    "nonumbers" - remove o número do slide na barra de progressão
+-->
+
+<head>
+    <title>Laboratório de Programação I</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=1274, user-scalable=no">
+    <link rel="stylesheet" href="../../common/themes/presentations/styles/style.css" type="text/css">
+    <link rel="stylesheet" href="../../common/themes/presentations/styles/print.css" type="text/css"  media="print">
+    <link rel="stylesheet" href="../../common/themes/code-prettify/styles/prettify.css" type="text/css">
+    <link rel="stylesheet" href="../../common/themes/lp1/styles/presentation.css" type="text/css">
+    <link rel="stylesheet" href="../../common/themes/lp1/styles/ufrn.css" type="text/css">
+    <link rel="stylesheet" href="../../common/themes/lp1/styles/codeprettify.css" type="text/css">
+<style>
+.highlight {
+    border: 2px solid red;
+    -webkit-border-radius: 10px;
+    -moz-border-radius: 10px;
+    border-radius: 10px;
+    background-color: rgba(200, 200, 200, 0.3);
+}
+
+.highlight-text {
+    padding: 10px;
+    font-size: 14pt;
+    border: 1px solid;
+    -webkit-border-radius: 10px;
+    -moz-border-radius: 10px;
+    border-radius: 10px;
+    background-color: rgb(240, 240, 240);
+}
+</style>
+
+</head>
+
+<body class="list" onload="prettyPrint();">
+
+<!-- ============================================================================== -->
+<!-- Informações para a lista de slides -->
+<header class="caption">
+    <h1>Laboratório de Programação I</h1>
+    <h1>Aula 17 - Bibliotecas Externas</h1>
+</header>
+
+<!-- 
+    O seguinte código é um slide. Ele utiliza uma classe do tipo "slide" e agrega no seu
+    interior todos os elementos semânticos que se mostrem necessários.
+    IMPORTANTE: cada slide requer seu próprio e único ID - este sistema permite de gerar
+    uma URL própria para cada slide e apresenta como o código deve ser organizado!
+-->
+
+<!-- ============================================================================== -->
+<!-- Laboratório de Programação 1 -->
+<div id="capa" class="slide cover w">
+    <div>
+        <section>
+            <header>
+                <h1>Laboratório de Programação I</h1>
+                <h1 style="font-size: 45px">Aula 17 - Bibliotecas Externas</h1>
+                <br><br>
+            </header>
+            <table>
+                <thead>
+                    <tr>
+                        <td></td>
+                        <td><img style="top:90%; height:5px" src="images/common/colorbar.png"></td>
+                        <td></td>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td><img style="left:1%; top:95%; width:200px; height:48px;" src="images/common/azul.png"></td>
+                        <td><img style="left:41%; top:95%; width:150px; height:52px;" src="images/common/ufrn.png"></td>
+                        <td><img style="left:85%; top:95%; width:140px; height:52px;" src="images/common/dimap.png"></td>
+                    </tr>
+                </tbody>
+            </table>
+            <footer class="notes">
+            </footer>
+        </section>
+    </div>
+</div>
+
+<!-- ============================================================================== -->
+<!-- Objetivos da aula -->
+<div id="objetivos_aula" class="slide">
+    <div>
+        <section>
+            <header>
+                <h2>Objetivos da aula</h2>
+            </header>
+            <ul>
+                <li>Introduzir duas das bibliotecas de <span class="flash">C++</span> mais populares na atualidade que facilitam bastante o desenvolvimento de aplicações</li>
+                <li>Para isto estudaremos:
+                    <ul>
+                        <br>
+                        <li>Boost</li>
+                        <br>
+                        <li>Qt</li>
+                        <br>
+                    </ul>
+                </li>
+                <li>Ao final da aula espera-se que o aluno tenha uma visão geral do que estas bibliotecas propõem e são capazes de fazer</li>
+            </ul>
+            <figure style="position: absolute; left: 150px; top: 280px">
+                <img style="height: 70px" src="images/aula17/boost-logo.png">
+            </figure>
+            <figure style="position: absolute; left: 140px; top: 370px">
+                <img style="height: 70px" src="images/aula17/qt-logo.png">
+            </figure>
+            <footer class="notes">
+            </footer>
+        </section>
+    </div>
+</div>
+
+<!-- ============================================================================== -->
+<!-- Biblioteca Boost -->
+<div id="biblioteca_boost" class="slide">
+    <div>
+        <section>
+            <header>
+                <h2>Biblioteca Boost</h2>
+            </header>
+            <ul>
+                <li class="flash">Coleção de bibliotecas multiplataforma de código aberto em C++</li>
+                <li>Criada em <span class="flash">1998</span> por diversos membros do comitê de padronização de C++, mas atualmente é mantida por mais de <span class="flash">3000</span> colaboradores de todas as partes do mundo</li>
+                <li>Diversas bibliotecas de Boost têm sido aceitas para serem incorporadas na biblioteca padrão de C++</li>
+                <li>Contém mais de 100 módulos organizados em mais ou menos 20 categorias, sendo 80% deles definidos em cabeçalhos</li>
+                <li>Para garantir eficiência e flexibilidade, ela faz <span class="flash">uso extensivo de templates</span></li>
+                <li>Versão atual: <span class="flash">1.55.0</span> (<a href="http://www.boost.org" target="_blank">http://www.boost.org</a>)</li>
+            </ul>
+            <figure style="position: absolute; left: 500px; top: 20px">
+                <img style="height: 90px" src="images/aula17/boost-logo.png">
+            </figure>
+            <footer class="notes">
+            </footer>
+        </section>
+    </div>
+</div>
+
+<!-- ============================================================================== -->
+<!-- Categorias das bibliotecas de Boost -->
+<div id="categorias_boost" class="slide">
+    <div>
+        <section>
+            <header>
+                <h2>Categorias das bibliotecas de Boost</h2>
+            </header>
+            <ul style="font-size: 22px; position: absolute; left: 80px; top: 150px; right: 50%">
+                <li>Algoritmos</li>
+                <li>Auxiliares para compiladores que não seguem o padrão</li>
+                <li>Programação concorrente (utilização de threads)</li>
+                <li>Contêineres</li>
+                <li>Codificação correta e teste</li>
+                <li>Estrutura de dados</li>
+                <li>Objetos-função e programação de alta-ordem</li>
+                <li>Programação genérica</li>
+            </ul>
+            <ul style="font-size: 22px; position: absolute; left: 560px; top: 150px">
+                <li>Grafos</li>
+                <li>Entrada/saída de dados</li>
+                <li>Suporte inter-linguagem</li>
+                <li>Iteradores</li>
+                <li>Matemática e sistemas numéricos</li>
+                <li>Uso e gerenciamento de memória</li>
+                <li>Análise sintática</li>
+                <li>Meta-programação de pré-processadores</li>
+                <li>Meta-programação de templates</li>
+                <li>Ponteiros inteligentes</li>
+                <li>Processamento de cadeias de caracteres</li>
+            </ul>
+            <footer class="notes">
+            </footer>
+        </section>
+    </div>
+</div>
+
+<!-- ============================================================================== -->
+<!-- Módulos da biblioteca Boost -->
+<div id="modulos_boost" class="slide">
+    <div>
+        <section>
+            <header>
+                <h2>Módulos da biblioteca Boost</h2>
+            </header>
+            <figure class="simple_frame shadow" style="position: absolute; left: 140px; top: 85px">
+                <img style="height: 520px" src="images/aula17/boost_modules.png">
+            </figure>
+            <footer class="notes">
+            </footer>
+        </section>
+    </div>
+</div>
+
+<!-- ============================================================================== -->
+<!-- Exemplo de uso de Boost (1) -->
+<div id="exemplo_uso_boost_1_1" class="slide">
+    <div>
+        <section>
+            <header>
+                <h2>Exemplo de uso de Boost (1)</h2>
+            </header>
+            <ul>
+                <li><span class="flash">boost::noncopyable</span>
+                    <ul>
+                        <li>Indica que uma classe não deve ser copiável (ambos via o construtor de cópia e o operador de atribuição)</li>
+                        <br><br><br><br><br>
+                        <li>Proibe operações de cópia somente nos casos em que os operadores de cópia não forem definidos pelo usuário na classe derivada</li>
+                    </ul>
+                </li>
+            </ul>
+<pre class="prettyprint linenums" style="position: absolute; top: 245px; left: 280px">
+#include &lt;boost/noncopyable.hpp&gt;
+
+// ...
+
+class MyClass : private boost::noncopyable
+{
+    /*...*/
+};
+</pre>
+            <footer class="notes">
+            </footer>
+        </section>
+    </div>
+</div>
+
+<!-- ============================================================================== -->
+<!-- Exemplo de uso de Boost (1) -->
+<div id="exemplo_uso_boost_1_2" class="slide">
+    <div>
+        <section>
+            <header>
+                <h2>Exemplo de uso de Boost (1)</h2>
+            </header>
+            <ul>
+                <li class="flash">boost::noncopyable</li>
+            </ul>
+<pre class="prettyprint linenums" style="position: absolute; top: 200px; left: 210px">
+namespace boost
+{
+    class noncopyable
+    {
+    protected:
+        noncopyable() {}
+       ~noncopyable() {}
+
+    private: // enfatiza que os membros são privados!
+        noncopyable( const noncopyable& );
+        const noncopyable& operator=( const noncopyable& );
+    };
+}
+</pre>
+            <footer class="notes">
+            </footer>
+        </section>
+    </div>
+</div>
+
+<!-- ============================================================================== -->
+<!-- Exemplo de uso de Boost (2) -->
+<div id="exemplo_uso_boost_2" class="slide">
+    <div>
+        <section>
+            <header>
+                <h2>Exemplo de uso de Boost (2)</h2>
+            </header>
+            <ul>
+                <li><span class="flash">boost::shared_ptr</span> (ponteiro compartilhado)
+                    <ul class="longlist">
+                        <li>Quando existem múltiplos clientes para um objeto, mas nenhum é o proprietário explícito</li>
+                        <li>Quando precisamos armazenar ponteiros em contêineres</li>
+                        <li>Quando passamos ou recebemos objetos de bibliotecas sem conhecermos o proprietário dos mesmos</li>
+                    </ul>
+                </li>
+            </ul>
+<pre class="prettyprint linenums" style="position: absolute; top: 340px; left: 260px">
+#include &lt;boost/shared_ptr.hpp&gt;
+
+int main()
+{
+    boost::shared_ptr< int > ptr( new int( 42 ) );
+    *ptr = 36;
+
+    return 0;
+}
+</pre>
+            <footer class="notes">
+            </footer>
+        </section>
+    </div>
+</div>
+
+<!-- ============================================================================== -->
+<!-- Exemplo de uso de Boost (3) -->
+<div id="exemplo_uso_boost_3" class="slide">
+    <div>
+        <section>
+            <header>
+                <h2>Exemplo de uso de Boost (3)</h2>
+            </header>
+            <ul>
+                <li><span class="flash">BOOST_STATIC_ASSERT</span>
+                    <ul class="longlist">
+                        <li>Restrições em tempo de compilação com expressões constantes</li>
+                        <li>Encerra o processo de compilação quando a condição não é válida</li>
+                        <li>Não cria tempo de latência na execução caso a condição for válida</li>
+                    </ul>
+                </li>
+            </ul>
+<pre class="prettyprint linenums" style="position: absolute; top: 270px; left: 170px">
+#include &lt;boost/static_assert.hpp&gt;
+
+int main()
+{
+    const int config = 0;
+    typedef int real;
+
+    // Condição válida em tempo de compilação
+    BOOST_STATIC_ASSERT( config == 0 );
+    // Condição inválida, o processo sendo imediatamente encerrado!
+    BOOST_STATIC_ASSERT( boost::is_floating_point< real >::value );
+
+    return 0;
+}
+</pre>
+            <footer class="notes">
+            </footer>
+        </section>
+    </div>
+</div>
+
+<!-- ============================================================================== -->
+<!-- Exemplo de uso de Boost (4) -->
+<div id="exemplo_uso_boost_4" class="slide">
+    <div>
+        <section>
+            <header>
+                <h2>Exemplo de uso de Boost (4)</h2>
+            </header>
+            <ul>
+                <li><span class="flash">boost::numeric::ublas</span>
+                    <ul class="longlist">
+                        <li>Módulo de álgebra linear que dá suporte ao uso de vetores e matrizes</li>
+                        <li>Capaz de fazer interface com diversas bibliotecas numéricas como ATLAS, BLAS e LAPACK</li>
+                    </ul>
+                </li>
+            </ul>
+<pre class="prettyprint linenums" style="position: absolute; top: 250px; left: 85px">
+#include &lt;boost/numeric/ublas/vector.hpp&gt;
+#include &lt;boost/numeric/ublas/matrix.hpp&gt;
+#include &lt;boost/numeric/ublas/io.hpp&gt;
+#include &lt;iostream&gt;
+ 
+int main () // Exemplo do "y = Ax"
+{
+    boost::numeric::ublas::vector< double > x( 2 );
+    x( 0 ) = 1; x( 1 ) = 2;
+    boost::numeric::ublas::matrix< double > A( 2, 2 );
+    A( 0, 0 ) = 0; A( 0, 1 ) = 1;
+    A( 1, 0 ) = 2; A( 1, 1 ) = 3;
+    boost::numeric::ublas::vector< double > y = boost::numeric::ublas::prod( A, x );
+    std::cout << y << std::endl;
+    return 0;
+}
+</pre>
+            <footer class="notes">
+            </footer>
+        </section>
+    </div>
+</div>
+
+<!-- ============================================================================== -->
+<!-- Exemplo de uso de Boost (5) -->
+<div id="exemplo_uso_boost_5" class="slide">
+    <div>
+        <section>
+            <header>
+                <h2>Exemplo de uso de Boost (5)</h2>
+            </header>
+            <ul>
+                <li><span class="flash">boost::thread</span>
+                    <ul class="longlist">
+                        <li>Aplicações que necessitam executar procedimentos independentes em paralelo (multi-threading)</li>
+                    </ul>
+                </li>
+            </ul>
+<pre class="prettyprint linenums" style="position: absolute; top: 220px; left: 210px">
+#include &lt;boost/thread/thread.hpp&gt;
+#include &lt;iostream&gt;
+ 
+void imprimir() {
+    std::cout << "Ola, eu sou um thread!" << std::endl;
+}
+
+int main()
+{
+    // inicia 2 threads que chamam a sub-rotina "imprimir"
+    boost::thread thread1( &imprimir );
+    boost::thread thread2( &imprimir);
+    // espera que os dois threads terminem a execução
+    thread1.join();
+    thread2.join();
+    return 0;
+}
+</pre>
+            <footer class="notes">
+            </footer>
+        </section>
+    </div>
+</div>
+
+<!-- ============================================================================== -->
+<!-- Biblioteca Qt -->
+<div id="biblioteca_qt" class="slide">
+    <div>
+        <section>
+            <header>
+                <h2>Biblioteca Qt</h2>
+            </header>
+            <ul>
+                <li class="flash">Biblioteca de classes para o desenvolvimento de interfaces gráficas de usuário multiplataforma em C++</li>
+                <li><span class="flash">1991</span>: início do desenvolvimento
+                    <ul class="longlist">
+                        <li>Necessidade de conjunto de ferramentas para GUI multiplataforma</li>
+                    </ul>
+                </li>
+                <li><span class="flash">1994</span>: Início da comercialização pela Trolltech
+                    <ul class="longlist">
+                        <li>"Q" de boa aparência em fonte Emacs e "t" de toolkit</li>
+                        <li>Possui licenças comerciais e de código aberto</li>
+                    </ul>
+                </li>
+                <li><span class="flash">2008</span>: Adquirida pela Nokia quando passou a se chamar Qt Development Frameworks
+                    <ul class="longlist">
+                        <li>Foco na plataformas móveis</li>
+                    </ul>
+                </li>
+                <li><span class="flash">2012</span>: Adquirida pela Digia
+                    <ul class="longlist">
+                        <li>Versão atual: <span class="flash">5.1</span> (
+                            <a href="http://qt.digia.com" target="_blank">http://qt.digia.com</a>
+                            e 
+                            <a href="http://qt-project.org" target="_blank">http://qt-project.org</a>)
+                        </li>
+                    </ul>
+                </li>
+            </ul>
+            <figure style="position: absolute; left: 500px; top: 20px">
+                <img style="height: 90px" src="images/aula17/qt-logo.png">
+            </figure>
+            <footer class="notes">
+            </footer>
+        </section>
+    </div>
+</div>
+
+<!-- ============================================================================== -->
+<!-- Termos de Qt -->
+<div id="termos_qt" class="slide">
+    <div>
+        <section>
+            <header>
+                <h2>Termos de Qt</h2>
+            </header>
+            <ul>
+                <li><span class="flash">Widgets</span>
+                    <ul class="longlist">
+                        <li>Componentes de GUI (botões, caixas de mensagem, janelas de aplicação)</li>
+                    </ul>
+                </li>
+                <li><span class="flash">Layout Manager</span>
+                    <ul class="longlist">
+                        <li>Posicionamento e redimensionamento automático dos widgets dependentes</li>
+                    </ul>
+                </li>
+                <li><span class="flash">Signals e Slots</span>
+                    <ul class="longlist">
+                        <li>Comunicação entre objetos</li>
+                    </ul>
+                </li>
+                <li><span class="flash">Events</span>
+                    <ul class="longlist">
+                        <li>Eventos do sistema (cliques do mouse, teclado, ...)</li>
+                    </ul>
+                </li>
+                <li><span class="flash">Actions</span>
+                    <ul class="longlist">
+                        <li>Ações disparadas pelas barras de ferramentas e menus</li>
+                    </ul>
+                </li>
+            </ul>
+            <footer class="notes">
+            </footer>
+        </section>
+    </div>
+</div>
+
+<!-- ============================================================================== -->
+<!-- Módulos de Qt (uso geral) -->
+<div id="modulos_qt_uso_geral" class="slide">
+    <div>
+        <section>
+            <header>
+                <h2>Módulos de Qt (uso geral)</h2>
+            </header>
+            <table class="table-borders" style="position: absolute; left: 100px; top: 95px; font-weight: bold">
+                <tr>
+                    <th style="width: 180px">Módulo<br><br></th>
+                    <th style="width: 620px">Descrição</th>
+                </tr>
+                <tr>
+                    <td class="flash_bold">QtCore</td>
+                    <td>Classes principais não-gráficas usadas por outros módulos</td>
+                </tr>
+                <tr style="background-color: rgb(233, 237, 244);">
+                    <td class="flash_bold">QtGui</td>
+                    <td>Componentes da interface gráfica de usuário (GUI)</td>
+                </tr>
+                <tr>
+                    <td class="flash_bold">QtNetwork</td>
+                    <td>Classes para programação de sistemas em rede</td>
+                </tr>
+                <tr style="background-color: rgb(233, 237, 244);">
+                    <td class="flash_bold">QtOpenGL</td>
+                    <td>Classes para suporte à OpenGL</td>
+                </tr>
+                <tr>
+                    <td class="flash_bold">QtScript</td>
+                    <td>Classes para uso de scripts de Qt</td>
+                </tr>
+                <tr style="background-color: rgb(233, 237, 244);">
+                    <td class="flash_bold">QtSql</td>
+                    <td>Classes para integração de banco de dados usando SQL</td>
+                </tr>
+                <tr>
+                    <td class="flash_bold">QtSvg</td>
+                    <td>Classes para apresentação de conteúdo de arquivos SVG</td>
+                </tr>
+                <tr style="background-color: rgb(233, 237, 244);">
+                    <td class="flash_bold">QtWebKit</td>
+                    <td>Classes para apresentação e edição de conteúdo web</td>
+                </tr>
+                <tr>
+                    <td class="flash_bold">QtXml</td>
+                    <td>Classes para manipulação de arquivos XML</td>
+                </tr>
+                <tr style="background-color: rgb(233, 237, 244);">
+                    <td class="flash_bold">QtXmlPatterns</td>
+                    <td>Motor XQuery & XPath para XML e modelos de dados customizados</td>
+                </tr>
+                <tr>
+                    <td class="flash_bold">Phonon</td>
+                    <td>Classes do framework multimídia</td>
+                </tr>
+                <tr style="background-color: rgb(233, 237, 244);">
+                    <td class="flash_bold">Qt3Support</td>
+                    <td>Classes para compatibilidade com Qt 3</td>
+                </tr>
+            </table>
+            <footer class="notes">
+            </footer>
+        </section>
+    </div>
+</div>
+
+<!-- ============================================================================== -->
+<!-- Ferramentas de Qt -->
+<div id="ferramentas_qt" class="slide">
+    <div>
+        <section>
+            <header>
+                <h2>Ferramentas de Qt</h2>
+            </header>
+            <figure style="position: absolute; left: 75px; top: 100px">
+                <img style="height: 500px" src="images/aula17/qt_ferramentas.png">
+            </figure>
+            <p style="font-size: 18px; font-weight: bold; position: absolute; left: 480px; top: 165px">Qt Designer</p>
+            <p style="font-size: 18px; position: absolute; left: 480px; top: 190px">Criação de interface de usuário <span style="font-style: italic">Drag & Drop</span></p>
+            <p style="font-size: 18px; font-weight: bold; position: absolute; left: 370px; top: 295px">Integração com IDEs</p>
+            <p style="font-size: 18px; position: absolute; left: 370px; top: 320px">Visual Studio, Eclipse, ...</p>
+            <p style="font-size: 18px; font-weight: bold; position: absolute; left: 270px; top: 410px">Internacionalização</p>
+            <p style="font-size: 18px; position: absolute; left: 270px; top: 435px">Código binário único para múltiplas línguas</p>
+            <p style="font-size: 18px; font-weight: bold; position: absolute; left: 220px; top: 540px">Sistema de Ajuda</p>
+            <p style="font-size: 18px; position: absolute; left: 220px; top: 565px">Criação de ajuda</p>
+            <p style="font-size: 18px; font-weight: bold; position: absolute; left: 820px; top: 490px">Qt Creator</p>
+            <p style="font-size: 18px; position: absolute; left: 820px; top: 515px">IDE proprietária</p>
+            <footer class="notes">
+            </footer>
+        </section>
+    </div>
+</div>
+
+<!-- ============================================================================== -->
+<!-- Módulos de Qt (ferramentas) -->
+<div id="modulos_qt_ferramentas" class="slide">
+    <div>
+        <section>
+            <header>
+                <h2>Módulos de Qt (ferramentas)</h2>
+            </header>
+            <table class="table-borders" style="position: absolute; left: 100px; top: 150px; font-weight: bold">
+                <tr>
+                    <th style="width: 180px">Módulo<br><br></th>
+                    <th style="width: 620px">Descrição</th>
+                </tr>
+                <tr>
+                    <td class="flash_bold">QtDesigner</td>
+                    <td>Classes para extensão do Qt Designer</td>
+                </tr>
+                <tr style="background-color: rgb(233, 237, 244);">
+                    <td class="flash_bold">QtUiTools</td>
+                    <td>Criação de interfaces de usuário a partir de arquivos .ui em tempo de execução</td>
+                </tr>
+                <tr>
+                    <td class="flash_bold">QtHelp</td>
+                    <td>Classes para ajuda online</td>
+                </tr>
+                <tr style="background-color: rgb(233, 237, 244);">
+                    <td class="flash_bold">QtAssistant</td>
+                    <td>Suporte para a ajuda online</td>
+                </tr>
+                <tr>
+                    <td class="flash_bold">QtTest</td>
+                    <td>Classes para criação de testes unitários</td>
+                </tr>
+            </table>
+            <footer class="notes">
+            </footer>
+        </section>
+    </div>
+</div>
+
+<!-- ============================================================================== -->
+<!-- Exemplo do Qt Creator -->
+<div id="exemplo_qt_creator" class="slide">
+    <div>
+        <section>
+            <header>
+                <h2>Exemplo do Qt Creator</h2>
+            </header>
+            <figure style="position: absolute; left: 20px; top: 100px">
+                <img style="height: 500px" src="images/aula17/qtcreator-symbian-components-example-ui.png">
+            </figure>
+            <figure style="position: absolute; left: 630px; top: 420px">
+                <img style="height: 200px" src="images/aula17/qtcreator-symbian-components-example.png">
+            </figure>
+            <footer class="notes">
+            </footer>
+        </section>
+    </div>
+</div>
+
+<!-- ============================================================================== -->
+<!-- Arquitetura de Qt -->
+<div id="arquitetura_qt" class="slide">
+    <div>
+        <section>
+            <header>
+                <h2>Arquitetura de Qt</h2>
+            </header>
+            <figure style="position: absolute; left: 75px; top: 100px">
+                <img style="height: 500px" src="images/aula17/qt_arquitetura.png">
+            </figure>
+            <footer class="notes">
+            </footer>
+        </section>
+    </div>
+</div>
+
+<!-- ============================================================================== -->
+<!-- Plataformas que rodam Qt -->
+<div id="plataformas_qt" class="slide">
+    <div>
+        <section>
+            <header>
+                <h2>Plataformas que rodam Qt</h2>
+            </header>
+            <figure style="position: absolute; left: 100px; top: 100px">
+                <img style="height: 500px" src="images/aula17/qt_platform.png">
+            </figure>
+            <p style="font-size: 18px; position: absolute; left: 310px; top: 575px">Interface com outras linguagens mantida pela comunidade de código aberto de Qt</p>
+            <p style="font-size: 18px; position: absolute; left: 310px; top: 600px">Não é oficialmente suportada pelo Qt <span style="font-style: italic">Development Framework</span></p>
+            <footer class="notes">
+            </footer>
+        </section>
+    </div>
+</div>
+
+<!-- ============================================================================== -->
+<!-- Quem usa Qt atualmente? -->
+<div id="quem_usa_qt_atualmente" class="slide">
+    <div>
+        <section>
+            <header>
+                <h2>Quem usa Qt atualmente?</h2>
+            </header>
+            <figure style="position: absolute; left: 170px; top: 75px">
+                <img style="height: 380px" src="images/aula17/qt_customers.png">
+            </figure>
+            <table>
+                <tbody>
+                    <tr>
+                        <td>
+                            <video style="position:absolute; top:71%; left:17%;" width="256" height="144" controls="controls">
+                                <source src="videos/aula17/Qt_in_a_Day.mp4" type="video/mp4">
+                                O browser não suporta vídeos nos formatos mp4.
+                            </video>
+                            <small class="video-credits" style="top: 93%; left: 17%">
+                                <a href="http://www.youtube.com/watch?v=LPMG4u5e1y8" target="_blank">
+                                    QtStudios, 2010
+                                </a>
+                            </small>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <video style="position:absolute; top:71%; left:57%;" width="256" height="144" controls="controls">
+                                <source src="videos/aula17/Qt5_Everywhere_Demo.mp4" type="video/mp4">
+                                O browser não suporta vídeos nos formatos mp4.
+                            </video>
+                            <small class="video-credits" style="top: 93%; left: 57%">
+                                <a href="http://www.youtube.com/watch?v=-SJh3Xy2QKI#t=17" target="_blank">
+                                    QtStudios, 2013
+                                </a>
+                            </small>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+            <footer class="notes">
+            </footer>
+        </section>
+    </div>
+</div>
+
+<!-- ============================================================================== -->
+<!-- Exemplo de uso de Qt -->
+<div id="exemplo_uso_qt" class="slide">
+    <div>
+        <section>
+            <header>
+                <h2>Exemplo de uso de Qt</h2>
+            </header>
+            <ul>
+                <li>Aplicação para criar uma janela gráfica contendo no seu interior um texto e uma caixa de edição</li>
+            </ul>
+<pre class="prettyprint linenums" style="position: absolute; top: 220px; left: 300px">
+#include &lt;QtApplication&gt;
+#include &lt;QLabel&gt;
+#include &lt;QTextEdit&gt;
+ 
+int main( int argc, char *argv[] )
+{
+    QApplication app( argc, argv );
+    QLabel label( "Estou usando Qt!" );
+    QTextEdit textEdit;
+
+    label.show();
+    textEdit.show();
+    return app.exec();
+}
+</pre>
+            <footer class="notes">
+            </footer>
+        </section>
+    </div>
+</div>
+
+<!-- ============================================================================== -->
+<!-- Resumo da aula -->
+<div id="resumo" class="slide">
+    <div>
+        <section>
+            <header>
+                <h2>Resumo da aula</h2>
+            </header>
+            <ul>
+                <li><span class="flash">Boost</span> e <span class="flash">Qt</span> são duas bibliotecas multiplataformas que <span class="flash">permitem aumentar bastante a produtividade</span> no desenvolvimento de aplicações em C++</li>
+                <li><span class="flash">Boost</span> contém módulos que implementam <span class="flash">diversas necessidades básicas e complexas dos programas</span></li>
+                <li><span class="flash">Qt</span> contém módulos que implementam <span class="flash">interfaces gráficas de usuário</span> e controlam a interface com diversos dispositivos</li>
+                <li>Apesar de existir inicialmente um tempo de aprendizado inerente ao uso de bibliotecas, ele é bastante recompensador</li>
+                <li>Não reinvente a roda, <span class="flash">faça uso de bibliotecas!!!</span></li>
+            </ul>
+            <footer class="notes">
+            </footer>
+        </section>
+    </div>
+</div>
+
+<!-- ============================================================================== -->
+<!-- Se não quiser a barra de progressão, tem apenas que eliminar esta tag <div> -->
+<div class="progress">
+    <div></div>
+</div>
+
+<!-- ============================================================================== -->
+<!-- Scripts -->
+<script type="text/javascript" src="../../common/scripts/presentations/script.js"></script>
+<script type="text/javascript" src="../../common/scripts/code-prettify/prettify.js"></script>
+<script type="text/javascript" src="../../common/scripts/jquery.js"></script>
+
+</body>
+
+</html>

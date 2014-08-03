@@ -1,0 +1,650 @@
+<!DOCTYPE HTML>
+<html lang="pt-BR" class="nonumbers">
+<head>
+	<title>Estrutura de Dados Básicas</title>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=1274, user-scalable=no">
+	<link rel="stylesheet" href="../../common/themes/presentations/styles/style.css" type="text/css">
+	<link rel="stylesheet" href="../../common/themes/presentations/styles/print.css" type="text/css"  media="print">
+	<link rel="stylesheet" href="../../common/themes/edb/styles/presentation.css" type="text/css">
+	<link rel="stylesheet" href="../../common/themes/code-prettify/styles/prettify.css" type="text/css">
+</head>
+<body class="list" onload="prettyPrint();">
+
+	<header class="caption">
+		<h1>Estruturas de Dados Básicas I</h1>
+		<h2>Aula 07 - Algoritmos de ordenação</h2>
+	</header>
+	<div id="capa" class="slide cover w">
+		<div>
+			<section>
+				<header>
+					<h3>Estruturas de Dados Básicas I</h3>
+					<h2>Aula 07 - Algoritmos de ordenação</h2>
+					<img src="./images/aula07/bg.jpg">
+				</header>
+			</section>
+		</div>
+	</div>
+
+	<div id="sld-01" class="slide">
+		<div>
+			<section>
+				<header>
+					<h2>Motivação e objetivos</h2>
+				</header>
+				<ul class="inner">
+					<li class="active">Motivação</li>
+					<ul>
+						<li>Um dos problemas mais recorrentes da computação é <strong>ordenar</strong> dados.</li>
+						<li>Nos primórdios da computação, (dizia-se que) cerca de metade do tempo de processamento de dados era dedicado à ordenação.</li>
+						<li>Problema de fácil entendimento com várias soluções possíveis.</li>
+					</ul>
+					<br>
+					<li class="active">Objetivos</li>
+					<ul>
+						<li>Apresentar o problema da ordenação</li>
+						<li>Apresentar duas soluções simples para ordenar dados</li>
+					</ul>
+				</ul>
+				<footer class="notes"></footer>
+			</section>
+		</div>
+	</div>
+
+	<div id="sld-02" class="slide">
+		<div>
+			<section>
+				<header>Como crianças ordenam?</header>
+				<ul class="inner">
+					<li class="active">A capacidade de comparar elementos começa ainda nos estágios iniciais de desenvolvimento cognitivo</li>
+					<li>Quando aprendem as <strong>relações de ordem</strong> (maior, menor e igual), as crianças são capazes de ordenar elementos concretos (blocos de madeira)
+						<div style="position: absolute; bottom: 10%; right: 10%; width: 30%">
+							<img src="./images/aula07/crianca_ordenando.jpg"
+								style="position: absolute; bottom: 0%; right: 0%; width:100%">
+						</div>
+					</li>
+				 	<li>Para implementar um algoritmo de<br>
+				 		ordenação em um conjunto de dados, é<br>
+				 		necessário, portanto estabelecer a<br>
+				 		relação de ordem entre seus	elementos.
+				 	</li>
+				</ul>
+				<footer class="notes"></footer>
+			</section>
+		</div>
+	</div>
+	
+	<div id="sld-03" class="slide">
+		<div>
+			<section>
+				<header>Relações de ordem</header>
+				<ul class="inner">
+					<li style="font-size: smaller">Ordem total</li>
+						<ul>
+							<li style="font-size: smaller">Todos os elementos do conjunto são "comparáveis"</li>
+						</ul>
+					<li style="font-size: smaller">Ordem ampla (não estrita)</li>
+						<ul>
+							<li style="font-size: smaller">Em um conjunto \(X\) é uma relação binária (denotada por \(\leq\)) que satisfaz as seguintes propriedades \(\forall a, b, c \in X\)</li>
+							<ul class="short">
+								<li><strong>Transitividade</strong>: se \(a \leq b\) e \(b \leq c\) então \(a \leq c\)</li>
+								<li><strong>Anti-simetria</strong>: se \(a \leq b\) e \(b \leq a\) então \(a = b\)</li>
+								<li><strong>Reflexividade</strong>: \(a \leq a\)</li>
+							</ul>
+						</ul>
+					</li>
+					<li style="font-size: smaller">Ordem estrita</li>
+						<ul>
+							<li style="font-size: smaller">Em um conjunto \(X\) é uma relação binária (denotada por \(<\)) que satisfaz as seguintes propriedades \(\forall a, b, c \in X\)</li>
+							<ul class="short">
+								<li><strong>Transitividade</strong>: \(a < b\) se e somente se \(a \leq b\) e \(a \neq b\)</li>
+								<li><strong>Assimetria</strong>: \(a < b\) ou \(b < a\) ou \(a = b\)</li>
+								<li><strong>Irreflexividade</strong>: \(\nexists a \ | \ a < a\)</li>
+							</ul>
+						</ul>
+					</li>
+				</ul>
+				<footer class="notes"></footer>
+			</section>
+		</div>
+	</div>
+
+	<div id="sld-04" class="slide">
+		<div>
+			<section>
+				<header>Conjuntos totalmente ordenáveis</header>
+				<ul class="inner">
+					<li>Se \(X\) admite ordem total, então \(X\) é totalmente ordenável</li>
+					<li>Exemplos</li>
+					<ul>
+						<li>Números naturais, inteiros e racionais (ordem de grandeza)</li>
+						<li>Letras do alfabeto (ordem lexográfica)</li>
+						<li>Pontos no plano (ordem de distância à origem)</li>
+						<li>Países (ordem de crescimento econômico)</li>
+						<li>...</li>
+					</ul>
+					<li>Todo conjunto pode ser ordenável, desde que seja estabelecida uma <strong>relação binária de ordem ampla ou estrita</strong></li>
+				</ul>
+				<footer class="notes"></footer>
+			</section>
+		</div>
+	</div>
+
+<div id="sld-05" class="slide">
+	<div>
+		<section>
+			<header>Problema de ordenação</header>
+			<ul>
+				<li><b>Entrada</b>: Sequência de elementos que<br>
+					possuam	uma relação de ordem total</li>
+					<br>
+				<li><b>Saída</b>: Uma <strong>permutação</strong> da<br>
+					sequência tal que a posição dos<br>
+					elementos siga a relação de ordem.
+				</li>
+			<img src="./images/aula07/ordenacao.png" style="position:absolute; bottom: 5%; right: 5%; width: 40%">
+			<footer class="notes"></footer>
+		</section>
+	</div>
+</div>
+
+<div id="sld-06" class="slide">
+	<div>
+		<section>
+			<header>Formalmente...</header>
+			<ul class="inner">
+				<li>Seja \(A\) uma sequência \(\left \langle a_1, a_2,..., a_n \right \rangle\) de \(n\) elementos</li>
+				<li>Seja \(R\) uma relação de ordem total sobre os elementos de \(A\), denotada por \(\leq\)</li>
+				<li>Encontrar uma permutação \(A' = \left \langle a'_1, a'_2,..., a'_n \right \rangle\) de \(A\), tal que<br>
+					\(a'_1 \leq a'_2 \leq ... \leq a'_n\)
+				</li>
+				<br>
+				<li class="obs"><b>Obs:</b> Para quaisquer elementos \(a_i, a_j \in A\), apenas uma das 3 afirmações são verdadeiras
+				\[ a_i < a_j \mbox{ ou } a_j < a_i \mbox{ ou } a_i = a_j\]
+					onde \( < \) é qualquer ordem estrita associada a ordem total \(\leq\).
+				</li>
+			</ul>
+			<footer class="notes"></footer>
+		</section>
+	</div>
+</div>
+
+	<div id="sld-07" class="slide">
+		<div>
+			<section>
+				<header>Como as crianças ordenam?</header>
+				<ul class="inner">
+					<li>Mecanismo reativo</li>
+					<ul>
+						<li>Escolhe o menor elemento</li>
+						<li>Coloca na \(1^{a}\) posição da fila</li>
+						<li>Escolhe o menor dos elementos restantes</li>
+						<li>Coloca na \(2^{a}\) posição da fila</li>
+						<li>Escolhe o menor dos elementos restantes</li>
+						<li>Coloca na \(3^{a}\) posição da fila</li>
+						<li>... até não sobrar nenhum elemento</li>
+					</ul>
+					<br>
+					<li>Funciona???</li>
+				</ul>
+				<img src="./images/aula07/crianca_ordenando.jpg" style="position: absolute; bottom: 10%; right: 5%">
+				<footer class="notes"></footer>
+			</section>
+		</div>
+	</div>
+
+	<div id="sld-08" class="slide">
+		<div>
+			<section>
+				<header>Corretude do &ldquo;algoritmo infantil&rdquo;</header>
+				<ul class="inner">
+					<li style="font-size: smaller">Seja \(A\) uma sequência a ordenar com \(n\) elementos e \(B = \emptyset\)</li>
+					<li style="font-size: smaller"><strong>Invariantes</strong>: \(B\) é uma sequência ordenada e \(b < a\) \(\forall b \in B, a \in A\)</li>
+
+					<li style="font-size: smaller"><strong>Caso base</strong>: Se \(A = \emptyset \), então \(B\) é \(A\) ordenado. </li>
+					<li style="font-size: smaller">Seja \(a_{min}\) o menor elemento de \(A\).</li>
+					<li style="font-size: smaller" class="nobullet">Se passarmos \(a_{min}\) de \(A\) para o final da sequência ordenada \(B\)...</li>
+						<ul>
+							<li style="font-size: smaller">a nova sequência \(\left \langle b_1, b_2,..., a_{min} \right \rangle\) continuará ordenada</li>
+							<li style="font-size: smaller">\(b < a\) \(\forall b \in B, a \in A\) continuará sendo verdade</li>
+							<li style="font-size: smaller">\(A\) terá \(n-1\) elementos</li>
+						</ul>
+					<li style="font-size: smaller">Por <strong>hipótese de indução</strong>, se funciona para \(n\) elementos, também funciona para \(n-1\).</li>
+					<li style="font-size: smaller">O algoritmo gera, portanto, uma sequência ordenada \(B\)</li>
+				</ul>
+				<footer class="notes"></footer>
+			</section>
+		</div>
+	</div>
+	
+	<div id="sld-09" class="slide">
+		<div>
+			<section>
+				<header>Solução</header>
+				<img src="./images/aula07/Selection-sort-dance-625x346.png" alt="Selection sort dance">
+				<a href="http://www.youtube.com/watch?v=Ns4TPTC8whw" target="_blank">
+                        http://www.youtube.com/user/AlgoRythmics
+                </a>
+				<footer class="notes"></footer>
+			</section>
+		</div>
+	</div>
+
+	<div id="sld-10" class="slide">
+		<div>
+			<section>
+				<div>
+				<header>Algoritmo</header>
+				<ul class="inner">
+					<li>É possível tirar um algoritmo a partir da prova de corretude???</li>
+					<li class="nobullet"><pre><code>ordena(A, B)
+    se tam(A) > 0 então
+        a_min = min(A)
+        remove a_min de A
+        insere a_min no final de B
+        ordena(A, B)
+</code></pre>		</li>
+				<li>Este algoritmo é conhecido como<br>
+					<strong>Selection sort</strong></li>
+				<li class="nobullet">
+					<div style="position: absolute; bottom:2%; right:5%; width:40%">
+						<img src="./images/aula06/selection_sort.png"
+							style="position: absolute; bottom: 0%; right: 0%; width:100%">
+					</div>
+				</li>
+				</ul>
+				</div>
+				<footer class="notes"></footer>
+			</section>
+		</div>
+	</div>
+
+	<div id="sld-11" class="slide">
+		<div>
+			<section>
+				<header>Complexidade</header>
+<pre><code class="linenums">ordena(A, B)
+    se tam(A) > 0 então
+        a_min = min(A)
+        remove a_min de A
+        insere a_min no final de B
+        ordena(A, B)
+</code></pre>
+				<ul class="inner">
+					<li style="font-size: smaller">Podemos usar uma fórmula de recorrência</li>
+					<li style="font-size: smaller">Achar e remover o mínimo é \(O(n)\), onde \(n\) é o tamanho de \(A\)</li>
+					<li style="font-size: smaller">Inserir no final de \(B\) é \(O(1)\)</li>
+					<li style="font-size: smaller">Na chamada recursiva, o tamanho de \(A\) é reduzido de \(1\)</li>
+					<li style="font-size: smaller" class="nobullet">
+						\[f(n) = \begin{cases} 1, & \mbox{se } n = 0 \\2.n + 1 + f(n-1), & \mbox{se } n > 0 \end{cases} \]
+					</li>
+				</ul>
+				<footer class="notes"></footer>
+			</section>
+		</div>
+	</div>
+
+	<div id="sld-12" class="slide">
+		<div>
+			<section>
+				<header>Recorrência</header>
+				<ul class="inner">
+					<li style="font-size: smaller" class="nobullet">
+						1: \(f(n) = 2n + 1 + f(n-1)\)
+					</li>
+					<li style="font-size: smaller" class="nobullet">
+						2: \(f(n) = 2n + 1 + (2(n-1) + 1 + f(n-2)\)<br>
+						&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+						\(= 2.2n + f(n-2)\)
+					</li>
+					<li style="font-size: smaller" class="nobullet">
+						3: \(f(n) = 2.2n + (2(n-2) + 1 + f(n-3)\)<br>
+						&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+						\(= 3.2n - 3 + f(n-3)\)
+					</li>
+					<li style="font-size: smaller" class="nobullet">
+						4: \(f(n) = 3.2n - 3 + (2(n-3) + 1 + f(n-4)\)<br>
+						&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+						\(= 4.2n - 8 + f(n-4)\)
+					</li>
+					<li style="font-size: smaller" class="nobullet">
+						\(i\): \(f(n) = i.2n + (-i^2 + 2i) + f(n-i)\)
+					</li>
+					<li style="font-size: smaller" class="nobullet">Quando chegar no caso base (\(f(0)\)), então \(n - i = 0 \ \Rightarrow i = n\)</li>
+					<li style="font-size: smaller" class="nobullet">
+						\(i\): \(f(n) = n.2n - n^2 + 2n + 1\)
+					</li>
+					<li style="font-size: smaller" class="nobullet">
+						&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+						\(= n^2 + 2n + 1\) é <strong>\(O(n^2)\)</strong>
+					</li>
+				</ul>
+				<footer class="notes"></footer>
+			</section>
+		</div>
+	</div>
+
+	<div id="sld-13" class="slide">
+		<div>
+			<section>
+				<header>Implementação</header>
+				<ul class="inner">
+					<li>A cada iteração, \(A\) reduz em um elemento e \(B\) aumenta em um elemento</li>
+					<li>Considerando uma implementação sobre um vetor, podemos usar o mesmo vetor para \(A\) e \(B\)
+						<div style="position: absolute; right:5%; bottom:5%; width: 25%">
+							<img src="./images/aula06/selection_sort_vector.png"
+								style="position: absolute; bottom: 0%; right: 0%; width:100%">
+						</div>
+					</li>
+					<br>
+					<li>Ordenação <strong>in-place</strong>: quando requer uma<br>
+						quantidade de memória constante (\(O(1)\)) para<br>
+						funcionar
+					</li>
+				</ul>
+				<footer class="notes"></footer>
+			</section>
+		</div>
+	</div>
+
+	<div id="sld-14" class="slide">
+		<div>
+			<section>
+				<header>Atividade</header>
+				<ul class="inner">
+					<li class="active">Escrever o código (em C) do algoritmo de ordenação <strong>Selection sort</strong></li>
+					<li>Solução
+<pre><code class="prettyprint">void selectionSort (int v[], int N) {
+    int min, aux, j;
+    if (N > 0) {
+        /* acha o mínimo */
+        min = 0;
+        for (j = 1; j < N; j++)
+            if (v[j] < v[min])
+                min = j;
+        /* troca elemento */
+        aux = v[i];
+        v[i] = v[min];
+        v[min] = aux;
+        /* resolve com vetor reduzido */
+        selectionSort (&v[1], N-1);
+    }
+}</code></pre>
+					</li>
+				</ul>
+				<footer class="notes"></footer>
+			</section>
+		</div>
+	</div>
+
+
+	<div id="sld-15" class="slide">
+		<div>
+			<section>
+				<header>Versão iterativa</header>
+<pre><code class="prettyprint">void selectionSort (int v[], int N) {
+    int min, aux, i, j;
+    for (i = 0; i < N-1; i++) {
+        /* acha o mínimo */
+        min = i;
+        for (j = i+1; j < N; j++)
+            if (v[j] < v[min])
+                min = j;
+        /* troca elemento */
+        aux = v[i];
+        v[i] = v[min];
+        v[min] = aux;
+    }
+}</code></pre>
+				<footer class="notes"></footer>
+			</section>
+		</div>
+	</div>
+
+	<div id="sld-16" class="slide">
+		<div>
+			<section>
+				<div>
+				<header>Outra solução: Bubble sort</header>
+				<img src="./images/aula06/Bubble-sort-dance-625x346.png" alt="Bubble sort dance">
+				<a href="http://www.youtube.com/watch?v=lyZQPjUT5B4" target="_blank">
+                        http://www.youtube.com/user/AlgoRythmics
+                </a>
+				</div>
+				<footer class="notes"></footer>
+			</section>
+		</div>
+	</div>
+
+	<div id="sld-17" class="slide">
+		<div>
+			<section>
+				<header>Ideia do bubble sort</header>
+				<ul class="inner">
+					<li>Como no Selection sort, levar o menor (ou maior) elemento da sequência para uma de suas extremidades
+					</li>
+					<li>Os elementos vão sendo trocados com seus sucessores
+					</li>
+					<li>"Bolha" porque os maiores elementos rapidamente "borbulham" para o final do vetor
+						<div style="position: absolute; bottom:5%; left:5%; width:90%">
+							<img src="./images/aula06/bubble_sort.png"
+								style="position: absolute; bottom: 0%; right: 0%; width:100%">
+						</div>
+					</li>
+				</ul>
+				<footer class="notes"></footer>
+			</section>
+		</div>
+	</div>
+
+<div id="sld-18" class="slide">
+	<div>
+		<section>
+			<header>Exemplo</header>
+					<img src="./images/aula06/bubble_sort_exemplo.png" style="position:absolute; top:25%; left:5%; width:90%">
+					<br><br><br><br><br><br><br><br>
+					<ul class="inner">
+						<li>Funciona para todos os casos???</li>
+					</ul>
+			<footer class="notes"></footer>
+		</section>
+	</div>
+</div>
+
+<div id="sld-19" class="slide">
+	<div>
+		<section>
+			<header>Corretude do bubblesort</header>
+			<ul class="inner">
+				<li>A prova de corretude do Selection sort mostrou que se retirarmos sempre o menor elemento do conjunto a ser ordenado (\(A\)) e o inserirmos no final do conjunto ordenado (\(B\)), no final \(B\) será \(A\) ordenado.</li>
+				<li>O mesmo vale para o bubblesort, a diferença<br>
+					é que estamos lidando com o maior elemento de<br>
+					\(A\), inserindo-o no início de \(B\)
+					<div style="position: absolute; bottom:5%; right:10%; height:50%">
+						<img src="./images/aula06/bubbleAB.png"
+							style="position: absolute; bottom: 0%; right: 0%; height:100%">
+					</div>
+				</li>
+				<li>Resta, entretanto, provar que o processo<br>
+					de troca desloca, de fato, o maior elemento<br>
+					de \(A\) para \(B\).</li>
+			</ul>
+			<footer class="notes"></footer>
+		</section>
+	</div>
+</div>
+
+<div id="sld-20" class="slide">
+	<div>
+		<section>
+			<header>Corretude do deslocamento</header>
+			<ul class="inner">
+				<li style="font-size: smaller">Seja \(A\) uma sequência com \(n_a\) elementos e \(B = \{a_k\}_{k=1}^{n_b}\) uma subsequência de \(A\), tal que \(n_b = n_a - 1\) e \(b_{n_b} > b_i\) para \(1 \leq i < n_b\)
+				</li>
+				<li style="font-size: smaller"><strong>Caso base</strong>: Se \(n_a = 1\), \(a_{n_a}\) já é o maior elemento de \(A\)</li>
+				<li style="font-size: smaller">Para \(n_a > 1\), das duas uma:</li>
+				<ul>
+					<li style="font-size: smaller">Se \(a_{n_a} \geq b_{n_b}\), o último elemento de \(A\) já é o maior elemento de \(A\), pois \(b_{n_b}\) é o maior elemento de \(B\)</li>
+					<li style="font-size: smaller">Se \(a_{n_a} < b_{n_b}\), ao trocar \(a_{n_a}\) por \(b_{n_b}\), o último elemento \(A\) passa a ser o maior elemento de \(A\), pois \(b_{n_b}\) é maior de \(B\)</li>
+				</ul>
+				<li style="font-size: smaller">Por <strong>hipótese de indução</strong>, se funciona para \(n_a\) funciona para \(n_a - 1\)</li>
+				<li style="font-size: smaller">Assim, após o procedimento, o maior elemento de \(A\) estará sempre na última posição.</li>
+			</ul>
+			<footer class="notes"></footer>
+		</section>
+	</div>
+</div>
+
+<div id="sld-21" class="slide">
+	<div>
+		<section>
+			<header>Algoritmo</header>
+			<ul class="inner">
+				<li>Novamente, podemos tirar um algoritmo da prova de corretude?</li>
+				<li class="nobullet"><pre><code>bubble(A, n)
+    se n > 0 então
+        bubble(A, n-1)
+        se A[n-1] > A[n]
+            troca A[n] por A[n-1]
+</code></pre></li>
+				<li class="nobullet"><pre><code>ordena(A, n)
+    se n > 0 então
+        bubble(A, n)
+        ordena(A, n-1)
+</code></pre></li>
+			</ul>
+			<footer class="notes"></footer>
+		</section>
+	</div>
+</div>
+
+<div id="sld-22" class="slide">
+	<div>
+		<section>
+			<header>Algoritmo iterativo</header>
+			<ul class="inner">
+<li class="nobullet"><pre><code>ordena(A, n)
+    para i de n a 1 faça
+        bubble(A, i)
+</code></pre></li>
+
+<li class="nobullet"><pre><code>bubble(A, n)
+    para i de 1 a n-1 faça
+        se A[i] > A[i+1]
+            troca A[i+1] por A[i]
+</code></pre></li>
+
+
+<li class="nobullet"><pre><code>ordena(A, n)
+    para i de n a 1 faça
+        para j de 1 a i-1 faça
+            se A[j] > A[j+1]
+                troca A[j+1] por A[j]
+</code></pre></li>
+			</ul>
+			<footer class="notes"></footer>
+		</section>
+	</div>
+</div>
+
+<div id="sld-23" class="slide">
+	<div>
+		<section>
+			<header>Complexidade</header>
+<pre><code>ordena(A, n)
+    para i de n a 1 faça
+        para j de 1 a i-1 faça
+            se A[j] > A[j+1]
+                troca A[j+1] por A[j]
+</code></pre>	
+			<ul class="inner">
+<li class="nobullet">
+			<li class="nobullet">
+				\[\sum_{i=n}^{1} \sum_{j=1}^{i-1} 1 \Rightarrow O(n^2) \]
+			</li>
+			</ul>
+			<footer class="notes"></footer>
+		</section>
+	</div>
+</div>
+
+<div id="sld-24" class="slide">
+    <div>
+        <section>
+            <header>Implementação</header>
+<pre><code class="prettyprint">void bubbleSort(int v[], int N) {
+    int i, j, aux;
+    for (i = N-1; i > 0; i--) {
+        for (j = 0; j < i; j++) {
+		    /* testa os elementos par a par */
+            if (v[j] > v[j+1]) {
+			    /* troca elemento */
+                aux = v[j];
+                v[j] = v[j+1];
+                v[j+1] = aux;
+            }
+        }
+    }
+}</code></pre>
+            <footer class="notes"></footer>
+        </section>
+    </div>
+</div>
+
+<div id="sld-25" class="slide">
+	<div>
+		<section>
+			<header>Considerações</header>
+			<ul class="inner">
+				<li>O melhor e pior casos do bubble sort ocorrem quando A está em ordem crescente e decrescente, respectivamente</li>
+				<li>É o algoritmo de ordenação mais simples de implementar</li>
+				<li>Porém, como o selection sort, não é muito eficiente</li>
+				<li>Os algoritmos que acabamos de estudar não são eficientes e, por isso, são raramente utilizados na prática</li>
+				<li>O maior problema com eles não está na complexidade do pior caso, mas sim no fato da complexidade de caso médio ser
+também quadrática!</li>
+			</ul>
+			<footer class="notes"></footer>
+		</section>
+	</div>
+</div>
+
+<div id="sld-26" class="slide">
+		<div>
+			<section>
+				<header>Atividade</header>
+				<ul>
+					<li>Dado uma sequência \(A\) = \(\left \langle 65, 75, 6, 57, 99, 27, 0, 96 \right \rangle\) de \(8\) elementos, demonstre passo a passo as 
+					    interações necessárias para ordenar a sequência \(A\), usando para tal os algoritmos de ordenação abaixo.
+					</li>
+					    <img src="images/aula07/Selection_and_Bubble.png" style="position: absolute; top: 50%; left: 10%; width: 75%">
+					</li>	
+				<footer class="notes"></footer>
+			</section>
+		</div>
+</div>
+
+	<div id="sld-27" class="slide">
+		<div>
+			<section>
+				<header>Atividades</header>
+				<ul class="inner">
+					<li>Em que situacão ocorre o melhor caso do selection sort?</li>
+					<li>E o pior?</li>
+					<li>Qual é a sua cota inferior?</li>
+					<li>Mostre que o bubble sort funciona corretamente</li>
+					<li>Em que situacão ocorre o melhor caso do bubble sort?</li>
+					<li>Avalie a complexidade do pior caso e melhor caso do bubble sort</li>
+					<li>O selection ou bubble possuem limite exato?</li>
+				<footer class="notes"></footer>
+			</section>
+		</div>
+	</div>
+
+
+<script type="text/javascript" src="../../common/scripts/presentations/script.js"></script>
+<script type="text/javascript" src="../../common/scripts/code-prettify/prettify.js"></script>
+<script type="text/javascript" src="../../common/scripts/animation/jsmove.js"></script>
+<script type="text/javascript" src="../../common/scripts/mathjax/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+</body>
+</html>
