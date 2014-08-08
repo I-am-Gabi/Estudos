@@ -3,15 +3,14 @@
 
 0. Busca Sequencial e Binária Recursiva -> Iterativa.
 
-1.Escreva uma função recursiva que permita somar
+// 1.Escreva uma função recursiva que permita somar
 os elementos de um vetor de inteiros.
 
-2.Crie uma função recursiva que recebe dois inteiros positivos K, e N. e calcule K^n. só pode usar multi-
-plicação.
+// 2.Crie uma função recursiva que recebe dois inteiros positivos K, e N. e calcule K^n. só pode usar multiplicação.
 
 3.Escreva uma função recursiva que inverta o número inteiro.
 
-4. Escreva uma função recursiva que realiza a divisão através da subtração sucessivas.
+// 4. Escreva uma função recursiva que realiza a divisão através da subtração sucessivas.
 
 5. Transforme tudo isso para iterativa.
 
