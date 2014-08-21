@@ -92,11 +92,9 @@ int main (){
 
   		for (n = 250; n <= 1000; n += 250){
   	  	gettimeofday(&t0, NULL);		
-  			//for (int i=0; i <10; ++i){
-  				//cout << i << endl; 
+
   				permut2(v2,n);
 
-  			//}
   		gettimeofday(&t1, NULL);
     	tempo = (t1.tv_sec - t0.tv_sec) * 1000000; //microsegundos
     	tempo += t1.tv_usec - t0.tv_usec;

@@ -2,41 +2,22 @@
 #include <stdio.h>
 
 using namespace std;
-int findInMatrix(int x, int n, int v[4][4]){
-
-int menor=0,maior=0,i=0;
-int flagmenor=0,flagmaior=0;
-for (int i=0; i < n; ++i){
-	if (v[i][i] == x){
-		return 1;
-		cout << "founded1" << endl;
-	}
-	else if (v[i][i] < x){
-		menor = i;
-		cout << "menor " << menor << endl;		
-	}
-	else if (v[i][i] > x && flagmaior == 0){
-		maior = i;
-		flagmaior = 1;
-		cout << "maior " << maior << endl;		
-	}
-}
-
-for (int i=menor; i <= maior; ++i){
-	for (int j=menor; j <= maior+1; ++j){
-		cout << " " << i << "" << j;
-	}
-	cout << endl;
-}
-
-
+int findInMatrix(int *v, int n, int X){
+		for (int i = 0; i < (n*n); ++i){
+			if (*(v+i) == X)
+				return true;
+		} 
+	return false;
 }
 
 int main (){
 	int valor = 5;
 	int matrix[4][4] = {{1,2,3,4},{10,20,30,40},{100,200,300,400},{1000,2000,3000,4000}};
 	
-	findInMatrix(40,4,matrix);
+	cout << findInMatrix(&matrix[0][0],4,10) << endl;
+	cout << findInMatrix(&matrix[0][0],4,100) << endl;
+	cout << findInMatrix(&matrix[0][0],4,8) << endl;
+	cout << findInMatrix(&matrix[0][0],4,9) << endl;
 
 
 }
