@@ -1,55 +1,19 @@
-void quicksort_aux( int v[], int l, int r){
-	int q;
-	if( r > l ){
-		q = particao(v, l, r); //q possui o indice do pivô
-		quicksort_aux(v,l,(q-1));
-		quicksort_aux(v,(q+1),r);
-	}
-}
+(01) algoritmo quicksort aux(ref A, l, r)
+(02) 	se l < r então
+(03) 		q ← partição(A, l, r)
+(04) 		quicksort aux(A, l, q − 1)
+(05) 		quicksort aux(A, q + 1, r)
+(06) 	fimse
+(07) fimalgoritmo
 
-void quicksort(int v[], int n){
-	quicksort_aux(v,0,n);
-} 
+Sabemos ordenar um conjunto de 1 ≤ k < n inteiros.
 
-INVARIANTE:
-	No final de cada execução do quicksort_aux, o pivô 
-	escolhido estará na posição correta de ordenação.
+Caso base: n = 1. Um conjunto de um unico ´ elemento est´a
+ordenado.
 
-CASO BASE:
-	Para 0 elementos, temos 0 elementos na posição correta
-	ou posição final.
-PASSO INDUTIVO:
-	A cada i-ésima iteração da função quicksort_aux temos
-	i elementos na posição correta. Para i-ésima + 1 temos
-	i + 1 elementos na posição correta.
-
-	O laço recursivo acaba quando r > l, onde r é incrementado a
-	cada execução e o valor de r decrementado a cada execução. 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-INVARIANTE :
-	A cada execução terá um subvetor com elementos
-	menores que "q" e outro subvetor com elementos
-	maiores que "q". onde "q" ∈ {l...r} ⊆ {1,...,n}; 
-
-Invariante - 1 tentativa: 
-
-A cada execução do quicksort_aux, 
-é gerado um valor "q" ∈ {l...r} ⊆ {1,...,n} e
-o vetor será dividido em duas partes 
-tal que para todo A[i] ≤ A[q] e A[q] ≤ A[j] onde
-
-i ∈ {1,...,q-1}
-j ∈ {q+1,...,r}
+Passo da Indução: Seja S um~conjunto de n ≥ 2 inteiros e x um
+elemento qualquer de S. Sejam S1 e S2 os subconjuntos de S − x
+dos elementos menores ou iguais a x e maiores que x,
+respectivamente. Ambos S1 e S2 possuem menos de n elementos. 
+Por hipótese de indução, sabemos ordenar os conjuntos S1 e S2. 
+Podemos obter S ordenado concatenando S1 ordenado, x e S2 ordenado.
