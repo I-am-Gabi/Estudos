@@ -2,10 +2,10 @@
 
 using namespace std;
 
-void imprime_v(int vet[], int n){
+void imprime_v(int vet[], int l,int r){
 	cout << endl;
-	for (int i=0; i < n; ++i){
-		cout << vet[i] << " ";		
+	for (; l < r; ++l){
+		cout << vet[l] << " ";		
 	}
 }
 
@@ -36,12 +36,40 @@ void quicksort(int v[], int n){
 	quicksort_aux(v,0,n);
 } 
 
+int Quick(int v[], int left, int right) {  
+  int l, r, x, aux;
+  if (left < right) {
+      x = v[(left+right)/2]; 
+  		cout << "| pivo= " << x << " |";      
+      l = left; 
+      r = right;
+    while (l <= r){  
+      while (v[l] < x) l++;
+      while (x < v[r]) r--;
+      cout << " de " << l << " ate " << r; 
+      if (l <= r) { 
+      	cout << " TROCA DE v[" << l << "]";
+        cout << " COM v[" << r << "]" << endl;
+        aux = v[l];
+        v[l] = v[r];
+        v[r] = aux;
+        l++, r--;
+          imprime_v(v,0,10);
+      }
+    }    
+
+    Quick(v, left, r);
+    Quick(v, l, right);
+  } 
+  return 0;
+} 
+
 int main (){
 	
 
-int v1[] = {98,5,40,3,99,1,100,3};
-imprime_v(v1,8);
-quicksort(v1,7);
-imprime_v(v1,8);
+int v1[] = {105,5,90,3,40,13,30,10,21,25};
+imprime_v(v1,0,10);
+Quick(v1,0,9);
+imprime_v(v1,0,10);
 
 }
