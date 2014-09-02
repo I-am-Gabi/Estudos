@@ -1,0 +1,117 @@
+<!DOCTYPE HTML>
+<html lang="pt-BR" class="fade nonumbers">
+<!-- 
+    Podemos controlar um certo número de configurações com as classes do elemento <html>:
+    "fade"      - passagem suave entre os slides
+    "nonumbers" - remove o número do slide na barra de progressão
+-->
+
+<head>
+  <title>Estrutura de Dados Básicas</title>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=1274, user-scalable=no">
+  <link rel="stylesheet" href="../../common/themes/presentations/styles/style.css" type="text/css">
+  <link rel="stylesheet" href="../../common/themes/presentations/styles/print.css" type="text/css"  media="print">
+  <link rel="stylesheet" href="../../common/themes/edb/styles/presentation.css" type="text/css">
+  <link rel="stylesheet" href="../../common/themes/code-prettify/styles/prettify.css" type="text/css">
+
+  <style>
+      g.node {
+          font-family: Verdana, Helvetica;
+          font-size: 20px;
+          font-weight: bold;
+      }
+      circle.node-dot {
+          fill:   #78B2F5;
+          stroke: #094282;
+          stroke-width: 2px;
+      }
+
+      path.link {
+          fill: none;
+          stroke: gray;
+          stroke-width: 2px;
+      }
+  </style>
+</head>
+
+<body class="list" onload="prettyPrint();">
+
+<!-- ============================================================================== -->
+<!-- Informações para a lista de slides -->
+<header class="caption">
+    <h1>Estruturas de Dados Básicas I</h1>
+    <h1>aula 29 - Tabelas de dispersão</h1>
+</header>
+
+<!-- ============================================================================== -->
+<div id="capa" class="slide cover w">
+     <div>
+	<section>
+		<header>
+			<h3>Estruturas de Dados Básicas I</h3>
+			<h2>aula 29 - Tabelas de dispersão</h2>
+			 <img src="./images/aula27/priorities.jpg" alt="http://ispeakcomics.wordpress.com/2010/10/29/making-the-most-of-your-comic-con-experience/">
+		</header>
+	</section>
+    </div>
+</div>
+
+<!-- ============================================================================== -->
+<div id="sld-01" class="slide">
+   <div>
+        <section>
+            <header>
+                <h2>Motivação e objetivos</h2>
+            </header>
+            <ul class="inner">
+                <li class="active">Motivação</li>
+                <ul>
+                    <li>Até o presente, conseguimos melhorar a complexidade da operação de busca sobre coleções de elementos de \(O(n)\) para \(O(log_2 n)\);</li>
+                    <li>Para tanto, devemos manter os elemento ordenados a cada nova inserção e aplicar <strong>busca binária</strong>.</li>
+                </ul>
+                <li class="active">Objetivos</li>
+                  <ul>
+                    <li>Apresentar uma téccnica para melhorar ainda, obtendo um desempenho <strong>constante</strong>, \(O(1)\), em média.</li>
+                  </ul>
+               </ul>
+           <footer class="notes">
+            </footer>
+        </section>
+    </div></div>
+
+<!-- ============================================================================== -->
+<div id="sld-02" class="slide">
+    <div>
+        <section>
+           <header>
+                <h2>Exemplo</h2>
+            </header>
+             <ul class="inner">                                   
+               <li class="active">
+            </ul>
+            <footer class="notes">
+           </footer>
+        </section>
+    </div>
+</div>
+<!-- ============================================================================== -->
+<!-- Se não quiser a barra de progressão, tem apenas que eliminar esta tag <div> -->
+<div class="progress">
+    <div></div>
+</div>
+
+<!-- ============================================================================== -->
+<!-- Scripts -->
+<script type="text/javascript" src="../../common/scripts/jquery.js"></script>
+<script type="text/javascript" src="../../common/scripts/presentations/script.js"></script>
+<script type="text/javascript" src="../../common/scripts/code-prettify/prettify.js"></script>
+<script type="text/javascript" src="../../common/scripts/animation/jsmove.js"></script>
+<script type="text/javascript" src="../../common/scripts/mathjax/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+<script type="text/javascript" src="../../common/scripts/d3.v3.min.js"></script>
+<script type="text/javascript" src="../../common/scripts/drawings.js"></script>
+
+</body>
+
+</html>
+

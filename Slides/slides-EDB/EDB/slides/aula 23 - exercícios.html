@@ -1,0 +1,1254 @@
+<!DOCTYPE HTML>
+<html lang="pt-BR" class="nonumbers">
+<head>
+    <title>Estrutura de Dados Básicas</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=1274, user-scalable=no">
+    <link rel="stylesheet" href="../../common/themes/presentations/styles/style.css" type="text/css">
+    <link rel="stylesheet" href="../../common/themes/presentations/styles/print.css" type="text/css"  media="print">
+    <link rel="stylesheet" href="../../common/themes/edb/styles/presentation.css" type="text/css">
+    <link rel="stylesheet" href="../../common/themes/code-prettify/styles/prettify.css" type="text/css">
+</head>
+
+<body class="list" onload="prettyPrint();">
+
+<!-- ============================================================================== -->
+<!-- Informações para a lista de slides -->
+<header class="caption">
+    <h1>Introdução às Técnicas de Programação</h1>
+    <h1>Aula 1 - Introdução</h1>
+    <p>Autor, <a href="mailto:">autor@imd.ufrn.br</a></p>
+</header>
+
+<!-- 
+    O seguinte código é um slide. Ele utiliza uma classe do tipo "slide" e agrega no seu
+    interior todos os elementos semânticos que se mostrem necessários.
+    IMPORTANTE: cada slide requer seu próprio e único ID - este sistema permite de gerar
+    uma URL própria para cada slide e apresenta como o código deve ser organizado!
+-->
+
+<!-- ============================================================================== -->
+<!-- Introdução às Técnicas de Programação -->
+<div id="capa" class="slide cover w">
+    <div>
+        <section>
+            <header>
+                <h1>Introdução às Técnicas de Programação</h1>
+                <h1 style="font-size: 45px">Aula 1 - Introdução</h1>
+                <br><br>
+                <p>Autor</p>
+                <p style="font-size: 30px">xx/xx/2013</p>
+            </header>
+            <table>
+                <thead>
+                    <tr>
+                        <td><img style="top:90%; height:5px" src="images/common/colorbar.png"></td>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td><img style="left:1%; top:95%; width:250px; height:48px;" src="images/common/azul.png"></td>
+                        <td><img style="left:85%; top:95%; width:140px; height:48px;" src="images/common/ufrn.png"></td>
+                    </tr>
+                </tbody>
+            </table>
+            <footer class="notes">
+            </footer>
+        </section>
+    </div>
+</div>
+
+<!-- ============================================================================== -->
+<!-- Objetivos da aula -->
+<div id="objetivos_aula" class="slide">
+    <div>
+        <section>
+            <header>
+                <h2>Objetivos da aula</h2>
+            </header>
+            <ul class="longlist">
+                <li class="flash_bold">Descrever o modelo simples de um computador e explicar o processo de desenvolvimento de um programa</li>
+                <li>Para isso, estudaremos:
+                    <ul>
+                        <li>A arquitetura do computador de Von Neumann</li>
+                        <li>O processo de como nos comunicamos com os computadores</li>
+                        <li>Os conceitos de algoritmo e de linguagem de programação</li>
+                    </ul>
+                </li>
+                <li>Veremos também algumas diretrizes para serem seguidas nesta disciplina</li>
+                <li>Ao final da aula espera-se que o aluno seja capaz de:
+                    <ul>
+                        <li>Descrever a arquitetura padrão de um computador</li>
+                        <li>Entender o significado de programação de computadores</li>
+                        <li>Fazer distinção entre um algoritmo, um programa em linguagem de programação e um programa em código de máquina</li>
+                    </ul>
+                </li>
+            </ul>
+            <footer class="notes">
+            </footer>
+        </section>
+    </div>
+</div>
+
+<!-- ============================================================================== -->
+<!-- O que é Tecnologia da Informação (TI)? -->
+<div id="ti" class="slide">
+    <div>
+        <section>
+            <header>
+                <h2>O que é Tecnologia da Informação (TI)?</h2>
+            </header>
+            <figure class="simple_frame shadow middle" style="top: 265px">
+                <img src="images/aula01/ti.jpg">
+            </figure>
+            <table>
+                <tbody>
+                    <tr>
+                        <td>
+                            <video style="position:absolute; top:70%; left:17%;" width="256" height="144" controls="controls">
+                                <source src="videos/aula01/it_trailer1.mp4#t=0,62" type="video/mp4">
+                                <source src="videos/aula01/it_trailer1.ogg#t=0,62" type="video/ogg">
+                                O browser não suporta vídeos nos formatos mp4 e ogg.
+                            </video>
+                            <small class="video-credits" style="top: 92%; left: 17%">
+                                <a href="http://www.youtube.com/watch?v=cWNEZLbP9Lk" target="_blank">
+                                    Information Technology Council of North Dakota, 2011
+                                </a>
+                            </small>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <video style="position:absolute; top:70%; left:57%;" width="256" height="144" controls="controls">
+                                <source src="videos/aula01/it_trailer2.mp4#t=0,123.5" type="video/mp4">
+                                <source src="videos/aula01/it_trailer2.ogg#t=0,123.5" type="video/ogg">
+                                O browser não suporta vídeos nos formatos mp4 e ogg.
+                            </video>
+                            <small class="video-credits" style="top: 92%; left: 57%">
+                                <a href="http://www.youtube.com/watch?v=IZBLNCUigrk" target="_blank">
+                                    Colorado Win Partners, 2009
+                                </a>
+                            </small>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+            <footer class="notes">
+                Dois vídeos sobre tecnologia da informação para mostrar de onde vem o conceito de programação e para que programação serve concretamente
+                Explicar, como já é dito nos vídeos, que atualmente existe TI em tudo que imaginarmos, e que para isto existem sempre programas por trás
+                Os vídeos essão em inglês para dar um choque nos alunos logo no início dizendo que é uma língua extremamente necessária no mercado de trabalho de TI
+            </footer>
+        </section>
+    </div>
+</div>
+
+<!-- ============================================================================== -->
+<!-- Quais são as oportunidades em TI? -->
+<div id="oportunidades_ti" class="slide">
+    <div>
+        <section>
+            <header>
+                <h2>Quais são as oportunidades em TI?</h2>
+            </header>
+            <figure class="simple_frame shadow" style="position:absolute; left: 100px; top: 140px">
+                <img style="width: 250px; height: 250px" src="images/aula01/empregos.jpg">
+            </figure>
+            <figure class="simple_frame shadow" style="position:absolute; left: 375px; top: 270px">
+                <img style="width: 250px; height: 120px" src="images/aula01/opportunity.jpg">
+            </figure>
+            <figure class="simple_frame shadow" style="position:absolute; left: 375px; top: 140px">
+                <img style="width: 250px; height: 125px" src="images/aula01/network.jpg">
+            </figure>
+            <figure class="simple_frame shadow" style="position:absolute; left: 650px; top: 140px">
+                <img style="width: 250px; height: 250px" src="images/aula01/carreira.jpg">
+            </figure>
+            <table>
+                <tbody>
+                    <tr>
+                        <td>
+                            <video style="position:absolute; top:70%; left:5%;" width="256" height="144" controls="controls">
+                                <source src="videos/aula01/mercado_ti1.mp4" type="video/mp4">
+                                <source src="videos/aula01/mercado_ti1.ogg" type="video/ogg">
+                                O browser não suporta vídeos nos formatos mp4 e ogg.
+                            </video>
+                            <small class="video-credits" style="top: 92%; left: 5%">
+                                <a href="http://www.youtube.com/watch?v=8bXwYK7WjMY" target="_blank">
+                                    Rede Globo, 2009
+                                </a>
+                            </small>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <video style="position:absolute; top:70%; left:37%;" width="256" height="144" controls="controls">
+                                <source src="videos/aula01/mercado_ti2.mp4#t=0,123.5" type="video/mp4">
+                                <source src="videos/aula01/mercado_ti2.ogg#t=0,123.5" type="video/ogg">
+                                O browser não suporta vídeos nos formatos mp4 e ogg.
+                            </video>
+                            <small class="video-credits" style="top: 92%; left: 37%">
+                                <a href="http://www.youtube.com/watch?v=e11JmRNFfF8" target="_blank">
+                                    Rede Globo, 2010
+                                </a>
+                            </small>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <video style="position:absolute; top:70%; left:70%;" width="256" height="144" controls="controls">
+                                <source src="videos/aula01/mercado_ti3.mp4#t=0,123.5" type="video/mp4">
+                                <source src="videos/aula01/mercado_ti3.ogg#t=0,123.5" type="video/ogg">
+                                O browser não suporta vídeos nos formatos mp4 e ogg.
+                            </video>
+                            <small class="video-credits" style="top: 92%; left: 70%">
+                                <a href="http://www.youtube.com/watch?v=jAO1lpXWSMo" target="_blank">
+                                    Rede Globo, 2012
+                                </a>
+                            </small>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+            <footer class="notes">
+                Três vídeos sobre o mercado de trabalho de TI no Brasil
+                Reforçar que tem muitas vagas de trabalho e oportunidades na área de TI
+                Enfatizar mais uma vez que a língua inglesa é importantíssima e que muitas vagas de trabalho estão abertas pela falta de profissionais que dominem esta língua
+                Comentar que o profissional de TI tem que continuar sempre estudando para poder acompanhar a evolução da tecnologia
+                Comentar que raciocínio lógico e matemática são as bases da área
+                Comentar as faixas salariais
+                Falar sobre novas áreas que estão emergindo no Brasil (jogos, robótica, etc.) e estão trazendo profissionais estrangeiros para cá devido a uma rápida expansão e a falta de gente capacitada no país
+            </footer>
+        </section>
+    </div>
+</div>
+
+<!-- ============================================================================== -->
+<!-- O que é um computador? -->
+<div id="computador_1" class="slide">
+    <div>
+        <section>
+            <header>
+                <h2>O que é um computador?</h2>
+            </header>
+            <ul>
+                <li>O computador é uma <span class="flash">máquina de calcular</span> extremamente eficaz
+                    <ul>
+                        <li><span class="flash">Consome informação</span> (dispositivos de entrada)</li>
+                        <li><span class="flash">Armazena informação</span> (dispositivos de memória)</li>
+                        <li><span class="flash">Transforma informação</span> (dispositivos de processamento)</li>
+                        <li><span class="flash">Produz informação</span> (dispositivos de saída)</li>
+                    </ul>
+                </li>
+                <li>Informações são dados e programas usados para controlar o computador</li>
+            </ul>
+            <figure class="middle" style="top: 78%">
+                <img style="height: 200px" src="images/aula01/computador.png">
+            </figure>
+            <footer class="notes">
+            </footer>
+        </section>
+    </div>
+</div>
+
+<!-- ============================================================================== -->
+<!-- O que é um computador? -->
+<div id="computador_2" class="slide">
+    <div>
+        <section>
+            <header>
+                <h2>O que é um computador?</h2>
+            </header>
+            <p style="margin-left: -20px">Diversos outros aparelhos também são computadores com entradas e saídas diferentes</p>
+            <figure class="simple_frame shadow" style="position: absolute; top: 33%; left: 10%">
+                <img style="width: 250px; height: 180px" src="images/aula01/painel_controle_carro.jpg">
+            </figure>
+            <figure class="simple_frame shadow" style="position: absolute; top: 65%; left: 10%">
+                <img style="width: 250px; height: 180px" src="images/aula01/carro_inteligente.jpg">
+            </figure>
+            <figure class="simple_frame shadow" style="position: absolute; top: 33%; left: 40%">
+                <img style="width: 200px; height: 180px" src="images/aula01/iphone.jpg">
+            </figure>
+            <figure class="simple_frame shadow" style="position: absolute; top: 65%; left: 40%">
+                <img style="width: 200px; height: 180px" src="images/aula01/controle_remoto.jpg">
+            </figure>
+            <figure class="simple_frame shadow" style="position: absolute; top: 33%; left: 65%">
+                <img style="width: 250px; height: 180px" src="images/aula01/xbox360.jpg">
+            </figure>
+            <figure class="simple_frame shadow" style="position: absolute; top: 65%; left: 65%">
+                <img style="width: 250px; height: 180px" src="images/aula01/smart_tv.jpg">
+            </figure>
+            <footer class="notes">
+                Computador não precisa ser necessariamente como conhecemos: teclado, mouse, monitor.
+                Pode ser a unidade de controle de um carro, um vídeo game, uma televisão! Todos estes aparelhos tem um computador, com entradas e saidas diferentes
+                98% dos processadores do mundo estão em sistemas embarcados (controle remoto, celulares, carros, etc)
+                Existe software em todos estes aparelhos...
+            </footer>
+        </section>
+    </div>
+</div>
+
+<!-- ============================================================================== -->
+<!-- Um pouco de História -->
+<div id="historia_1" class="slide">
+    <div>
+        <section>
+            <header>
+                <h2>Um pouco de História</h2>
+            </header>
+            <ul>
+                <li>Os primeiros computadores tinham programas fixos intrinsecamente relacionados com a sua parte física
+                    <ul>
+                        <li>Realizavam apenas aquelas tarefas para as quais tinham sido inicialmente concebidos</li>
+                    </ul>
+                </li>
+                <li>Modificá-los era um processo laborioso que significava reestruturar toda a máquina internamente
+                    <ul>
+                        <li>Quantidade enorme de rearranjo de fiação e de cabos de conexão</li>
+                    </ul>
+                </li>
+            </ul>
+            <figure class="simple_frame shadow middle" style="top: 81%">
+                <img style="width: 250px; height: 180px" src="images/aula01/cabos.jpg">
+            </figure>
+            <footer class="notes">
+                Computador não precisa ser necessáriamente como conhecemos: teclado, mouse, monitor.
+                Pode ser a unidade de controle de um carro, um vídeo game, uma televisão! Todos estes aparelhos tem um computador, com entradas e saidas diferentes
+                98% dos processadores do mundo estão em sistemas embarcados (controle remoto, celulares, carros, etc)
+            </footer>
+        </section>
+    </div>
+</div>
+
+<!-- ============================================================================== -->
+<!-- Um pouco de História -->
+<div id="historia_2" class="slide">
+    <div>
+        <section>
+            <header>
+                <h2>Um pouco de História</h2>
+            </header>
+            <ul>
+                <li><span class="flash">ENIAC</span> foi o primeiro computador digital de propósito geral
+                    <ul>
+                        <li>Universidade da Pensilvânia (<span class="flash">1943-1945</span>) por <span class="flash">Mauchly</span> e <span class="flash">Eckert</span></li>
+                        <li>Muito útil e viável economicamente</li>
+                        <li>Grande dificuldade de reprogramação</li>
+                        <li>Grande consumidor de espaço e de energia</li>
+                        <li>Pouca disponibilidade de memória para armazenamento de dados</li>
+                    </ul>
+                </li>
+            </ul>
+            <figure class="simple_frame shadow middle" style="top: 500px">
+                <img style="width: 250px; height: 180px" src="images/aula01/eniac.png">
+            </figure>
+            <footer class="notes">
+                O ENIAC ocupava uma sala de 72 metros quadrados, pesava 30000 kg e usava mais de 18 mil tubos a vácuo, que eram muito pouco confiáveis e aqueciam demasiadamente, consumindo 160 kilowatts de potência.
+                Apesar de suas 18 mil válvulas, ele podia armazenar apenas 20 números por vez. Mas graças à eliminação de engrenagens, era o mais rápido da época com uma velocidade do relógio interno de 100000 ciclos por segundo.
+            </footer>
+        </section>
+    </div>
+</div>
+
+<!-- ============================================================================== -->
+<!-- Um pouco de História -->
+<div id="historia_3" class="slide">
+    <div>
+        <section>
+            <header>
+                <h2>Um pouco de História</h2>
+            </header>
+            <ul>
+                <li><span class="flash">EDVAC</span> foi o primeiro computador capaz de armazenar um programa num dispositivo de memória endereçável
+                    <ul>
+                        <li>Universidade da Pensilvânia (<span class="flash">1946-1949</span>) por <span class="flash">Mauchly</span>, <span class="flash">Eckert</span> e <span class="flash">Von Neumann</span></li>
+                        <li>Arquitetura revolucionária com grande repercussão acadêmica
+                            <ul>
+                                <li>Sistema de numeração binário</li>
+                                <li>Dados e programa mapeados no mesmo<br> espaço de endereços</li>
+                                <li>Utilização de dispositivo de entrada/saída</li>
+                            </ul>
+                        </li>
+                        <li class="flash">Novo paradigma de concepção que ainda serve<br> de base para os computadores atuais</li>
+                    </ul>
+                </li>
+            </ul>
+            <figure style="position: absolute; left: 820px; top: 60px">
+                <img style="width: 180px" src="images/aula01/cartoes_perfurados.png">
+            </figure>
+            <figure class="simple_frame shadow" style="position: absolute; left: 745px; top: 380px">
+                <img style="width: 250px; height: 180px" src="images/aula01/edvac.png">
+            </figure>
+            <footer class="notes">
+                O EDVAC ocupava uma sala de 45,5 metros quadrados, pesava 7850 kg e usava quase 6000 tubos de vácuo e 12000 diodos, consumindo 56 kilowatts de potência.
+                O EDVAC recebeu várias atualizações, incluindo um dispositivo de entrada/saída de cartões perfurados em 1953, uma memória adicional em um cilindro magnético em 1954 e uma unidade de aritmética de ponto flutuante em 1958.
+            </footer>
+        </section>
+    </div>
+</div>
+
+<!-- ============================================================================== -->
+<!-- Arquitetura de von Neumann -->
+<div id="arquitetura_1" class="slide">
+    <div>
+        <section>
+            <header>
+                <h2>Arquitetura de von Neumann</h2>
+            </header>
+            <ul>
+                <li>Unidade Central de Processamento (UCP)
+                    <ul>
+                        <li>Unidade de Controle (UC)</li>
+                        <li>Unidade Lógica-Aritmética (ULA)</li>
+                        <li>Registradores (RC)</li>
+                    </ul>
+                </li>
+                <li>Memória
+                    <ul>
+                        <li>Memórias voláteis</li>
+                        <li>Memórias não-voláteis</li>
+                    </ul>
+                </li>
+                <li>Dispositivos de entrada e saída</li>
+            </ul>
+            <figure class="simple_frame shadow" style="position: absolute; top: 25%; left: 55%">
+                <img style="height: 430px" src="images/aula01/von_neumann_generica.jpg">
+            </figure>
+            <footer class="notes">
+            </footer>
+        </section>
+    </div>
+</div>
+
+<!-- ============================================================================== -->
+<!-- Arquitetura de von Neumann moderna -->
+<div id="arquitetura_2" class="slide">
+    <div>
+        <section>
+            <header>
+                <h2>Arquitetura de von Neumann moderna</h2>
+            </header>
+            <ul>
+                <li>Memória cache</li>
+                <li>Controladores</li>
+                <li>Barramento estendido</li>
+            </ul>
+            <figure class="simple_frame shadow" style="position:absolute; top: 25%; left:42%">
+                <img style="height: 430px" src="images/aula01/von_neumann_moderna.jpg">
+            </figure>
+            <figure class="simple_frame shadow" style="position:absolute; top: 55%; left:3%">
+                <img style="height: 150px" src="images/aula01/barramento.jpg">
+            </figure>
+            <footer class="notes">
+            </footer>
+        </section>
+    </div>
+</div>
+
+<!-- ============================================================================== -->
+<!-- Hardware x software -->
+<div id="hardware_software" class="slide">
+    <div>
+        <section>
+            <header>
+                <h2>Hardware x software</h2>
+            </header>
+            <ul>
+                <li>A arte da programação se faz com dois componentes:
+                    <ul>
+                        <li><span class="flash">Software (código binário)</span>
+                            <ul>
+                                <li>Processos, raciocínio lógico, métodos e<br> estratégias envolvendo artefatos abstratos</li>
+                                <li>Na maioria das vezes independe em grande<br> parte do conhecimento da máquina</li>
+                            </ul>
+                        </li>
+                        <li><span class="flash">Hardware (circuitos elétricos)</span>
+                            <ul>
+                                <li>Máquina que materializa o programa</li>
+                            </ul>
+                        </li>
+                    </ul>
+                </li>
+            </ul>
+            <figure class="simple_frame shadow" style="position: absolute; top: 26%; left: 71%">
+                <img style="width: 250px; height: 180px" src="images/aula01/codigomaquina.jpg">
+            </figure>
+            <figure class="simple_frame shadow" style="position: absolute; top: 61%; left: 71%">
+                <img style="width: 250px; height: 180px" src="images/aula01/hardware.jpg">
+            </figure>
+            <footer class="notes">
+                Computador não precisa ser necessáriamente como conhecemos: teclado, mouse, monitor.
+                Pode ser a unidade de controle de um carro, um vídeo game, uma televisão! Todos estes aparelhos tem um computador, com entradas e saidas diferentes
+                98% dos processadores do mundo estão em sistemas embarcados (controle remoto, celulares, carros, etc)
+            </footer>
+        </section>
+    </div>
+</div>
+
+<!-- ============================================================================== -->
+<!-- O que é programação de computadores? -->
+<div id="programacao_1" class="slide">
+    <div>
+        <section>
+            <header>
+                <h2>O que é programação de computadores?</h2>
+            </header>
+            <ul>
+                <li>Forma de dizermos o que gostaríamos que as máquinas fizessem</li>
+                <li>Controlada através de circuitos elétricos que entendem quando:
+                    <ul>
+                        <li>há passagem de corrente (1)</li>
+                        <li>não há passagem de corrente (0)</li>
+                    </ul>
+                </li>
+            </ul>
+            <figure class="simple_frame shadow" style="position: absolute; left: 280px; top: 330px;">
+                <img style="height: 170px" src="images/aula01/corrente.png">
+            </figure>
+            <figure class="simple_frame shadow" style="position: absolute; left: 611px; top: 330px;">
+                <img style="height: 100px" src="images/aula01/codigomaquina2.jpg">
+            </figure>
+            <p style="position: absolute; left: 380px; top: 550px;">Representação binária</p>
+            <footer class="notes">
+            </footer>
+        </section>
+    </div>
+</div>
+
+<!-- ============================================================================== -->
+<!-- O que é programação de computadores? -->
+<div id="programacao_2" class="slide">
+    <div>
+        <section>
+            <header>
+                <h2>O que é programação de computadores?</h2>
+            </header>
+            <ul>
+                <li>Não é geralmente viável fazermos aplicações apenas escrevendo <span class="flash">0</span>'s e <span class="flash">1</span>'s (escovação de bits)</li>
+                <li>No entanto, a nossa linguagem natural:
+                    <ul>
+                        <li>não é diretamente interpretada<br> pelos computadores
+                        <li>é imprecisa</li>
+                        <li>é ambígua</li>
+                    </ul>
+                    <br>
+                </li>
+                <li>Existe um mecanismo para traduzir a<br> linguagem natural em <span class="flash">0</span>'s e <span class="flash">1</span>'s?</li>
+            </ul>
+            <figure class="simple_frame shadow" style="position: absolute; left: 640px; top: 210px;">
+                <img style="height: 380px" src="images/aula01/sistema.png">
+            </figure>
+            <footer class="notes">
+            </footer>
+        </section>
+    </div>
+</div>
+
+<!-- ============================================================================== -->
+<!-- Eliminando ambiguidade e imprecisão -->
+<div id="ambiguidade_imprecisao" class="slide">
+    <div>
+        <section>
+            <header>
+                <h2>Eliminando ambiguidade e imprecisão</h2>
+            </header>
+            <ul>
+                <li>Para remover a imprecisão, é necessário:
+                    <ul>
+                        <li>Descrever o que deve ser feito de forma detalhada
+                            <ul>
+                                <li><b>Algoritmo</b></li>
+                            </ul>
+                        </li>
+                    </ul>
+                </li>
+                <li>Para remover a ambiguidade, é necessário:
+                    <ul>
+                        <li>Usar uma especificação que defina regras de forma (sintaxe) e sentido (semântica)
+                            <ul>
+                                <li><b>Linguagem de programação</b></li>
+                            </ul>
+                        </li>
+                    </ul>
+                </li>
+            </ul>
+            <figure style="position: absolute; left: 130px; top: 450px;">
+                <img style="height: 160px" src="images/aula01/programa.png">
+            </figure>
+            <footer class="notes">
+            </footer>
+        </section>
+    </div>
+</div>
+
+<!-- ============================================================================== -->
+<!-- Algoritmo -->
+<div id="algoritmo_1" class="slide">
+    <div>
+        <section>
+            <header>
+                <h2>Algoritmo</h2>
+            </header>
+            <ul>
+                <li>Sequência precisa, sistemática e finita de passos ou instruções para realizar uma tarefa
+                    <ul>
+                        <li>Exemplo: Receita detalhada de preparação de um bolo</li>
+                    </ul>
+                </li>
+                <li>Pode ser escrito em linguagem natural
+                    <ul>
+                        <li>O computador também não entende</li>
+                    </ul>
+                </li>
+                <li>Deve seguir as seguintes propriedades
+                    <ul>
+                        <li>Garantia de término</li>
+                        <li>Exatidão</li>
+                        <li>Efetividade</li>
+                    </ul>
+                </li>
+            </ul>
+            <figure class="simple_frame shadow" style="position: absolute; left: 700px; top: 260px;">
+                <img style="height: 320px" src="images/aula01/receita_bolo.jpg">
+            </figure>
+            <footer class="notes">
+                - Garantia de término é quando o problema a ser resolvido possui condições específicas que, quando satisfeitas, a execução do algoritmo é encerrada e o problema é então tido como "resolvido". Além disso, estas condições devem ser satisfeitas após uma quantidade finita de tempo, a ser contada a partir do início da execução do algoritmo.
+                - Exatidão é a intenção de que cada instrução no algoritmo deve ser suficientemente clara, de forma que não haja ambiguidade na interpretação da intenção.
+                - Efetividade é quando cada instrução deve ser básica o suficiente para ser executada, pelo menos em princípio, por qualquer agente usando apenas lápis e papel.
+            </footer>
+        </section>
+    </div>
+</div>
+
+<!-- ============================================================================== -->
+<!-- Algoritmo -->
+<div id="algoritmo_2" class="slide">
+    <div>
+        <section>
+            <header>
+                <h2>Algoritmo</h2>
+            </header>
+            <p style="margin-left: -45px">Cálculo do máximo divisor comum entre dois números inteiros <span class="flash_bold">x</span> e <span class="flash_bold">y</span>:</p>
+            <ol class="inner" style="margin-left: 10px">
+                <li class="active">Denomine <span class="flash_bold">x</span> como o maior número e <span class="flash_bold">y</span> como o menor número ;</li>
+                <li>Divida <span class="flash_bold">x</span> por <span class="flash_bold">y</span> e denomine <span class="flash_bold">r</span> como o resto ;</li>
+                <li>Se <span class="flash_bold">r</span> é igual a zero então o MDC é igual a <span class="flash_bold">y</span> e a execução das instruções encerra aqui. Caso contrário, siga para a próxima instrução ;</li>
+                <li>Atribua o valor de <span class="flash_bold">y</span> a <span class="flash_bold">x</span> e o valor de <span class="flash_bold">r</span> a <span class="flash_bold">y</span> ;</li>
+                <li>Volte para o passo 2 .
+                    <figure class="simple_frame shadow" style="position: absolute; left: 625px; top: 370px;">
+                        <img style="height: 200px" src="images/aula01/mdc.png">
+                    </figure>
+                </li>
+            </ol>            
+            <footer class="notes">
+            </footer>
+        </section>
+    </div>
+</div>
+
+<!-- ============================================================================== -->
+<!-- Algoritmo -->
+<div id="algoritmo_3" class="slide">
+    <div>
+        <section>
+            <header>
+                <h2>Algoritmo</h2>
+            </header>
+            <p style="margin-left: -35px">Que instruções devemos dar ao <span class="flash">robô</span> abaixo para que ele pegue o <span class="flash">objeto</span> e leve-o ao <span class="flash">alvo</span>?</p>
+            <br>
+            <figure style="position: absolute; left: 570px; top: 250px;">
+                <img style="height: 350px" src="images/aula01/folha.png">
+            </figure>
+            <figure style="position: absolute; left: 580px; top: 265px;">
+                <img style="height: 40px" src="images/aula01/solucao.png">
+            </figure>
+            <figure style="position: absolute; left: 100px; top: 250px;">
+                <img style="height: 70px" src="images/aula01/objeto.png">
+            </figure>
+            <figure style="position: absolute; left: 378px; top: 392px;">
+                <img style="height: 60px" src="images/aula01/alvo.png">
+            </figure>
+            <figure style="position: absolute; left: 235px; top: 520px;">
+                <img style="height: 75px" class="begin" src="images/aula01/robo.png">
+            </figure>
+            <p class="flash" style="position: absolute; left: 100px; top: 255px">objeto</p>
+            <p class="flash" style="position: absolute; left: 385px; top: 390px">alvo</p>
+            <p class="flash" style="position: absolute; left: 245px; top: 525px">robô</p>
+            <footer class="notes">
+            </footer>
+        </section>
+    </div>
+</div>
+
+<!-- ============================================================================== -->
+<!-- Algoritmo -->
+<div id="algoritmo_4" class="slide">
+    <div>
+        <section>
+            <header>
+                <h2>Algoritmo</h2>
+            </header>
+            <p style="margin-left: -35px">E se as possíveis instruções forem apenas as seguintes:
+                <br><b>Frente</b>, <b>Esquerda</b>, <b>Direita</b>, <b>Pegue</b> e <b>Deposite</b>?</p>
+            <br>
+            <ul class="inner">
+                <li class="active">
+                    <figure style="position: absolute; left: 570px; top: 250px;">
+                        <img style="height: 350px" src="images/aula01/folha.png">
+                    </figure>
+                    <figure style="position: absolute; left: 100px; top: 250px;">
+                        <img style="height: 70px" src="images/aula01/objeto.png">
+                    </figure>
+                    <figure style="position: absolute; left: 378px; top: 392px;">
+                        <img style="height: 60px" src="images/aula01/alvo.png">
+                    </figure>
+                    <figure style="position: absolute; left: 100px; top: 250px;">
+                        <img style="height: 350px" src="images/aula01/grid.png">
+                    </figure>
+                    <figure onclick="move(&#39;robot&#39;)">
+                        <img id="robot" class="begin" style="height: 75px" src="images/aula01/robo.png">
+                    </figure>
+                </li>
+                <li>
+                    <p style="position: absolute; left: 122px; top: 528px; font-size: 18px; font-weight: bold">Clique</p>
+                    <p style="position: absolute; left: 129px; top: 547px; font-size: 18px; font-weight: bold">aqui!</p>
+                    <figure style="position: absolute; left: 175px; top: 530px;">
+                        <img src="images/aula01/arrow14.png">
+                    </figure>
+                </li>
+                <li>
+                    <figure style="position: absolute; left: 580px; top: 267px;">
+                        <img style="height: 282px" src="images/aula01/solucao2.png">
+                    </figure>
+                </li>
+            </ul>
+            <footer class="notes">
+                Quando aparecer a seta de indicação para clicar no robô, tem que usar o "mouse" para que a animação seja executada
+            </footer>
+        </section>
+    </div>
+</div>
+
+<!-- ============================================================================== -->
+<!-- Programa -->
+<div id="programa" class="slide">
+    <div>
+        <section>
+            <header>
+                <h2>Programa</h2>
+            </header>
+            <ul>
+                <li>Codificação de um algoritmo em uma linguagem de programação</li>
+                <li>Construção resultante da combinação de elementos simples
+                    <ul>
+                        <li>Regras estritas de sintaxe
+                            <ul>
+                                <li>Não pode escrever errado</li>
+                            </ul>
+                        </li>
+                        <li>Regras estritas de semântica
+                            <ul>
+                                <li>Não pode escrever besteiras</li>
+                            </ul>
+                        </li>
+                    </ul>
+                </li>
+                <li>O computador também não entende, mas existem ferramentas para traduzir
+                    programas em linguagem de máquina
+                    <ul>
+                        <li>Compilador</li>
+                    </ul>
+                </li>
+            </ul>
+            <figure style="position: absolute; left: 370px; top: 20px;">
+                <img style="height: 90px" src="images/aula01/programa.png">
+            </figure>
+            <footer class="notes">
+            </footer>
+        </section>
+    </div>
+</div>
+
+<!-- ============================================================================== -->
+<!-- Sintaxe -->
+<div id="sintaxe" class="slide">
+    <div>
+        <section>
+            <header>
+                <h2>Sintaxe</h2>
+            </header>
+            <ul>
+                <li>A <span class="flash">sintaxe</span> de uma linguagem diz quais são os elementos simples a serem utilizados e como eles podem ser combinados
+                    <ul>
+                        <li>Exemplo na <span class="flash">língua portuguesa</span>
+                            <ul>
+                                <li>Regra gramatical: sujeito, verbo e complemento</li>
+                                <li>Erro de sintaxe: <span class="flash">"Venha! Começando o jogo está"</span></li>
+                            </ul>
+                        </li>
+                        <li>Exemplo na <span class="flash">linguagem de programação C</span>
+                            <ul>
+                                <li>Regra gramatical: <span style="font-weight: bold">tipo</span> <i>nomeDaVariavel</i>&nbsp;&nbsp;=&nbsp;&nbsp;valor ;</li>
+                                <li>Erro de sintaxe: <span class="flash"><i>duracaoDoJogo</i>&nbsp;&nbsp;<span class="flash_bold">int</span>&nbsp;&nbsp;=&nbsp;&nbsp;1 ;</span></li>
+                            </ul>
+                        </li>
+                    </ul>
+                </li>
+                <li>Erros de sintaxe são facilmente detectáveis
+                    <ul>
+                        <li>O compilador nunca deixa passar um erro de sintaxe</li>
+                    </ul>
+                </li>
+            </ul>
+            <footer class="notes">
+            </footer>
+        </section>
+    </div>
+</div>
+
+<!-- ============================================================================== -->
+<!-- Semântica -->
+<div id="semantica" class="slide">
+    <div>
+        <section>
+            <header>
+                <h2>Semântica</h2>
+            </header>
+            <ul>
+                <li>A <span class="flash">semântica</span> diz o que deve ser feito quando os elementos simples são encontrados, sejam sozinhos ou combinados
+                    <ul>
+                        <li>Exemplo na <span class="flash">língua portuguesa</span>
+                            <ul>
+                                <li>A veracidade de uma frase</li>
+                                <li>Erros de semântica: <span class="flash">"Eu sei trigonometria! &pi; vale 7.1415"</span></li>
+                            </ul>
+                        </li>
+                        <li>Exemplo na <span class="flash">linguagem de programação C</span>
+                            <ul>
+                                <li>A veracidade de um código</li>
+                                <li>Erros de semântica: <span class="flash">&pi;&nbsp;&nbsp;=&nbsp;&nbsp;<span class="flash">7.1415</span> ;</span></li>
+                            </ul>
+                        </li>
+                    </ul>
+                </li>
+                <li>Erros de semântica requerem uma análise de significado
+                    <ul>
+                        <li>O compilador não detecta</li>
+                        <li><span class="flash">Pode nunca serem percebidos!</span></li>
+                    </ul>
+                </li>
+            </ul>                
+            <footer class="notes">
+                - Exemplos de erros de semântica: bug do ano 2000, várias catastrofes de aviões e foguetes
+                - Comentar que a indústria sabe que após pronto e em uso um programa tem de 10 a 50 erros de semântica por cada 1000 linhas de código!
+            </footer>
+        </section>
+    </div>
+</div>
+
+<!-- ============================================================================== -->
+<!-- Exemplo de programas -->
+<div id="exemplo_programa_1" class="slide">
+    <div>
+        <section>
+            <header>
+                <h2>Exemplo de programas</h2>
+            </header>
+            <div>
+                <p style="position: absolute; left: 285px; top: 165px;">Alto nível</p>
+                <p style="position: absolute; left: 550px; top: 165px;">Baixo nível</p>
+                <figure style="position: absolute; left: 80px; top: 120px">
+                    <img style="width: 150px; height: 150px" src="images/aula01/face.png">
+                </figure>
+                <figure style="position: absolute; left: 750px; top: 120px;">
+                    <img style="height: 170px" src="images/aula01/computer.png">
+                </figure>
+                <figure style="position: absolute; left: 240px; top: 160px;">
+                    <img style="width: 480px" src="images/aula01/arrow2.png">
+                </figure>
+                <figure style="position: absolute; left: 280px; top: 220px;">
+                    <img style="height: 70px" src="images/aula01/arrow3.png">
+                </figure>
+            </div>
+<pre class="prettyprint middle" style="top: 370px; width: 820px;">
+a,b = b,a  /* troca dos valores das variáveis "a" e "b" */
+</pre>
+            <footer class="notes">
+            </footer>
+        </section>
+    </div>
+</div>
+
+<!-- ============================================================================== -->
+<!-- Exemplo de programas -->
+<div id="exemplo_programa_2" class="slide">
+    <div>
+        <section>
+            <header>
+                <h2>Exemplo de programas</h2>
+            </header>
+            <div>
+                <p style="position: absolute; left: 285px; top: 165px;">Alto nível</p>
+                <p style="position: absolute; left: 550px; top: 165px;">Baixo nível</p>
+                <figure style="position: absolute; left: 80px; top: 120px">
+                    <img style="width: 150px; height: 150px" src="images/aula01/face.png">
+                </figure>
+                <figure style="position: absolute; left: 750px; top: 120px;">
+                    <img style="height: 170px" src="images/aula01/computer.png">
+                </figure>
+                <figure style="position: absolute; left: 240px; top: 160px;">
+                    <img style="width: 480px" src="images/aula01/arrow2.png">
+                </figure>
+                <figure style="position: absolute; left: 400px; top: 220px;">
+                    <img style="height: 70px" src="images/aula01/arrow3.png">
+                </figure>
+            </div>
+<pre class="prettyprint linenums middle" style="top: 400px; width: 820px;">
+void int_swap( int* i1, int* i2 )
+{
+    int tmp = *p1;
+    *p1 = *p2;
+    *p2 = tmp;
+}
+</pre>
+            <footer class="notes">
+            </footer>
+        </section>
+    </div>
+</div>
+
+<!-- ============================================================================== -->
+<!-- Exemplo de programas -->
+<div id="exemplo_programa_3" class="slide">
+    <div>
+        <section>
+            <header>
+                <h2>Exemplo de programas</h2>
+            </header>
+            <div>
+                <p style="position: absolute; left: 285px; top: 165px;">Alto nível</p>
+                <p style="position: absolute; left: 550px; top: 165px;">Baixo nível</p>
+                <figure style="position: absolute; left: 80px; top: 120px">
+                    <img style="width: 150px; height: 150px" src="images/aula01/face.png">
+                </figure>
+                <figure style="position: absolute; left: 750px; top: 120px;">
+                    <img style="height: 170px" src="images/aula01/computer.png">
+                </figure>
+                <figure style="position: absolute; left: 240px; top: 160px;">
+                    <img style="width: 480px" src="images/aula01/arrow2.png">
+                </figure>
+                <figure style="position: absolute; left: 520px; top: 220px;">
+                    <img style="height: 70px" src="images/aula01/arrow3.png">
+                </figure>
+            </div>
+<pre class="prettyprint linenums middle" style="top: 430px; width: 820px;">
+_int_swap:
+LFB2:
+  pushq  %rbp
+LCFI0:
+  movq  %rsp, %rbp
+LCFI1:
+  movl  (%rdi), %edx
+  movl  (%rsi), %eax
+  movl  %eax, (%rdi)
+  movl  %edx, (%rsi)
+  leave
+  ret
+</pre>
+            <footer class="notes">
+            </footer>
+        </section>
+    </div>
+</div>
+
+<!-- ============================================================================== -->
+<!-- Exemplo de programas -->
+<div id="exemplo_programa_4" class="slide">
+    <div>
+        <section>
+            <header>
+                <h2>Exemplo de programas</h2>
+            </header>
+            <div>
+                <p style="position: absolute; left: 285px; top: 165px;">Alto nível</p>
+                <p style="position: absolute; left: 550px; top: 165px;">Baixo nível</p>
+                <figure style="position: absolute; left: 80px; top: 120px">
+                    <img style="width: 150px; height: 150px" src="images/aula01/face.png">
+                </figure>
+                <figure style="position: absolute; left: 750px; top: 120px;">
+                    <img style="height: 170px" src="images/aula01/computer.png">
+                </figure>
+                <figure style="position: absolute; left: 240px; top: 160px;">
+                    <img style="width: 480px" src="images/aula01/arrow2.png">
+                </figure>
+                <figure style="position: absolute; left: 640px; top: 220px;">
+                    <img style="height: 70px" src="images/aula01/arrow3.png">
+                </figure>
+            </div>
+<pre class="prettyprint linenums middle" style="top: 430px; width: 820px;">
+CFFAEDFE0700000103000000010000000300000050010000002000000000000019000000E800000000
+D000000000000000000000000000000000000000000005800000000000000700100000000000058000
+F00000000070000000700000002000000000000005F5F74657874000000000000000000005F5F54455
+A0000000000000000000000000000000000000E0000000000000070010000040000000000000000000
+A000400800000000000000000000000005F5F65685F6672616D650000000000005F5F5445585400000
+B000000000000100000000000000048000000000000008001000003000000C8010000040000000B000
+E0000000000000000000000000200000018000000E80100000300000018020000240000000B0000005
+E000000000000010000000100000002000000030000000000000000000000000000000000000000000
+F0000000000000000000000000000000000000000000000000000000000000000554889E58B178B068
+A8916C9C300001400000000000000017A520001781001100C0708900100002C00000004000000F8FFF
+FFFFFFFF0E000000000000000004010000000E10860204030000000D06000000000000002000000002
+C005E200000000100000E1C0000000000005C1C0000000200000C180000000E0200001000000000000
+</pre>
+            <footer class="notes">
+            </footer>
+        </section>
+    </div>
+</div>
+
+<!-- ============================================================================== -->
+<!-- Diretrizes da disciplina -->
+<div id="diretrizes" class="slide shout">
+    <div>
+        <section>
+            <header>
+                <h2>Diretrizes da disciplina</h2>
+            </header>
+            <footer class="notes">
+            </footer>
+        </section>
+    </div>
+</div>
+
+<!-- ============================================================================== -->
+<!-- Objetivos da disciplina -->
+<div id="objetivos" class="slide">
+    <div>
+        <section>
+            <header>
+                <h2>Objetivos da disciplina</h2>
+            </header>
+            <ul class="longlist">
+                <li>Introduzir a linguagem de programação C
+                    <ul>
+                        <li>Ensinar a construir pequenos programas simples</li>
+                        <li>Ensinar partes de uma linguagem de programação</li>
+                        <li>Ensinar o paradigma de programação imperativa</li>
+                    </ul>
+                    <br>
+                </li>
+
+                <li>Conhecimentos esperados ao final da disciplina
+                    <ul>
+                        <li>Identificar e saber usar as principais estruturas de uma linguagem</li>
+                        <li>Resolver problemas de forma algorítmica</li>
+                        <li>Ser capaz de rapidamente assimilar novas linguagens de programação</li>
+                        <li>Ter condições de rapidamente assimilar conceitos de estruturas de dados</li>
+                    </ul>
+                    <br>
+                </li>
+                <li>Para atingir estes objetivos, utilizaremos uma metodologia baseada em aplicações lúdicas para facilitar a compreensão dos conceitos...</li>
+            </ul>
+            <figure class="simple_frame shadow" style="position: absolute; left: 650px; top: 60px;">
+                <img style="height: 250px" src="images/aula01/C-Programming-Language.jpg">
+            </figure>
+            <footer class="notes">
+            </footer>
+        </section>
+    </div>
+</div>
+
+<!-- ============================================================================== -->
+<!-- Aplicações lúdicas -->
+<div id="aplicacoes_ludicas" class="slide">
+    <div>
+        <section>
+            <header>
+                <h2>Aplicações lúdicas</h2>
+            </header>
+            <video style="position:absolute; top:17%; left:9%;" width="832" height="468" controls="controls">
+                <source src="videos/aula01/psvita_trailer.mp4#t=0" type="video/mp4">
+                <source src="videos/aula01/psvita_trailer.ogg#t=0" type="video/ogg">
+                O browser não suporta vídeos nos formatos mp4 e ogg.
+            </video>
+            <small class="video-credits" style="top: 91%; left: 12%">
+                <a href="http://www.youtube.com/watch?v=wN2Oc0XY6bs" target="_blank">
+                    Sony Computer Entertainment Inc., 2011
+                </a>
+            </small>
+            <footer class="notes">
+            </footer>
+        </section>
+    </div>
+</div>
+
+<!-- ============================================================================== -->
+<!-- Code Commander -->
+<div id="code_commander" class="slide">
+    <div>
+        <section>
+            <figure class="simple_frame shadow" style="position: absolute; left: 120px; top: 30px;">
+                <img style="height: 570px" src="images/aula01/code-commander.png">
+            </figure>
+            <small class="photo-credits" style="top: 90%; left: 13%">
+                <a href="http://morrisgames.info/" target="_blank">
+                    Morris Games.
+                </a>
+            </small>
+            <footer class="notes">
+            </footer>
+        </section>
+    </div>
+</div>
+
+<!-- ============================================================================== -->
+<!-- Metodologia -->
+<div id="metodologia" class="slide">
+    <div>
+        <section>
+            <header>
+                <h2>Metodologia adotada</h2>
+            </header>
+            <ul>
+                <li>O conteúdo da disciplina é incremental
+                    <ul>
+                        <li>Os conceitos mais avançados apenas podem ser entendidos quando os conceitos básicos foram bem assimilados</li>
+                    </ul>
+                </li>
+                <li>Essa disciplina fornecerá aos alunos oportunidade de exercitar de forma concreta os conceitos apresentados em sala de aula
+                    <ul>
+                        <li>ITP = CTP + PTP</li>
+                    </ul>
+                </li>
+                <li><span style="color: red">ATENÇÃO</span>: o conteúdo da disciplina é abrangente e necessita um esforço importante e permanente dos alunos</li>
+                <li>Os alunos recebem tarefas a serem realizadas antes da aula seguinte</li>
+            </ul>
+            <footer class="notes">
+            </footer>
+        </section>
+    </div>
+</div>
+
+<!-- ============================================================================== -->
+<!-- Recursos -->
+<div id="recursos" class="slide">
+    <div>
+        <section>
+            <header>
+                <h2>Recursos</h2>
+            </header>
+            <ul>
+                <li>Apostilas da UFMS de Fábio Martinez
+                    <ul style="font-size: 22px">
+                        <li>Programação de Computadores 1</li>
+                        <li>Programação de Computadores 2</li>
+                    </ul>
+                </li>
+                <li>A disciplina possui uma página associada no SIGAA:
+                    <ul style="font-size: 22px">
+                        <li><span class="flash">http://www.sigaa.ufrn.br</span></li>
+                        <li>Conectar-se diariamente</li>
+                        <li>Inserir a sua foto!</li>
+                    </ul>
+                </li>
+                <li>Nessas páginas, serão fornecidas:
+                    <ul style="font-size: 22px">
+                        <li>Links para as apresentações projetadas em sala de aula</li>
+                        <li>Links para diversos documentos</li>
+                    </ul>
+                </li>
+            </ul>
+            <footer class="notes">
+            </footer>
+        </section>
+    </div>
+</div>
+
+<!-- ============================================================================== -->
+<!-- Avaliação -->
+<div id="avaliacao" class="slide">
+    <div>
+        <section>
+            <header>
+                <h2>Avaliação</h2>
+            </header>
+            <ul>
+                <li>Aprovação
+                    <ul>
+                        <li>Depende da aprovação em CTP e PTP <span class="flash">juntas</span></li>
+                        <li>Depende da assiduidade (<span class="flash">75% é o mínimo requerido</span>)</li>
+                    </ul>
+                </li>
+                <li>Provas teóricas
+                    <ul>
+                        <li>Questões objetivas</li>
+                        <li>Questões subjetivas</li>
+                    </ul>
+                </li>
+                <li>Datas previstas (<span class="flash">sábados</span>)
+                    <ol>
+                        <li><span class="flash">16/03/2013</span> (peso 4)</li>
+                        <li><span class="flash">27/04/2013</span> (peso 5)</li>
+                        <li><span class="flash">08/06/2013</span> (peso 6)</li>
+                        <li><span class="flash">15/06/2013</span> (peso 15)</li>
+                    </ol>
+                </li>
+            </ul>
+            <footer class="notes">
+            </footer>
+        </section>
+    </div>
+</div>
+
+<!-- ============================================================================== -->
+<!-- Resumo da aula -->
+<div id="resumo" class="slide">
+    <div>
+        <section>
+            <header>
+                <h2>Resumo da aula</h2>
+            </header>
+            <ul class="longlist">
+                <li>O <mark style="background: #FAFAA2">computador é uma máquina de calcular</mark> extremamente eficaz</li>
+                <li><mark style="background: #FAFAA2">Precisamos raciocinar logicamente</mark> para encontrar soluções para os problemas</li>
+                <li>A maneira como escrevemos nossas <mark style="background: #FAFAA2">soluções são feitas através de algoritmos</mark></li>
+                <li>Os <mark style="background: #FAFAA2">computadores não entendem algoritmos</mark>, mas a linguagem de máquina</li>
+                <li><mark style="background: #FAFAA2">Podemos escrever algoritmos em linguagem de programação</mark> que por sua vez podem ser convertidas em linguagem de máquina</li>
+                <li><mark style="background: #FAFAA2">Vamos nos divertir aprendendo a programar</mark> utilizando aplicações lúdicas tais como joguinhos simples</li>
+            </ul>
+            <footer class="notes">
+            </footer>
+        </section>
+    </div>
+</div>
+
+<!-- ============================================================================== -->
+<!-- Questões -->
+<div id="questoes" class="slide">
+    <div>
+        <section>
+            <header>
+                <h2>Questões...</h2>
+            </header>
+            <figure class="middle" style="top: 57%">
+                <img style="height: 400px" src="images/common/pontos-de-interrogacao.png">
+            </figure>
+            <footer class="notes">
+            </footer>
+        </section>
+    </div>
+</div>
+
+<!-- ============================================================================== -->
+<!-- Se não quiser a barra de progressão, tem apenas que eliminar esta tag <div> -->
+<div class="progress">
+    <div></div>
+</div>
+
+<!-- ============================================================================== -->
+<!-- Scripts -->
+<script type="text/javascript" src="../../common/scripts/presentations/script.js"></script>
+<script type="text/javascript" src="../../common/scripts/code-prettify/prettify.js"></script>
+<script type="text/javascript" src="../../common/scripts/animation/jsmove.js"></script>
+<script type="text/javascript" src="../../common/scripts/mathjax/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+
+</body>
+
+</html>

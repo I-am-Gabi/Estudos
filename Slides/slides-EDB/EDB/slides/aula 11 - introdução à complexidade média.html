@@ -1,0 +1,367 @@
+<!DOCTYPE HTML>
+<html lang="pt-BR" class="nonumbers">
+<head>
+	<title>Estrutura de Dados Básicas</title>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=1274, user-scalable=no">
+	<link rel="stylesheet" href="../../common/themes/presentations/styles/style.css" type="text/css">
+	<link rel="stylesheet" href="../../common/themes/presentations/styles/print.css" type="text/css"  media="print">
+	<link rel="stylesheet" href="../../common/themes/edb/styles/presentation.css" type="text/css">
+	<link rel="stylesheet" href="../../common/themes/code-prettify/styles/prettify.css" type="text/css">
+</head>
+<body class="list" onload="prettyPrint();">
+
+	<header class="caption">
+		<h1>Estruturas de Dados Básicas I</h1>
+		<h1>Aula 11 - Introdução a análise de caso médio</h1>
+	</header>
+	<div id="capa" class="slide cover w">
+		<div>
+			<section>
+				<header>
+					<h3>Estruturas de Dados Básicas I</h3>
+					<h2>Aula 11 - Introdução a análise de caso médio</h2>
+					<img src="./images/aula11/average.jpg">
+				</header>
+			</section>
+		</div>
+	</div>
+
+	<div id="sld-01" class="slide">
+		<div>
+			<section>
+				<header>
+					<h2>Motivação e objetivos</h2>
+				</header>
+				<ul class="inner">
+					<li class="active">Motivação</li>
+					<ul>
+						<li>Falamos que o quicksort era o algoritmo de ordenação mais usado na prática, apesar de ser \(O(n^2)\) (no pior caso)</li>
+						<li>A razão é porque em geral (na média) ele é tão bom quanto o mergesort: \(O(n.log_2 n)\)</li>
+						<li>Como saber que ele faz isso na média?</li>
+					</ul>
+					<br>
+					<li class="active">Objetivos</li>
+					<ul>
+						<li>Apresentar a necessidade de análise de caso médio</li>
+						<li>Mostrar uma forma de analisar o caso médio do quicksort</li>
+					</ul>
+				</ul>
+				<footer class="notes"></footer>
+			</section>
+		</div>
+	</div>
+
+	<div id="slide_02" class="slide">
+		<div>
+			<section>
+				<header>
+					<h2>Complexidade média</h2>
+				</header>
+				<ul class="inner">
+					<li>Fizemos vários experimentos de busca (linear e binária)</li>
+					<ul>
+						<li>Provavelmente, algumas busca foram resolvidas em 1 iteração (melhor caso)</li>
+						<li>Outras, foram resolvidas em \(n\) ou \(log_2 n\) iterações (pior caso da busca linear e binária, respectivamente)</li>
+					<li>Como saber quantas iterações as buscas levam em geral? (caso médio)</li>
+					<ul>
+						<li>Será que...??? \[médio = \frac{pior + melhor}{2}\]</li>
+					</ul>
+				</ul>
+				<footer></footer>
+			</section>
+		</div>
+	</div>
+
+	<div id="slide_03" class="slide">
+		<div>
+			<section>
+				<header>
+					<h2>Caso médio e probabilidade</h2>
+				</header>
+				<ul class="inner">
+					<li>Em geral, a análise de caso médio não é trivial devido à imprecisão das entradas</li>
+					<li>Considere, por exemplo, um algoritmo cuja entrada é um texto de tamanho qualquer...</li>
+					<ul>
+						<li>Qual é a média dos textos???</li>
+						<li>Como podemos caracterizar como os textos serão, em geral???</li>
+					</ul>
+					<br>
+					<li>O uso de probabilidade sobre as propriedades das entradas pode ajudar</li>
+				</ul>
+				<footer></footer>
+			</section>
+		</div>
+	</div>
+
+	<div id="slide_04" class="slide">
+		<div>
+			<section>
+				<header>
+					<h2>Relembrando probabilidade (ensino médio)</h2>
+				</header>
+				<ul class="inner">
+					<li>A probabilidade consegue descrever as chances de um evento ocorrer</li>
+					<li>É definida pela razão entre o número de situações que caracteriza o evento e o número total de possíveis situações
+					\[P(e) = \frac{\mbox{num. casos do evento }e}{\mbox{num. casos possíveis}}\]</li>
+				</ul>
+				<footer></footer>
+			</section>
+		</div>
+	</div>
+
+	<div id="slide_05" class="slide">
+		<div>
+			<section>
+				<header>
+					<h2>Exemplos de probabilidades</h2>
+				</header>
+				<ul class="inner">
+					<li>Sabendo que \(x\) encontra-se em um conjunto de \(n\) elementos, a probabilidade de uma busca (linear ou binária) achar a posição de \(x\) na 1a iteração é:</li>
+					<li class="nobullet">\[P = \frac{\mbox{num.posições onde }x\mbox{ encontra-se}}{\mbox{num.posições onde }x\mbox{ pode estar}} = \frac{1}{n}\]</li>
+
+					<li>Dado um conjunto \(A\) de \(n\) inteiros cujos valores variam entre 1 e \(m\) (\(n \le m\)), a probabilidade de um elem. \(x \in [1;m]\) estar em \(A\) é:</li>
+					<li class="nobullet">\[P = \frac{\mbox{num.situações onde }x \in A}{\mbox{num. de valores que }x\mbox{ pode assumir}} =  \frac{n}{m}\]</li>					
+				</ul>
+				<footer></footer>
+			</section>
+		</div>
+	</div>
+
+	<div id="slide_06" class="slide">
+		<div>
+			<section>
+				<header>
+					<h2>Caso médio da busca linear</h2>
+				</header>
+				<ul class="inner">
+					<li>Considerando que o elemento procurado (\(x\)) esteja no conjunto, em média, quantas iterações leva uma busca linear?</li>
+					<ul>
+						<li>Se \(x\) está na 1a casa (\(P_1 = 1/n\)), haverá 1 iteração (\(I_1 = 1\))</li>
+						<li>Se \(x\) está na 2a casa (\(P_2 = 1/n\)), haverá 2 iterações (\(I_2 = 2\))</li>
+						<li>Se \(x\) está na i-ésima casa (\(P_i = 1/n\)), haverá \(i\) iter. (\(I_i = i\))</li>
+						<li>Se juntarmos todas possibilidades (num. iterações com suas respectivas probabilidades), teremos a média</li>
+						<li class="nobullet">
+							\[\sum_{i=1}^{n} I_i.P_i = \sum_{i=1}^{n} i.\frac{1}{n} = \frac{1}{n}\sum_{i=1}^{n} i
+							= \frac{1}{n}.\frac{n(n+1)}{2} \Rightarrow \frac{n+1}{2}
+							\]
+						</li>
+					</ul>
+				</ul>
+				<footer></footer>
+			</section>
+		</div>
+	</div>
+
+	<div id="slide_07" class="slide">
+		<div>
+			<section>
+				<header>
+					<h2>Caso médio da busca binária (1)</h2>
+				</header>
+				<ul class="inner">
+					<li>Considerando que o elemento procurado (\(x\)) esteja no conjunto, em média, quantas iterações leva uma busca binária?</li>
+					<ul>
+						<li>Da mesma forma que na busca linear, precisamos conhecer</li>
+						<ul>
+							<li>Quantas iterações serão executadas em cada possibilidade</li>
+							<li>Qual a probabilidade de cada possibilidade
+								<img src="./images/aula11/binsearch_prob.png" style="position: absolute; top: 65%; right: 10%; width: 75%">
+							</li>
+						</ul>
+					</ul>
+				</ul>
+				<footer></footer>
+			</section>
+		</div>
+	</div>	
+
+	<div id="slide_08" class="slide">
+		<div>
+			<section>
+				<header>
+					<h2>Caso médio da busca binária (2)</h2>
+				</header>
+				<ul class="inner">
+					<li>Para simplificar, vamos considerar \(n = 2^h -1\)</li>
+					<li class="nobullet"><img src="./images/aula11/binsearch_tree.png"
+						 style="position: absolute; top: 30%; right: 15%; width: 80%">
+					</li>
+					<li class="nobullet"><img src="./images/aula11/binsearch_tree_1.png"
+						 style="position: absolute; top: 30%; right: 15%; width: 80%">
+					</li>
+					<li class="nobullet"><img src="./images/aula11/binsearch_tree_2.png"
+						 style="position: absolute; top: 30%; right: 15%; width: 80%">
+					</li>
+					<li class="nobullet"><img src="./images/aula11/binsearch_tree_3.png"
+						 style="position: absolute; top: 30%; right: 15%; width: 80%">
+					</li>
+					<li class="nobullet"><img src="./images/aula11/binsearch_tree_4.png"
+						 style="position: absolute; top: 30%; right: 15%; width: 80%">
+					</li>
+					<li class="nobullet"><img src="./images/aula11/binsearch_tree_5.png"
+						 style="position: absolute; top: 30%; right: 15%; width: 80%">
+					</li>
+					<br>
+					<br>
+					<br>
+					<br>
+					<br>
+					<br><br>
+					<li class="nobullet">
+						\[\sum_{i=1}^{h} I_i.P_i \Rightarrow
+						\sum_{i=1}^{h} i.\frac{2^{i-1}}{n} \Rightarrow
+						\frac{1}{n}.\sum_{i=1}^{h} i.2^{i-1}\]
+					</li>
+				</ul>
+				<footer></footer>
+			</section>
+		</div>
+	</div>	
+
+	<div id="slide_09" class="slide">
+		<div>
+			<section>
+				<header>
+					<h2>Caso médio da busca binária (3)</h2>
+				</header>
+				<ul class="inner">
+					<li class="nobullet">
+						\[= \frac{1}{n}.\sum_{i=1}^{h} i.2^{i-1} \]
+					</li>
+					<li class="nobullet">
+						\[= \frac{1}{n}.(h. 2^h - ( 2^h - 1 )) \]
+					</li>
+					<li class="nobullet">
+						\[= \frac{1}{n}.(h.(n+1)) \]
+					</li>
+					<li class="nobullet">
+						\[\cong log_2 n + \frac{log_2 n}{n} - 1\]
+					</li>
+					<li>Ou seja, o caso médio é praticamente uma iteração antes do pior caso</li>
+				</ul>
+				<footer></footer>
+			</section>
+		</div>
+	</div>	
+
+	<div id="slide_10" class="slide">
+		<div>
+			<section>
+				<header>
+					<h2>Extração de propriedades relevantes</h2>
+				</header>
+				<ul class="inner">
+					<li>Nem todos os problemas são <i>bem comportados</i> como os problemas de busca</li>
+					<li>Extrair propriedades para analisar o caso médio pode se tornar uma tarefa não-trivial</li>
+					<li>No quicksort, por exemplo, definir a probabilidade para toda possível combinação dos elementos do conjunto é impraticável</li>
+						<li>Porém, pode-se lidar com a probabilidade de onde o pivô vai estar
+							<img src="./images/aula11/quick_pivo.png" style="position: absolute; bottom: 10%; right: 20%; width: 60%">
+					</li>
+				</ul>
+				<footer></footer>
+			</section>
+		</div>
+	</div>	
+
+	<div id="slide_11" class="slide">
+		<div>
+			<section>
+				<header>
+					<h2>Propriedades do Quicksort</h2>
+				</header>
+				<ul class="inner">
+					<li>O pivô tem igual probabilidade de ficar em qualquer uma das posições do vetor (\(P = 1/n\))</li>
+					<li>Se em todas as chamadas o pivô ficar na metade (\(1/2\)), então o número de chamadas recursivas será \(O(log_2 n)\)
+						<img src="./images/aula11/quick_complex_avg_1.png" style="position: absolute; bottom: 5%; right: 20%; width: 60%">
+					</li>
+					<li>Se em todas as chamadas recursivas o pivô ficar em uma das posições extremas (esq ou dir), o número de chamadas será \(O(n)\)
+						<img src="./images/aula11/quick_complex_avg_2.png" style="position: absolute; bottom: 5%; right: 20%; width: 60%">
+					</li>
+					<li>Questão: como saber o número de chamadas quando o pivô encontra-se entre o meio e o extremo?
+						<img src="./images/aula11/quick_complex_avg_3.png" style="position: absolute; bottom: 5%; right: 20%; width: 60%">
+					</li>
+				</ul>
+				<footer></footer>
+			</section>
+		</div>
+	</div>	
+
+
+	<div id="slide_12" class="slide">
+		<div>
+			<section>
+				<header>
+					<h2>Análise do Quicksort</h2>
+				</header>
+				<ul class="inner">
+					<li>Se o pivô se encontrar sempre na <i>metade da metade</i> (\(\frac{3}{4}n\))???
+						<img src="./images/aula11/quick_pivo_3_4.png" style="position: absolute; top: 30%; right: 15%; width: 70%">
+					</li>
+					<br>
+					<br>
+					<br>
+					<li>Haverá \(log_{\frac{4}{3}}n\) chamadas recursivas</li>
+					<li>Fazendo uma conversão de base, \(log_2{\frac{4}{3}}.log_{\frac{4}{3}}{n} = log_2{n}\)</li>
+					<li>Ou seja, \(log_{\frac{4}{3}}n\) ainda é \(O(log_2 n)\)</li>
+					<li>Por similaridade, toda a área entre \(\frac{1}{4}n\) e \(\frac{3}{4}n\) é \(O(n.log_2{n})\)
+						<img src="./images/aula11/quick_analise_3_4.png" style="position: absolute; bottom: 5%; right: 20%; width: 60%">
+					</li>
+				</ul>
+				<footer></footer>
+			</section>
+		</div>
+	</div>	
+
+	<div id="slide_13" class="slide">
+		<div>
+			<section>
+				<header>
+					<h2>Análise do Quicksort</h2>
+				</header>
+				<ul class="inner">
+					<li>\(50\%\) dos possíveis lugares onde o pivô estará é \(O(n.log_2 n)\)
+						<img src="./images/aula11/quick_analise_3_4.png" style="position: absolute; top: 28%; right: 20%; width: 60%">
+					</li>
+					<br>
+					<br>
+					<br>
+					<li>Então, em média, a cada \(k\) chamadas recursivas, \(k/2\) chamadas serão dentro da área \(n.log_2 n\)</li>
+					<li>Em outras palavras, para que o pivô caia \(k\) vezes no espaço \(n.log_2 n\), é necessário em média \(2.k\) chamadas recursivas</li>
+					<li>Assim, o <strong>quicksort</strong> levará em média o dobro do custo dos seus \(50\%\), ou seja \(2.(n.log_2 n)\), que também é <strong>\(O(n.log_2 n)\)</strong></li>
+				</ul>
+				<footer></footer>
+			</section>
+		</div>
+	</div>	
+
+	<div id="slide_14" class="slide">
+		<div>
+			<section>
+				<header>
+					<h2>Resumo da aula</h2>
+				</header>
+				<ul class="inner">
+					<li>Introduzimos o que é e como é realizada a análise de caso médio</li>
+					<li>Apresentamos como calcular o caso médio</li>
+					<ul>
+						<li>Algoritmos simples: busca linear e busca binária</li>
+						<li>Algoritmo mais complexo: quicksort</li>
+					</ul>
+					<br>
+					<li>Não se espera que os alunos saiam desta aula analizando o caso médio de qualquer algoritmo</li>
+					<li>Há uma disciplina específica (mais à frente) para lidar com probabilidade</li>
+					<li>Aula teve um objetivo mais informativo do que técnico</li>
+				</ul>
+				<footer></footer>
+			</section>
+		</div>
+	</div>	
+
+
+<script type="text/javascript" src="../../common/scripts/presentations/script.js"></script>
+<script type="text/javascript" src="../../common/scripts/code-prettify/prettify.js"></script>
+<script type="text/javascript" src="../../common/scripts/animation/jsmove.js"></script>
+<script type="text/javascript" src="../../common/scripts/mathjax/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+</body>
+</html>
