@@ -1,6 +1,0 @@
-declaração de variáveis i = 7, j = 3;
-declaração ponteiro p;
-declaração ponteiro de ponteiro r;
-p recebe endereço de i; ou seja, p = 7;
-r recebe endereço de p que tem endereço de i. ou seja, r = 7;
-c = 7 + 3. c = 10.
