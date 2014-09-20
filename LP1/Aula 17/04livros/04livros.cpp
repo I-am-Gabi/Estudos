@@ -11,6 +11,12 @@ Livro* livro_cria(string title, string author, string kind, int year){
 	return newbook;
 }
 
+int livro_verificaNoModernismo(Livro * l){
+	if (l->ano < 1930) {return -1;}
+	else if (l->ano >= 1930 && l->ano <= 1945) {return 0;}
+	else if (l->ano > 1945) {return 1;}
+}
+
 void imprime (Lista* l){
 	/* Esta função percorre a lista e imprime os elementos */
  	Lista* p; 
@@ -19,13 +25,15 @@ void imprime (Lista* l){
 		cout << "TITULO = " << p->data->titulo << " " << endl;
 		cout << "AUTOR = " << p->data->autor << " " << endl;		 
 		cout << "GENERO = " << p->data->genero << " " << endl;
-		cout << "ANO = " << p->data->ano << " " << endl;
+		cout << "ANO = " << p->data->ano << " (" << livro_verificaNoModernismo(p->data) << ")" << endl;
 		cout << endl;
-		//cout << p->data->titulo << "." << p->data->autor << " ";
+
 	}
 }
 
 void ordenar_ano(Lista* l){
+	cout << endl;
+	cout << "++ Ordenando por ANO ++" << endl;
 	Lista * i;
 	Lista * j;
 	Livro * aux;
@@ -41,6 +49,8 @@ void ordenar_ano(Lista* l){
 }
 
 void ordenar_titulo(Lista* l){
+	cout << endl;
+	cout << "++ Ordenando por TITULO ++" << endl;
 	Lista * i;
 	Lista * j;
 	Livro * aux;
@@ -54,3 +64,4 @@ void ordenar_titulo(Lista* l){
 		}
 	}
 }
+

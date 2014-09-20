@@ -1,3 +1,5 @@
+//ALUNO : ROBERTO ANRAFELL ARAUJO DANTAS - 2014027940
+
 #ifndef _03LISTANOVO_
 #define _03LISTANOVO_
 
@@ -44,5 +46,7 @@ void imprime (Lista* l);
 void ordenar_ano(Lista* l);
 
 void ordenar_titulo(Lista* l);
+
+int livro_verificaNoModernismo(Livro * l);
 
 #endif
