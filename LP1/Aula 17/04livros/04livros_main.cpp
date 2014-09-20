@@ -14,5 +14,8 @@ int main (void){
 	ordenar_ano(l);
 	imprime(l);
 
+	ordenar_titulo(l);
+	imprime(l);
+
 }
 

@@ -43,4 +43,6 @@ void imprime (Lista* l);
 
 void ordenar_ano(Lista* l);
 
+void ordenar_titulo(Lista* l);
+
 #endif

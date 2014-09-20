@@ -2,13 +2,6 @@
 
 #include "04livros.h"
 
-void swappt(void *a, void *b){
-	void * aux;
-	aux = a;
-	a = b;
-	b = aux;
-}
-
 Livro* livro_cria(string title, string author, string kind, int year){
 	Livro * newbook = new Livro;
 	newbook->titulo = title;
@@ -33,7 +26,6 @@ void imprime (Lista* l){
 }
 
 void ordenar_ano(Lista* l){
-	
 	Lista * i;
 	Lista * j;
 	Livro * aux;
@@ -46,6 +38,19 @@ void ordenar_ano(Lista* l){
 			} 	
 		}
 	}
+}
 
-
+void ordenar_titulo(Lista* l){
+	Lista * i;
+	Lista * j;
+	Livro * aux;
+	for (i = l; i->next != NULL; i = i->next){
+		for( j = i->next; j != NULL; j = j->next ){
+			if ((i->data->titulo).compare(j->data->titulo) > 0){
+				aux = i->data;
+				i->data = j->data;
+				j->data = aux; 
+			} 	
+		}
+	}
 }
