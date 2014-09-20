@@ -40,7 +40,6 @@ void ordenar_ano(Lista* l){
 	for (i = l; i->next != NULL; i = i->next){
 		for( j = i->next; j != NULL; j = j->next ){
 			if (i->data->ano < j->data->ano){
-				cout << i->data->ano << " < " << j->data->ano << endl;
 				aux = i->data;
 				i->data = j->data;
 				j->data = aux; 
