@@ -1,4 +1,4 @@
 all:
-	g++ 03listanovo.cpp 03listanovo_main.cpp -o 03listanovo
+	g++ 01pilha.cpp 01pilha_main.cpp -o 01pilha
 clean:
-	rm 03listareal
+	rm 01pilha
