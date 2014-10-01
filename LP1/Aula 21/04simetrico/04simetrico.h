@@ -15,8 +15,15 @@ struct node {
 template <class T>
 struct lista {
     struct node<T>* begin;
-    struct node<T>* end;   
+    struct node<T>* end;  
+    int size; 
 };
+template <class T>
+void inicializa(lista<T> &l1){
+    l1.begin = NULL;
+    l1.end = NULL;
+    l1.size = 0;   
+}
 
 namespace insere{
 
@@ -29,6 +36,7 @@ void Inicio(lista<T> &list,T* element){
     if (list.end == NULL){
         list.end = newnode;
     }
+    list.size += 1;
 }
 
 template<class T>
@@ -45,7 +53,7 @@ void Fim(lista<T> &list,T* num){
         (list.end->next) = newnode;
         list.end = list.end->next;
     }
-
+    list.size += 1;
 }
 
 }
@@ -60,6 +68,7 @@ void Inicio(lista<T> &list){
         delete(list.begin);
         list.begin = aux;
     }
+    list.size -= 1;
 }
 
 template <class T>
@@ -73,32 +82,33 @@ void Fim(lista<T> &list){
         delete(list.end);
         list.end = aux;
         list.end->next = NULL;
-
-
     }
+    list.size -= 1;
 }
-
-template<class T>
-void Todos(lista<T> &l){
-    node<T> * aux;
-    for (aux = l.begin; aux != NULL; aux = aux->next){
-        retira::Fim(l);
-    }
-}
-
 }
 
 template <class T>
 void listar(const lista<T> &l){
  	node<T>* p; 
-	cout << "= ";
+	cout << "| ";
 	for (p = l.begin; p != NULL; p = p->next){
 		cout << *(p->data) << " ";
 	}
-	cout << endl;
+    cout << "= " << l.size << " elements" << " | " << endl;
 }
 
-void menu(void);
-void opcoes(void);
+template <class T>
+bool ehSimetrico(lista<T> &l){
+    while ((l.size > 0)){
+        if ((*(l.begin->data) == *(l.end->data))){
+            retira::Inicio(l);
+            retira::Fim(l);
+        }
+        else {
+            return false;
+        }
+    }
+    return true;
+}
 
 #endif
