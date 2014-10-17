@@ -35,6 +35,7 @@ class list{
     *showpos( position ) - 
         returns the element in the position;
 */
+
 private:
 	node<T>* begin;
 	node<T>* end;
@@ -108,6 +109,16 @@ public:
                 break;
             case 2:
                 pushtop(toadd);
+                break;
+        }
+    }
+    void pop(){
+        switch (type) {
+            case 1:
+                poptop();
+                break;
+            case 2:
+                popend();
                 break;
         }
     }

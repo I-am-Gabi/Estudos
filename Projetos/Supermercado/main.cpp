@@ -32,7 +32,7 @@ caixa1.push(new int(30));caixa1.cout();
 caixa1.push(new int(40));caixa1.cout();
 caixa1.push(new int(50));caixa1.cout();
 caixa1.push(new int(60));caixa1.cout();
-
+caixa1.pop();caixa1.cout();
 caixa1.size();
 
 return 0;
