@@ -15,8 +15,9 @@ class lista {
 private:
 	node<T>* begin;
 	node<T>* end;
+	int size;
 public:
-	lista(){ begin = NULL; end = NULL;}
+	lista(){ begin = NULL; end = NULL; size = 0;}
 public:
 	void pushfront(T* element){
     	node<T> * newnode = new node<T>;
@@ -26,6 +27,7 @@ public:
     	if (end == NULL){
         	end = newnode;
     	}
+    	size += 1;
 	}
 	void pushback(T* num){
     	node<T>* newnode = new node<T>;
@@ -40,6 +42,7 @@ public:
         	(end->next) = newnode;
         	end = end->next;
     	}
+    	size += 1;
 	}
 	void popfront(){
     	if (begin != NULL){
@@ -47,6 +50,7 @@ public:
         	aux = begin->next;
         	delete(begin);
         	begin = aux;
+        	size -= 1;	
     	}
 	}
 	void popback(){
@@ -56,18 +60,29 @@ public:
         	while (aux->next != NULL && aux->next != end){
            		aux = aux->next;
         	}
-        delete(end);
-        end = aux;
-        end->next = NULL;
+        	if (aux != end){
+        		delete(end);
+        		aux->next = NULL;
+        		end = aux;
+        		size -= 1;
+        	}
+        	else {
+        		delete(end);
+        		begin = NULL;
+        		end = NULL;
+        		size = 0;
+        	}
     	}
 	}
 	void listar(){
- 	node<T>* p; 
-	cout << "= ";
-		for (p = begin; p != NULL; p = p->next){
-			cout << *(p->data) << " ";
+ 		node<T>* p; 
+		cout << "= [" << size << "] ";
+		if (begin != NULL){
+			for (p = begin; p != NULL; p = p->next){
+				cout << *(p->data) << " ";
+			}
 		}
-	cout << endl;
+		cout << endl;
 	}
 
 };
