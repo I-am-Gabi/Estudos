@@ -15,80 +15,102 @@ template <class T>
 class list{
 
 /* Functions to the class list:
+    *push() - 
+        if type == 1 : push at the end;
+        if type == 2 : push at the top;
 
-    pushfront() - to add at the top;
-    pushback() - to add at the end ;
-    popfront() - to remove at the top;
-    popback() - to remove at the end;
-    size() - returns the size of list;
-    cout() - to print all elements of list;
-    search( element ) - returns a pointer to node of the element;
-    showpos( position ) - returns the element in the position;
+    *pop() - 
+        if type == 1 : remove at the top;
+        if type == 2 : remove at the end;
 
+    *size() - 
+        returns the size of list;
+
+    *cout() - 
+        print all elements of list;
+
+    *search( element ) - 
+        returns a pointer to node of the element;
+
+    *showpos( position ) - 
+        returns the element in the position;
 */
 private:
 	node<T>* begin;
 	node<T>* end;
+    int type;
 	int sizeoflist;
+private:
+    void pushtop(T* toadd){
+        node<T> * newnode = new node<T>;
+        newnode->data = toadd;
+        newnode->next = begin;
+        begin = newnode;
+        if (end == NULL){
+            end = newnode;
+        }
+        sizeoflist += 1;
+    }
+    void pushend(T* toadd){
+        node<T>* newnode = new node<T>;
+        newnode->data = toadd;
+        newnode->next = NULL;
+    
+        if (begin == NULL){
+            begin = newnode; 
+            end = newnode;  
+        }
+        else {
+            (end->next) = newnode;
+            end = end->next;
+        }
+        sizeoflist += 1;
+    }
+    void poptop(){
+        if (begin != NULL){
+            node<T> * aux;
+            aux = begin->next;
+            delete(begin);
+            begin = aux;
+            sizeoflist -= 1;    
+        }
+    }
+    void popend(){
+        if (end != NULL){
+            node<T> * aux;
+            aux = begin;
+            while (aux->next != NULL && aux->next != end){
+                aux = aux->next;
+            }
+            if (aux != end){
+                delete(end);
+                aux->next = NULL;
+                end = aux;
+                sizeoflist -= 1;
+            }
+            else {
+                delete(end);
+                begin = NULL;
+                end = NULL;
+                sizeoflist = 0;
+            }
+        }
+    }
 public:
 	list(){ begin = NULL; end = NULL; sizeoflist = 0;}
+    list(int x) { begin = NULL; end = NULL; sizeoflist = 0; type = x % 3;} 
     int size() {return sizeoflist;}
 public:
-	void pushfront(T* element){
-    	node<T> * newnode = new node<T>;
-    	newnode->data = element;
-    	newnode->next = begin;
-    	begin = newnode;
-    	if (end == NULL){
-        	end = newnode;
-    	}
-    	sizeoflist += 1;
-	}
-	void pushback(T* num){
-    	node<T>* newnode = new node<T>;
-    	newnode->data = num;
-   		newnode->next = NULL;
-    
-  	 	if (begin == NULL){
-        	begin = newnode; 
-        	end = newnode;  
-    	}
-    	else {
-        	(end->next) = newnode;
-        	end = end->next;
-    	}
-    	sizeoflist += 1;
-	}
-	void popfront(){
-    	if (begin != NULL){
-        	node<T> * aux;
-        	aux = begin->next;
-        	delete(begin);
-        	begin = aux;
-        	sizeoflist -= 1;	
-    	}
-	}
-	void popback(){
-    	if (end != NULL){
-        	node<T> * aux;
-        	aux = begin;
-        	while (aux->next != NULL && aux->next != end){
-           		aux = aux->next;
-        	}
-        	if (aux != end){
-        		delete(end);
-        		aux->next = NULL;
-        		end = aux;
-        		sizeoflist -= 1;
-        	}
-        	else {
-        		delete(end);
-        		begin = NULL;
-        		end = NULL;
-        		sizeoflist = 0;
-        	}
-    	}
-	}
+    void push(T* toadd){
+        switch (type) {
+            case 1:
+                pushend(toadd);
+                break;
+            case 2:
+                pushtop(toadd);
+                break;
+        }
+    }
     T showpos(int pos){
         node<T> * p = begin;
         int i = 0;
