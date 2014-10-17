@@ -23,17 +23,22 @@
 */
 
 int main (){
-	
-list<int>caixa1(1);
 
-caixa1.push(new int(10));caixa1.cout();
-caixa1.push(new int(20));caixa1.cout();
-caixa1.push(new int(30));caixa1.cout();
-caixa1.push(new int(40));caixa1.cout();
-caixa1.push(new int(50));caixa1.cout();
-caixa1.push(new int(60));caixa1.cout();
-caixa1.pop();caixa1.cout();
-caixa1.size();
+std::cout << " FILA - TYPE 01 " << std::endl;
+list<int>caixa_fila(1);
+
+caixa_fila.push(new int(10));	caixa_fila.cout();
+caixa_fila.push(new int(20));	caixa_fila.cout();
+caixa_fila.push(new int(30));	caixa_fila.cout();
+caixa_fila.pop();				caixa_fila.cout();
+
+std::cout << " PILHA - TYPE 02 " << std::endl;
+list<int>caixa_pilha(2);
+
+caixa_pilha.push(new int(10));	caixa_pilha.cout();
+caixa_pilha.push(new int(20));	caixa_pilha.cout();
+caixa_pilha.push(new int(30));	caixa_pilha.cout();
+caixa_pilha.pop();				caixa_pilha.cout();
 
 return 0;
 
