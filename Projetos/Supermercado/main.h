@@ -2,7 +2,8 @@
 #define _LISTA_GENERICA_
 
 #include <iostream>
-
+using std::cout;
+using std::endl;
 template <class T>
 struct node {
 	node<T> * next;
@@ -17,16 +18,16 @@ private:
 public:
 	lista(){ begin = NULL; end = NULL;}
 public:
-	void push_front(T* element){
+	void pushfront(T* element){
     	node<T> * newnode = new node<T>;
     	newnode->data = element;
     	newnode->next = begin;
     	begin = newnode;
-    		if (end == NULL){
+    	if (end == NULL){
         	end = newnode;
-    		}
+    	}
 	}
-	void push_back(T* num){
+	void pushback(T* num){
     	node<T>* newnode = new node<T>;
     	newnode->data = num;
    		newnode->next = NULL;
@@ -40,7 +41,7 @@ public:
         	end = end->next;
     	}
 	}
-	void pop_front(){
+	void popfront(){
     	if (begin != NULL){
         	node<T> * aux;
         	aux = begin->next;
@@ -48,7 +49,7 @@ public:
         	begin = aux;
     	}
 	}
-	void pop_back(){
+	void popback(){
     	if (end != NULL){
         	node<T> * aux;
         	aux = begin;
@@ -60,6 +61,15 @@ public:
         end->next = NULL;
     	}
 	}
+	void listar(){
+ 	node<T>* p; 
+	cout << "= ";
+		for (p = begin; p != NULL; p = p->next){
+			cout << *(p->data) << " ";
+		}
+	cout << endl;
+	}
+
 };
 
 #endif
