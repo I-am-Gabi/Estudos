@@ -4,6 +4,7 @@
 #include <iostream>
 using std::cout;
 using std::endl;
+
 template <class T>
 struct node {
 	node<T> * next;
@@ -11,13 +12,27 @@ struct node {
 }; 
 
 template <class T>
-class lista {
+class list{
+
+/* Functions to the class list:
+
+    pushfront() - to add at the top;
+    pushback() - to add at the end ;
+    popfront() - to remove at the top;
+    popback() - to remove at the end;
+    size() - returns the size of list;
+    cout() - to print all elements of list;
+    search( element ) - returns a pointer to node of the element;
+    showpos( position ) - returns the element in the position;
+
+*/
 private:
 	node<T>* begin;
 	node<T>* end;
-	int size;
+	int sizeoflist;
 public:
-	lista(){ begin = NULL; end = NULL; size = 0;}
+	list(){ begin = NULL; end = NULL; sizeoflist = 0;}
+    int size() {return sizeoflist;}
 public:
 	void pushfront(T* element){
     	node<T> * newnode = new node<T>;
@@ -27,7 +42,7 @@ public:
     	if (end == NULL){
         	end = newnode;
     	}
-    	size += 1;
+    	sizeoflist += 1;
 	}
 	void pushback(T* num){
     	node<T>* newnode = new node<T>;
@@ -42,7 +57,7 @@ public:
         	(end->next) = newnode;
         	end = end->next;
     	}
-    	size += 1;
+    	sizeoflist += 1;
 	}
 	void popfront(){
     	if (begin != NULL){
@@ -50,7 +65,7 @@ public:
         	aux = begin->next;
         	delete(begin);
         	begin = aux;
-        	size -= 1;	
+        	sizeoflist -= 1;	
     	}
 	}
 	void popback(){
@@ -64,25 +79,49 @@ public:
         		delete(end);
         		aux->next = NULL;
         		end = aux;
-        		size -= 1;
+        		sizeoflist -= 1;
         	}
         	else {
         		delete(end);
         		begin = NULL;
         		end = NULL;
-        		size = 0;
+        		sizeoflist = 0;
         	}
     	}
 	}
-	void listar(){
+    T showpos(int pos){
+        node<T> * p = begin;
+        int i = 0;
+        pos = pos % sizeoflist; /* Evita que o valor seja maior que a lista */
+        if (begin != NULL && pos < sizeoflist){
+            while (p != NULL && i < pos){
+                ++i;
+                p = p->next;
+            }
+        return *(p->data); /* Retorna endereço do conteúdo da posição */
+        }
+
+        else {return -1;} /* Retorna nulo */
+    }
+   node <T>* search(T element){
+        node<T> * p;
+        if (begin != NULL){
+            for (p = begin; p != NULL; p = p->next){
+                if (*(p->data) == element){ return p; }
+            }
+        }
+        return NULL;
+    } 
+
+	void cout(){
  		node<T>* p; 
-		cout << "= [" << size << "] ";
+		std::cout << "= [" << sizeoflist << "] ";
 		if (begin != NULL){
 			for (p = begin; p != NULL; p = p->next){
-				cout << *(p->data) << " ";
+				std::cout << *(p->data) << " ";
 			}
 		}
-		cout << endl;
+		std::cout << endl;
 	}
 
 };
