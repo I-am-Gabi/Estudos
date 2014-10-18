@@ -40,6 +40,14 @@ caixa_pilha.push(new int(20));	caixa_pilha.cout();
 caixa_pilha.push(new int(30));	caixa_pilha.cout();
 caixa_pilha.pop();				caixa_pilha.cout();
 
+std::cout << " LISTA SIMPLES - TYPE 03 " << std::endl;
+list<int>caixa_filasimples(3);
+
+caixa_filasimples.push(new int(10));	caixa_filasimples.cout();
+caixa_filasimples.push(new int(20));	caixa_filasimples.cout();
+caixa_filasimples.push(new int(30));	caixa_filasimples.cout();
+caixa_filasimples.pop(2);				caixa_filasimples.cout();
+
 return 0;
 
 }

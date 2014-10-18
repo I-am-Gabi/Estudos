@@ -67,6 +67,19 @@ private:
         }
         sizeoflist += 1;
     }
+    void poppos(int pos){
+        node<T> * p = begin;
+        node<T> * ant = begin;
+        for (int i=0; i < pos; ++i,ant = p,p=p->next);
+            if (ant != p) { // Se for igual então será o primeiro
+                ant->next = p->next;
+                delete(p); 
+            }
+            else {
+                begin = p->next;
+                delete(p);
+            }
+    }
     void poptop(){
         if (begin != NULL){
             node<T> * aux;
@@ -110,6 +123,10 @@ public:
             case 2:
                 pushtop(toadd);
                 break;
+            case 3:
+                pushend(toadd);
+            default:
+                pushend(toadd);
         }
     }
     void pop(){
@@ -121,6 +138,12 @@ public:
                 popend();
                 break;
         }
+    }
+    bool pop(int pos){
+        if (pos < sizeoflist){
+            poppos(pos);
+        }
+        else {std::cout << " posição inválida " << std::endl; return false;}
     }
     T showpos(int pos){
         node<T> * p = begin;
