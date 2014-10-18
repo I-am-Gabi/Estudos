@@ -57,7 +57,7 @@ caixa_lista.push(new int(999),0); caixa_lista.cout();
 caixa_lista.pop(2);				caixa_lista.cout();
 */
 
-std::cout << "- FILA CLIENTES -" << std::endl;
+/*std::cout << "- FILA CLIENTES -" << std::endl;
 list<cliente>list_clientes(1); // TYPE 01 = FILA;
 cliente * aux;
 
@@ -70,7 +70,16 @@ for (int i=0; i < 10; i++){
 }
 
 list_clientes.cout_clientes();
+*/
 
+std::cout << " C A I X A : C01" << std::endl;
+caixa c01;
+c01.addcliente("nome1",1,258);
+c01.addcliente("nome2",2,640);
+c01.addcliente("nome3",3,521);
+c01.addcliente("nome4",4,987);
+c01.addcliente("nome5",5,1680);
+c01.cout();
 
 return 0;
 

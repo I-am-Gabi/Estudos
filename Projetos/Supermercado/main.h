@@ -209,12 +209,26 @@ public:
 };
 
 class caixa {
-    int numerocaixa;
-    list<cliente>lclientes;
-    caixa() : lclientes(1) {}
+private:
+    list<cliente>clientes;
+public:
+    caixa() : clientes(1) {}
+    cliente * aux;
+    void addcliente(string nome,int ID, int saldo){
+        aux = new cliente;
+        aux->nome = nome;
+        aux->saldo = saldo;
+        aux->ID = ID;
+        clientes.push(aux);
+    }
+    void cout(){ clientes.cout_clientes(); }
 };
 
-
+class supermercado {
+private:
+    list<caixa>caixas_abertos;
+    supermercado() : caixas_abertos(3) {}
+};
 
 
 #endif
