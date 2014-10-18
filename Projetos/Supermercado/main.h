@@ -67,15 +67,37 @@ private:
         }
         sizeoflist += 1;
     }
+    void pushpos(T* toadd, int pos){
+        node<T> * newnode = new node<T>;
+        newnode->data = toadd;
+        if (begin != NULL){
+            node<T> * p = begin;
+            node<T> * ant = begin;
+            for (int i=0; i < pos; ++i,ant = p,p=p->next);
+            if (ant != p){
+                ant->next = newnode;
+                newnode->next = p;
+            }
+            else{
+                newnode->next = p;
+                begin = newnode;
+            }
+        }
+        else {
+            begin = newnode;
+            end = newnode;
+            sizeoflist = 1;
+        }
+    }
     void poppos(int pos){
         node<T> * p = begin;
         node<T> * ant = begin;
         for (int i=0; i < pos; ++i,ant = p,p=p->next);
-            if (ant != p) { // Se for igual então será o primeiro
+            if (ant != p) { 
                 ant->next = p->next;
                 delete(p); 
             }
-            else {
+            else { // Se for igual então será o primeiro
                 begin = p->next;
                 delete(p);
             }
@@ -123,11 +145,16 @@ public:
             case 2:
                 pushtop(toadd);
                 break;
-            case 3:
-                pushend(toadd);
             default:
                 pushend(toadd);
+                break;
         }
+    }
+    bool push(T* toadd, int pos){
+        if (pos <= sizeoflist){
+            pushpos(toadd,pos);
+        }
+        else {std::cout << " ERROR: Posição inserção" << pos << " invalida " << std::endl; return false;}
     }
     void pop(){
         switch (type) {
@@ -137,13 +164,16 @@ public:
             case 2:
                 popend();
                 break;
+            default:
+                poptop();
+                break;
         }
     }
     bool pop(int pos){
         if (pos < sizeoflist){
             poppos(pos);
         }
-        else {std::cout << " posição inválida " << std::endl; return false;}
+        else {std::cout << " ERROR: Posição remoção" << pos << " invalida " << std::endl; return false;}
     }
     T showpos(int pos){
         node<T> * p = begin;

@@ -46,6 +46,7 @@ list<int>caixa_filasimples(3);
 caixa_filasimples.push(new int(10));	caixa_filasimples.cout();
 caixa_filasimples.push(new int(20));	caixa_filasimples.cout();
 caixa_filasimples.push(new int(30));	caixa_filasimples.cout();
+caixa_filasimples.push(new int(999),0); caixa_filasimples.cout();
 caixa_filasimples.pop(2);				caixa_filasimples.cout();
 
 return 0;
