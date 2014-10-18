@@ -221,13 +221,20 @@ public:
         aux->ID = ID;
         clientes.push(aux);
     }
-    void cout(){ clientes.cout_clientes(); }
+    void coutcaixa(){ clientes.cout_clientes(); }
 };
 
 class supermercado {
 private:
     list<caixa>caixas_abertos;
-    supermercado() : caixas_abertos(3) {}
+public:
+    //supermercado() : caixas_abertos() {}
+    void addcaixa(caixa ctoadd){
+        caixas_abertos.push(&ctoadd);
+    }
+    void coutsupermercado(){
+       //caixas_abertos.coutcaixa();
+    }
 };
 
 

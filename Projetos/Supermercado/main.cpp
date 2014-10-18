@@ -79,7 +79,24 @@ c01.addcliente("nome2",2,640);
 c01.addcliente("nome3",3,521);
 c01.addcliente("nome4",4,987);
 c01.addcliente("nome5",5,1680);
-c01.cout();
+c01.coutcaixa();
+
+std::cout << " C A I X A : C02" << std::endl;
+caixa c02;
+c02.addcliente("nome1",1,720);
+c02.addcliente("nome2",2,150);
+c02.addcliente("nome3",3,350);
+c02.addcliente("nome4",4,640);
+c02.addcliente("nome5",5,1420);
+c02.addcliente("nome6",6,1730);
+c02.coutcaixa();
+
+supermercado vaptvupt;
+vaptvupt.addcaixa(c01);
+vaptvupt.addcaixa(c02);
+vaptvupt.coutsupermercado();
+
+
 
 return 0;
 
