@@ -2,6 +2,7 @@
 #define _LISTA_GENERICA_
 
 #include <iostream>
+#include <string>
 using std::cout;
 using std::endl;
 
@@ -11,30 +12,12 @@ struct node {
 	T* data;
 }; 
 
+struct cliente{
+    int ID;
+};
+
 template <class T>
 class list{
-
-/* Functions to the class list:
-    *push() - 
-        if type == 1 : push at the end;
-        if type == 2 : push at the top;
-
-    *pop() - 
-        if type == 1 : remove at the top;
-        if type == 2 : remove at the end;
-
-    *size() - 
-        returns the size of list;
-
-    *cout() - 
-        print all elements of list;
-
-    *search( element ) - 
-        returns a pointer to node of the element;
-
-    *showpos( position ) - 
-        returns the element in the position;
-*/
 
 private:
 	node<T>* begin;
@@ -134,7 +117,7 @@ private:
     }
 public:
 	list(){ begin = NULL; end = NULL; sizeoflist = 0;}
-    list(int x) { begin = NULL; end = NULL; sizeoflist = 0; type = x % 3;} 
+    list(int x) { begin = NULL; end = NULL; sizeoflist = 0; type = x % 4;} 
     int size() {return sizeoflist;}
 public:
     void push(T* toadd){
@@ -189,7 +172,7 @@ public:
 
         else {return -1;} /* Retorna nulo */
     }
-   node <T>* search(T element){
+    node <T>* search(T element){
         node<T> * p;
         if (begin != NULL){
             for (p = begin; p != NULL; p = p->next){
@@ -198,7 +181,6 @@ public:
         }
         return NULL;
     } 
-
 	void cout(){
  		node<T>* p; 
 		std::cout << "= [" << sizeoflist << "] ";
@@ -209,7 +191,26 @@ public:
 		}
 		std::cout << endl;
 	}
+    void cout_clientes(){
+        node<T>* p; 
+        std::cout << "= [" << sizeoflist << "] ";
+        if (begin != NULL){
+            for (p = begin; p != NULL; p = p->next){
+                std::cout << ((p->data)->ID) << " ";
+            }
+        }
+        std::cout << endl;
+    }
 
 };
+
+class caixa {
+public:
+    int numerocaixa;
+    list<cliente>clientes();
+};
+
+
+
 
 #endif
