@@ -2,20 +2,18 @@
 #define _LISTA_GENERICA_
 
 #include <iostream>
+#include <string>
 using std::cout;
 using std::endl;
-using std::string;
+
 template <class T>
 struct node {
 	node<T> * next;
-	T* data;
+	T data;
 }; 
 
 struct cliente{
-    string nome;
-    int saldo;
     int ID;
-
 };
 
 template <class T>
@@ -27,7 +25,7 @@ private:
     int type;
 	int sizeoflist;
 private:
-    void pushtop(T* toadd){
+    void pushtop(T toadd){
         node<T> * newnode = new node<T>;
         newnode->data = toadd;
         newnode->next = begin;
@@ -37,7 +35,7 @@ private:
         }
         sizeoflist += 1;
     }
-    void pushend(T* toadd){
+    void pushend(T toadd){
         node<T>* newnode = new node<T>;
         newnode->data = toadd;
         newnode->next = NULL;
@@ -52,7 +50,7 @@ private:
         }
         sizeoflist += 1;
     }
-    void pushpos(T* toadd, int pos){
+    void pushpos(T toadd, int pos){
         node<T> * newnode = new node<T>;
         newnode->data = toadd;
         if (begin != NULL){
@@ -122,7 +120,7 @@ public:
     list(int x) { begin = NULL; end = NULL; sizeoflist = 0; type = x % 4;} 
     int size() {return sizeoflist;}
 public:
-    void push(T* toadd){
+    void push(T toadd){
         switch (type) {
             case 1:
                 pushend(toadd);
@@ -135,7 +133,7 @@ public:
                 break;
         }
     }
-    bool push(T* toadd, int pos){
+    bool push(T toadd, int pos){
         if (pos <= sizeoflist){
             pushpos(toadd,pos);
         }
@@ -169,7 +167,7 @@ public:
                 ++i;
                 p = p->next;
             }
-        return *(p->data); /* Retorna endereço do conteúdo da posição */
+        return p->data; /* Retorna endereço do conteúdo da posição */
         }
 
         else {return -1;} /* Retorna nulo */
@@ -188,19 +186,17 @@ public:
 		std::cout << "= [" << sizeoflist << "] ";
 		if (begin != NULL){
 			for (p = begin; p != NULL; p = p->next){
-				std::cout << *(p->data) << " ";
+				std::cout << p->data << " ";
 			}
 		}
 		std::cout << endl;
 	}
     void cout_clientes(){
         node<T>* p; 
-        std::cout << "= [" << sizeoflist << "] Clientes" << std::endl;
+        std::cout << "= [" << sizeoflist << "] ";
         if (begin != NULL){
             for (p = begin; p != NULL; p = p->next){
-                std::cout << (p->data)->nome << " ";
-                std::cout << ((p->data)->ID) << " R$ ";
-                std::cout << (p->data)->saldo << ",00 " << std::endl;
+                std::cout << (p->data).ID << " ";
             }
         }
         std::cout << endl;
@@ -209,9 +205,9 @@ public:
 };
 
 class caixa {
+public:
     int numerocaixa;
-    list<cliente>lclientes;
-    caixa() : lclientes(1) {}
+    list<cliente>clientes();
 };
 
 
