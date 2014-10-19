@@ -5,29 +5,28 @@
 using std::cout;
 using std::endl;
 using std::string;
+
 template <class T>
 struct node {
-	node<T> * next;
-	T* data;
+	node<T> * next; // Ponteiro para o proximo da lista
+	T* data; // Ponteiro para conteudo do tipo T
 }; 
 
 struct cliente{
     string nome;
     int saldo;
     int ID;
-
 };
 
 template <class T>
 class list{
-
 private:
-	node<T>* begin;
-	node<T>* end;
-    int type;
-	int sizeoflist;
+	node<T>* begin; // Ponteiro para inicio da lista
+	node<T>* end;  // Ponteiro para fim da lista
+    int type;   // 1 = fila, 2 = pilha, 3 = lista
+	int sizeoflist; // tamanho da lista
 private:
-    void pushtop(T* toadd){
+    void pushtop(T* toadd){ // adiciona elemento no topo
         node<T> * newnode = new node<T>;
         newnode->data = toadd;
         newnode->next = begin;
@@ -37,11 +36,10 @@ private:
         }
         sizeoflist += 1;
     }
-    void pushend(T* toadd){
+    void pushend(T* toadd){ // adiciona elemento no final
         node<T>* newnode = new node<T>;
         newnode->data = toadd;
         newnode->next = NULL;
-    
         if (begin == NULL){
             begin = newnode; 
             end = newnode;  
@@ -55,23 +53,25 @@ private:
     void pushpos(T* toadd, int pos){
         node<T> * newnode = new node<T>;
         newnode->data = toadd;
-        if (begin != NULL){
-            node<T> * p = begin;
-            node<T> * ant = begin;
-            for (int i=0; i < pos; ++i,ant = p,p=p->next);
-            if (ant != p){
-                ant->next = newnode;
-                newnode->next = p;
+        if (begin != NULL){ // se a lista não for vazia
+            node<T> * p = begin; // auxiliar para percorrer lista
+            node<T> * ant = begin; // auxiliar para percorrer lista
+            for (int i=0; i < pos; ++i,ant = p,p=p->next); // percorre até final da lista
+            if (ant != p){ //se ant != p, então é no meio da lista
+                ant->next = newnode; // próximo do anterior passa a ser novo nó 
+                newnode->next = p; // próximo do novo nó passa a ser o atual
             }
-            else{
-                newnode->next = p;
-                begin = newnode;
+            else{ 
+                /* Quando penultimo == ultimo a posição
+                é 0, ou seja, é para adicionar no topo da lista */ 
+                newnode->next = p; // próximo do novo nó é a lista 
+                begin = newnode; // inicio passa a ser o novo nó
             }
         }
-        else {
-            begin = newnode;
-            end = newnode;
-            sizeoflist = 1;
+        else { // Se a lista for nula = vazia
+            begin = newnode; // inicio passa a ser novo nó
+            end = newnode; // fim passa a ser novo nó
+            sizeoflist = 1; // tamanho da lista passa a ser 1
         }
     }
     void poppos(int pos){

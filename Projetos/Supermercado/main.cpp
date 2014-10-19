@@ -30,15 +30,15 @@
 int main (){
 
 caixa c01(1); //caixa nome(ID do caixa)
-c01.addcliente("nome1",1,258);
+c01.addcliente("nome1",1,258); //addcliente(nome,ID,saldo)
 c01.addcliente("nome2",2,640);
 c01.addcliente("nome3",3,521);
 c01.addcliente("nome4",4,987);
 c01.addcliente("nome5",5,1680);
 
 caixa c02(2); //caixa nome(ID do caixa)
-c02.addcliente("nome1",1,720);
-c02.addcliente("nome2",2,150);
+c02.addcliente("nome1",1,720); //addcliente(nome,ID,saldo)
+c02.addcliente("nome2",2,150);  
 c02.addcliente("nome3",3,350);
 c02.addcliente("nome4",4,640);
 c02.addcliente("nome5",5,1420);
