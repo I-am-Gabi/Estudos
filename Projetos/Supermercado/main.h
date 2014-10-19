@@ -183,7 +183,7 @@ public:
         }
         return NULL;
     } 
-	void cout(){
+	void coutlist(){
  		node<T>* p; 
 		std::cout << "= [" << sizeoflist << "] ";
 		if (begin != NULL){
@@ -193,7 +193,7 @@ public:
 		}
 		std::cout << endl;
 	}
-    void cout_clientes(){
+    void coutclientes(){
         node<T>* p; 
         std::cout << "= [" << sizeoflist << "] Clientes" << std::endl;
         if (begin != NULL){
@@ -201,6 +201,17 @@ public:
                 std::cout << (p->data)->nome << " ";
                 std::cout << ((p->data)->ID) << " R$ ";
                 std::cout << (p->data)->saldo << ",00 " << std::endl;
+            }
+        }
+        std::cout << endl;
+    }
+    void coutsupermercado(){
+        node<T>* p; 
+        std::cout << "= [" << sizeoflist << "] caixas abertos" << std::endl;
+        if (begin != NULL){
+            for (p = begin; p != NULL; p = p->next){
+                 std::cout << " C A I X A " << std::endl;
+                 (p->data)->coutcaixa();
             }
         }
         std::cout << endl;
@@ -221,19 +232,21 @@ public:
         aux->ID = ID;
         clientes.push(aux);
     }
-    void coutcaixa(){ clientes.cout_clientes(); }
+public:
+    void coutcaixa(){ clientes.coutclientes(); }
 };
 
 class supermercado {
 private:
     list<caixa>caixas_abertos;
 public:
-    //supermercado() : caixas_abertos() {}
-    void addcaixa(caixa ctoadd){
-        caixas_abertos.push(&ctoadd);
+    supermercado() : caixas_abertos() {}
+    void addcaixa(caixa *ctoadd){
+        caixas_abertos.push(ctoadd);
+        //std::cout << " addcaixa " << ctoadd-> << std::endl; 
     }
-    void coutsupermercado(){
-       //caixas_abertos.coutcaixa();
+    void cout(){
+       caixas_abertos.coutsupermercado();
     }
 };
 
