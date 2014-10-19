@@ -27,76 +27,22 @@
         returns the element in the position;
 */
 
-void coutssupermercado(){
-
-
-
-
-}
-
 int main (){
 
-/* std::cout << " FILA - TYPE 01 " << std::endl;
-list<int>caixa_fila(1);
-
-caixa_fila.push(new int(10));	caixa_fila.cout();
-caixa_fila.push(new int(20));	caixa_fila.cout();
-caixa_fila.push(new int(30));	caixa_fila.cout();
-caixa_fila.pop();				caixa_fila.cout();
-*/
-
-/*std::cout << " PILHA - TYPE 02 " << std::endl;
-list<int>caixa_pilha(2);
-
-caixa_pilha.push(new int(10));	caixa_pilha.cout();
-caixa_pilha.push(new int(20));	caixa_pilha.cout();
-caixa_pilha.push(new int(30));	caixa_pilha.cout();
-caixa_pilha.pop();				caixa_pilha.cout();
-*/
-
-/* std::cout << " LISTA SIMPLES - TYPE 03 " << std::endl;
-list<int>caixa_lista(3);
-
-caixa_lista.push(new int(10));	caixa_lista.cout();
-caixa_lista.push(new int(20));	caixa_lista.cout();
-caixa_lista.push(new int(30));	caixa_lista.cout();
-caixa_lista.push(new int(999),0); caixa_lista.cout();
-caixa_lista.pop(2);				caixa_lista.cout();
-*/
-
-/*std::cout << "- FILA CLIENTES -" << std::endl;
-list<cliente>list_clientes(1); // TYPE 01 = FILA;
-cliente * aux;
-
-for (int i=0; i < 10; i++){
-	aux = new cliente;
-    aux->nome = "CLIENTE ID",i;
-    aux->saldo = i*100+5*i + 2;
-	aux->ID = i;
-	list_clientes.push(aux);
-}
-
-list_clientes.cout_clientes();
-*/
-
-std::cout << " C A I X A : C01" << std::endl;
-caixa c01;
+caixa c01(1); //caixa nome(ID do caixa)
 c01.addcliente("nome1",1,258);
 c01.addcliente("nome2",2,640);
 c01.addcliente("nome3",3,521);
 c01.addcliente("nome4",4,987);
 c01.addcliente("nome5",5,1680);
-//c01.coutcaixa();
 
-std::cout << " C A I X A : C02" << std::endl;
-caixa c02;
+caixa c02(2); //caixa nome(ID do caixa)
 c02.addcliente("nome1",1,720);
 c02.addcliente("nome2",2,150);
 c02.addcliente("nome3",3,350);
 c02.addcliente("nome4",4,640);
 c02.addcliente("nome5",5,1420);
 c02.addcliente("nome6",6,1730);
-//c02.coutcaixa();
 
 supermercado vaptvupt;
 vaptvupt.addcaixa(&c01);
@@ -108,3 +54,48 @@ vaptvupt.cout();
 return 0;
 
 }
+
+// ABAIXO EXEMPLOS DE APLICAÇÕES
+
+/* std::cout << " FILA - TYPE 01 " << std::endl;
+list<int>fila(1);
+
+fila.push(new int(10));   fila.cout();
+fila.push(new int(20));   fila.cout();
+fila.push(new int(30));   fila.cout();
+fila.pop();               fila.cout();
+*/
+
+/*std::cout << " PILHA - TYPE 02 " << std::endl;
+list<int>pilha(2);
+
+pilha.push(new int(10));  pilha.cout();
+pilha.push(new int(20));  pilha.cout();
+pilha.push(new int(30));  pilha.cout();
+pilha.pop();              pilha.cout();
+*/
+
+/* std::cout << " LISTA SIMPLES - TYPE 03 " << std::endl;
+list<int>caixa_lista(3);
+
+lista.push(new int(10));    lista.cout();
+lista.push(new int(20));    lista.cout();
+lista.push(new int(30));    lista.cout();
+lista.push(new int(999),0); lista.cout();
+lista.pop(2);               lista.cout();
+*/
+
+/*std::cout << "- FILA CLIENTES -" << std::endl;
+list<cliente>list_clientes(1); // TYPE 01 = FILA;
+cliente * aux;
+
+for (int i=0; i < 10; i++){
+    aux = new cliente;
+    aux->nome = "CLIENTE ID",i;
+    aux->saldo = i*100+5*i + 2;
+    aux->ID = i;
+    list_clientes.push(aux);
+}
+
+list_clientes.cout_clientes();
+*/
