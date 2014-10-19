@@ -1,25 +1,34 @@
 #ifndef _LISTA_GENERICA_
 #define _LISTA_GENERICA_
 
-#include <iostream>
+#include <iostream> // Biblioteca Padrão do C++
+#include <fstream> // Biblioteca para entrada/saída de arquivos
 using std::cout;
 using std::endl;
 using std::string;
 
 template <class T>
-struct node {
+struct node { // Nó da lista genérica
 	node<T> * next; // Ponteiro para o proximo da lista
 	T* data; // Ponteiro para conteudo do tipo T
 }; 
 
-struct cliente{
-    string nome; // nome do cliente
-    int saldo; // saldo disponivel para o cliente
-    int ID; // ID do cliente na fila
+class Cliente{ // Classe Cliente
+private:
+    int ID; // ID do cliente
+    int saldo; // saldo do Cliente
+public:
+    Cliente(int _id,int _saldo) { // Construtor
+        saldo = _saldo; // Insere o saldo
+        ID = _id; // Insere o ID
+    }
+    void coutdados(){ // imprime os dados do Cliente
+        std::cout << " " << ID << " R$ " << saldo << std::endl; // saída padrão
+    }
 };
 
 template <class T>
-class list{
+class list{ // Classe genérica de lista
 private:
 	node<T>* begin; // Ponteiro para inicio da lista
 	node<T>* end;  // Ponteiro para fim da lista
@@ -179,9 +188,7 @@ public:
         std::cout << "[" << sizeoflist << "] Clientes" << std::endl; // imprime o tamanho da lista
         if (begin != NULL){ // se a lista não for vazia
             for (p = begin; p != NULL; p = p->next){ // percorre a lista
-                std::cout << (p->data)->nome << " "; // imprime nome do cliente
-                std::cout << ((p->data)->ID) << " R$ "; // imprime ID
-                std::cout << (p->data)->saldo << ",00 " << std::endl; // imprime saldo
+                (p->data)->coutdados();
             }
         }
         std::cout << endl; // pula a linha
@@ -202,15 +209,12 @@ public:
 class caixa { // Classe Caixa
 private:
     int caixaID; // ID do Caixa
-    list<cliente>clientes; // lista de clientes do caixa
+    list<Cliente>clientes; // lista de clientes do caixa
 public:
     caixa(int num) : clientes(1) { caixaID = num;} // Construtor do caixa
-    cliente * aux; // auxiliar para receber novo cliente
-    void addcliente(string nome,int ID, int saldo){ /* Func. para adicionar cliente na lista */
-        aux = new cliente; // Aloca cliente
-        aux->nome = nome; // preenche nome
-        aux->saldo = saldo; // preenche saldo 
-        aux->ID = ID; // preenche ID do cliente
+    Cliente * aux; // auxiliar para receber novo cliente
+    void addcliente(int ID, int saldo){ /* Func. para adicionar cliente na lista */
+        aux = new Cliente(ID,saldo); // Aloca cliente
         clientes.push(aux); // insere na lista
     }
     void coutcaixa(){ /* Func. para imprimir a lista do caixa */
@@ -230,6 +234,11 @@ public:
     void cout(){ // Func. para imprimir lista de caixas 
        caixas_abertos.coutsupermercado(); // imprime os caixas abertos
     }
+};
+
+class gerenciador {
+
+
 };
 
 

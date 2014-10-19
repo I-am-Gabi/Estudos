@@ -1,5 +1,5 @@
 #include "main.h"
-
+#include <fstream>
 /* Functions to the class list:
 	list type = 1 : fila
 	list type = 2 : pilha
@@ -29,25 +29,44 @@
 
 int main (){
 
+/* 
+
+int tempomaximo;
+std::ifstream leitura;
+
+leitura.open("dados.txt");
+if (leitura.is_open() && leitura.good()){
+    cout << "Reading from the File" << endl;
+    getline(leitura,tempomaximo);
+    leitura.close();
+}
+else {
+    std::cout << " não foi possível abrir dados.txt " << std::endl;
+    leitura.clear();
+}
+leitura >> tempomaximo;
+std::cout << tempomaximo << std::endl; */
+
+
 caixa c01(1); //caixa nome(ID do caixa)
-c01.addcliente("nome1",1,258); //addcliente(nome,ID,saldo)
-c01.addcliente("nome2",2,640);
-c01.addcliente("nome3",3,521);
-c01.addcliente("nome4",4,987);
-c01.addcliente("nome5",5,1680);
+c01.addcliente(11,258); //addcliente(nome,ID,saldo)
+c01.addcliente(12,640);
+c01.addcliente(12,521);
+c01.addcliente(13,987);
+c01.addcliente(14,1680);
 
 caixa c02(2); //caixa nome(ID do caixa)
-c02.addcliente("nome1",1,720); //addcliente(nome,ID,saldo)
-c02.addcliente("nome2",2,150);  
-c02.addcliente("nome3",3,350);
-c02.addcliente("nome4",4,640);
-c02.addcliente("nome5",5,1420);
-c02.addcliente("nome6",6,1730);
+c02.addcliente(21,720); //addcliente(nome,ID,saldo)
+c02.addcliente(22,150);  
+c02.addcliente(23,350);
+c02.addcliente(24,640);
+c02.addcliente(25,1420);
+c02.addcliente(26,1730);
 
 supermercado vaptvupt;
 vaptvupt.addcaixa(&c01);
 vaptvupt.addcaixa(&c02);
-vaptvupt.cout();
+vaptvupt.cout(); 
 
 
 
