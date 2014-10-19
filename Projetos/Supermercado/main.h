@@ -175,60 +175,60 @@ public:
 		std::cout << endl; // pula a linha
 	}
     void coutclientes(){ /* imprime lista de clientes na saída padrão */
-        node<T>* p; 
-        std::cout << "[" << sizeoflist << "] Clientes" << std::endl;
-        if (begin != NULL){
-            for (p = begin; p != NULL; p = p->next){
-                std::cout << (p->data)->nome << " ";
-                std::cout << ((p->data)->ID) << " R$ ";
-                std::cout << (p->data)->saldo << ",00 " << std::endl;
+        node<T>* p; // variavel auxiliar para percorrer a lista
+        std::cout << "[" << sizeoflist << "] Clientes" << std::endl; // imprime o tamanho da lista
+        if (begin != NULL){ // se a lista não for vazia
+            for (p = begin; p != NULL; p = p->next){ // percorre a lista
+                std::cout << (p->data)->nome << " "; // imprime nome do cliente
+                std::cout << ((p->data)->ID) << " R$ "; // imprime ID
+                std::cout << (p->data)->saldo << ",00 " << std::endl; // imprime saldo
             }
         }
-        std::cout << endl;
+        std::cout << endl; // pula a linha
     }
     void coutsupermercado(){ /* imprime a lista de caixas na saída padrão */
-        node<T>* p; 
-        std::cout << "[" << sizeoflist << "] Caixas Abertos" << std::endl;
-        if (begin != NULL){
-            for (p = begin; p != NULL; p = p->next){
-                 (p->data)->coutcaixa();
+        node<T>* p; // variavel auxiliar para percorrer a lista 
+        std::cout << "[" << sizeoflist << "] Caixas Abertos" << std::endl; // imprime o tamanho da lista
+        if (begin != NULL){ // se a lista não for vazia
+            for (p = begin; p != NULL; p = p->next){ // percorre a lista
+                 (p->data)->coutcaixa(); // imprime a lista de clientes do caixa
             }
         }
-        std::cout << endl;
+        std::cout << endl; // pula a linha
     }
 
 };
 
-class caixa {
+class caixa { // Classe Caixa
 private:
-    int caixaID;
-    list<cliente>clientes;
+    int caixaID; // ID do Caixa
+    list<cliente>clientes; // lista de clientes do caixa
 public:
-    caixa(int num) : clientes(1) { caixaID = num;}
-    cliente * aux;
-    void addcliente(string nome,int ID, int saldo){
-        aux = new cliente;
-        aux->nome = nome;
-        aux->saldo = saldo;
-        aux->ID = ID;
-        clientes.push(aux);
+    caixa(int num) : clientes(1) { caixaID = num;} // Construtor do caixa
+    cliente * aux; // auxiliar para receber novo cliente
+    void addcliente(string nome,int ID, int saldo){ /* Func. para adicionar cliente na lista */
+        aux = new cliente; // Aloca cliente
+        aux->nome = nome; // preenche nome
+        aux->saldo = saldo; // preenche saldo 
+        aux->ID = ID; // preenche ID do cliente
+        clientes.push(aux); // insere na lista
     }
-    void coutcaixa(){ 
-        std::cout << "=====CAIXA " << caixaID << "====="<< std::endl;
-        clientes.coutclientes(); 
+    void coutcaixa(){ /* Func. para imprimir a lista do caixa */
+        std::cout << "=====CAIXA " << caixaID << "====="<< std::endl; // caixa numero
+        clientes.coutclientes(); // imprime clientes do caixa
     }
 };
 
-class supermercado {
+class supermercado { // Classe Supermercado
 private:
-    list<caixa>caixas_abertos;
+    list<caixa>caixas_abertos; //lista de caixas
 public:
-    supermercado() : caixas_abertos() {}
-    void addcaixa(caixa *ctoadd){
-        caixas_abertos.push(ctoadd);
+    supermercado() : caixas_abertos() {} // Construtor do supermercado
+    void addcaixa(caixa *ctoadd){ // Func. para adicionar um caixa
+        caixas_abertos.push(ctoadd); // insere na lista de caixas
     }
-    void cout(){
-       caixas_abertos.coutsupermercado();
+    void cout(){ // Func. para imprimir lista de caixas 
+       caixas_abertos.coutsupermercado(); // imprime os caixas abertos
     }
 };
 
