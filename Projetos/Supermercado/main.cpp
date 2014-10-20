@@ -29,24 +29,8 @@
 
 int main (){
 
-/* 
-
-int tempomaximo;
-std::ifstream leitura;
-
-leitura.open("dados.txt");
-if (leitura.is_open() && leitura.good()){
-    cout << "Reading from the File" << endl;
-    getline(leitura,tempomaximo);
-    leitura.close();
-}
-else {
-    std::cout << " não foi possível abrir dados.txt " << std::endl;
-    leitura.clear();
-}
-leitura >> tempomaximo;
-std::cout << tempomaximo << std::endl; */
-
+gerenciador g;
+g.lerDoc();
 
 caixa c01(1); //caixa nome(ID do caixa)
 c01.addcliente(11,258); //addcliente(nome,ID,saldo)

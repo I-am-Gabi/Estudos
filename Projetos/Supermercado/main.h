@@ -1,8 +1,12 @@
 #ifndef _LISTA_GENERICA_
 #define _LISTA_GENERICA_
 
-#include <iostream> // Biblioteca Padrão do C++
-#include <fstream> // Biblioteca para entrada/saída de arquivos
+#include <iostream> // Biblioteca Padrão do C++ para funções de arquivo
+#include <fstream> // Biblioteca para entrada/saída de arquivos 
+#include <cstdlib> // Biblioteca para srand e rand
+#include <sstream> // Biblioteca para streamstring
+
+using std::stringstream;
 using std::cout;
 using std::endl;
 using std::string;
@@ -213,12 +217,12 @@ private:
 public:
     caixa(int num) : clientes(1) { caixaID = num;} // Construtor do caixa
     Cliente * aux; // auxiliar para receber novo cliente
-    void addcliente(int ID, int saldo){ /* Func. para adicionar cliente na lista */
+    void addcliente(int ID, double saldo){ /* Func. para adicionar cliente na lista */
         aux = new Cliente(ID,saldo); // Aloca cliente
         clientes.push(aux); // insere na lista
     }
     void coutcaixa(){ /* Func. para imprimir a lista do caixa */
-        std::cout << "=====CAIXA " << caixaID << "====="<< std::endl; // caixa numero
+        std::cout << "===== CAIXA " << caixaID << "====="<< std::endl; // caixa numero
         clientes.coutclientes(); // imprime clientes do caixa
     }
 };
@@ -236,10 +240,108 @@ public:
     }
 };
 
-class gerenciador {
+class gerenciador { 
 
+public:
+    int tempomaximo;
+    int velAtenMax;
+    int velAtenMin;
 
+public:
+    gerenciador() {
+        tempomaximo = 0;
+        velAtenMin = 0;
+        velAtenMax = 0;
+    }
+
+    int randTime(int a, int b) {
+        srand( (unsigned)time(NULL) ); 
+        int valor = a + rand() % b; 
+    }
+
+    int lerDoc(){
+        int cont = 0;
+        int i = 0;
+        std::ifstream arq;
+        string str;
+
+        arq.open("especificacoes.txt");
+        int size;
+        arq >> size; 
+   		int horarios[size];
+
+		if (arq.is_open() && arq.good())
+        {    
+            while ( arq )
+            {
+                arq >> str;
+                //cout << str << endl;
+                try { 
+                    cout << "OK" << endl;   
+                    if (cont == 0) 
+                        tempomaximo = stoi(str);  
+                    else if (cont == 1) {
+                        velAtenMin = stoi(str);
+                    }
+                    else if (cont == 2) {
+                        velAtenMax = stoi(str);
+                    }
+                    else if (cont % 3 == 0) { 
+                        horarios[i] = stoi(str);
+                        i++;
+                        cont++;
+                    }
+                    else if (cont % 3 == 1) {
+                        cont++;
+                    }
+                    else if (cont % 3 == 2) {
+                        cont++;
+                    }
+
+                }
+                catch(...) { 
+                }  
+                for (int j = 0; j < i; ++j)
+                {
+                    cout << horarios[j] << endl;        
+                }
+            }
+            arq.close();
+            for (int j = 0; j < i; j++) {
+                cout << horarios[j] << endl;
+            }
+            //cout << tempomaximo << " " << velAtenMin << " " << velAtenMax << endl;
+        }
+
+        else {
+            std::cerr << "Não foi possivel abrir o arquivo de entrada : especificacoes.txt\n";
+            return -1;
+        }
+    }
+    bool simule() {
+        int tempo = 0;
+        while (tempo < 60*60*24) {     
+        }
+    }
 };
+
+/* 
+
+int tempomaximo;
+std::ifstream leitura;
+
+leitura.open("dados.txt");
+if (leitura.is_open() && leitura.good()){
+    cout << "Reading from the File" << endl;
+    getline(leitura,tempomaximo);
+    leitura.close();
+}
+else {
+    std::cout << " não foi possível abrir dados.txt " << std::endl;
+    leitura.clear();
+}
+leitura >> tempomaximo;
+std::cout << tempomaximo << std::endl; */
 
 
 #endif

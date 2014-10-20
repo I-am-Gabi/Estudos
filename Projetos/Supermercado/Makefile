@@ -1,5 +1,5 @@
 all:
-	g++ main.cpp -o main
+	g++ main.cpp -o main -std=c++0x 
 run:
 	./main
 clean:
