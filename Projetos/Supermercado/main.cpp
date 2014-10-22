@@ -32,6 +32,8 @@ int main (){
     gerenciador g;
     g.lerDoc();
 
+    srand( (unsigned)time(NULL) ); 
+
     caixa c01(1); //caixa nome(ID do caixa)
     c01.addcliente(11,258); //addcliente(nome,ID,saldo)
     c01.addcliente(12,640);

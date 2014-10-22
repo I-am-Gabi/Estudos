@@ -28,10 +28,10 @@ private:
 public:
     int horaChegada;
     int tempoFila;
-    Cliente(int _id,int _saldo, int _horaChegada, int _tempoFila) { // Construtor
+    Cliente(int _id, int _saldo, int _horaChegada = 0, int _tempoFila = 0) { // Construtor
         saldo = _saldo; // Insere o saldo
         ID = _id; // Insere o ID
-        horaChegada
+        horaChegada = _horaChegada;
     }
     void coutdados(){ // imprime os dados do Cliente
         std::cout << " " << ID << " R$ " << saldo << std::endl; // saída padrão
@@ -253,6 +253,9 @@ public:
     int tempomaximo;
     int velAtenMax;
     int velAtenMin;
+    std::vector<int>horarios;
+    std::vector<int>intervaloInicial;
+    std::vector<int>intervaloFinal;
 
 public:
     gerenciador() {
@@ -262,7 +265,6 @@ public:
     }
 
     int randTime(int a, int b) {
-        srand( (unsigned)time(NULL) ); 
         int valor = a + rand() % b; 
     }
 
@@ -273,10 +275,6 @@ public:
         string line;
         arq.open("especificacoes.txt");
         arq >> str; 
-         
-        std::vector<int>horarios;
-        std::vector<int>intervaloIniciais;
-        std::vector<int>intervaloFinal;
 
 		if (arq.is_open() && arq.good())
         {    
@@ -296,7 +294,7 @@ public:
                         horarios.push_back(stoi(str));  
                     }
                     else if (cont % 3 == 1) { 
-                        intervaloIniciais.push_back(stoi(str));   
+                        intervaloInicial.push_back(stoi(str));   
                     }
                     else if (cont % 3 == 2) {  
                         intervaloFinal.push_back(stoi(str));   
@@ -315,6 +313,7 @@ public:
             std::cerr << "Não foi possivel abrir o arquivo de entrada : especificacoes.txt\n";
             return -1;
         }   
+        simule();
     }
 
     bool simule() {
@@ -322,10 +321,19 @@ public:
         //crio caixa
         //add cliente ao caixa
         //add caixa ao supermercado
+        int i = 0;
         supermercado vaptvupt;
         int tempo = 0;
         while (tempo < 60*60*24) {   
-            if (tempo.get(horarios)) { // verificar se está em um tempo de novos clientes
+            if(binary_search(horarios.begin(), horarios.end(), tempo)){
+                int pos = find(horarios.begin(), horarios.end(), tempo) - horarios.begin();
+                int tim = randTime(intervaloInicial[pos], intervaloFinal[pos]);  
+                cout << tim << endl;
+                Cliente cli(i, 100, tim);
+            }
+            tempo++;
+            i++;
+            /*if (tempo.get(horarios)) { // verificar se está em um tempo de novos clientes
                 if (caixa == NULL){ //se não houverem caixas
                     Cliente cli();
                     caixa c(1); //caixa nome(ID do caixa)
@@ -335,7 +343,7 @@ public:
                     c.horaChegada = tempo;
                     c.tempoFila = 1;
                     menorFila(fila) = c;}
-            }
+            }*/
         }
     }
 };
