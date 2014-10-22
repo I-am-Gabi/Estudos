@@ -29,33 +29,30 @@
 
 int main (){
 
-gerenciador g;
-g.lerDoc();
+    gerenciador g;
+    g.lerDoc();
 
-caixa c01(1); //caixa nome(ID do caixa)
-c01.addcliente(11,258); //addcliente(nome,ID,saldo)
-c01.addcliente(12,640);
-c01.addcliente(12,521);
-c01.addcliente(13,987);
-c01.addcliente(14,1680);
+    caixa c01(1); //caixa nome(ID do caixa)
+    c01.addcliente(11,258); //addcliente(nome,ID,saldo)
+    c01.addcliente(12,640);
+    c01.addcliente(12,521);
+    c01.addcliente(13,987);
+    c01.addcliente(14,1680);
 
-caixa c02(2); //caixa nome(ID do caixa)
-c02.addcliente(21,720); //addcliente(nome,ID,saldo)
-c02.addcliente(22,150);  
-c02.addcliente(23,350);
-c02.addcliente(24,640);
-c02.addcliente(25,1420);
-c02.addcliente(26,1730);
+    caixa c02(2); //caixa nome(ID do caixa)
+    c02.addcliente(21,720); //addcliente(nome,ID,saldo)
+    c02.addcliente(22,150);  
+    c02.addcliente(23,350);
+    c02.addcliente(24,640);
+    c02.addcliente(25,1420);
+    c02.addcliente(26,1730);
 
-supermercado vaptvupt;
-vaptvupt.addcaixa(&c01);
-vaptvupt.addcaixa(&c02);
-vaptvupt.cout(); 
+    supermercado vaptvupt;
+    vaptvupt.addcaixa(&c01);
+    vaptvupt.addcaixa(&c02);
+    //vaptvupt.cout(); 
 
-
-
-return 0;
-
+    return 0;
 }
 
 // ABAIXO EXEMPLOS DE APLICAÇÕES

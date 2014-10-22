@@ -5,6 +5,10 @@
 #include <fstream> // Biblioteca para entrada/saída de arquivos 
 #include <cstdlib> // Biblioteca para srand e rand
 #include <sstream> // Biblioteca para streamstring
+#include <string>
+#include <algorithm> // for copy
+#include <iterator> // for ostream_iterator
+#include <vector>
 
 using std::stringstream;
 using std::cout;
@@ -22,9 +26,12 @@ private:
     int ID; // ID do cliente
     int saldo; // saldo do Cliente
 public:
-    Cliente(int _id,int _saldo) { // Construtor
+    int horaChegada;
+    int tempoFila;
+    Cliente(int _id,int _saldo, int _horaChegada, int _tempoFila) { // Construtor
         saldo = _saldo; // Insere o saldo
         ID = _id; // Insere o ID
+        horaChegada
     }
     void coutdados(){ // imprime os dados do Cliente
         std::cout << " " << ID << " R$ " << saldo << std::endl; // saída padrão
@@ -260,67 +267,75 @@ public:
     }
 
     int lerDoc(){
-        int cont = 0;
-        int i = 0;
+        int cont = 0; 
         std::ifstream arq;
         string str;
-
+        string line;
         arq.open("especificacoes.txt");
-        int size;
-        arq >> size; 
-   		int horarios[size];
+        arq >> str; 
+         
+        std::vector<int>horarios;
+        std::vector<int>intervaloIniciais;
+        std::vector<int>intervaloFinal;
 
 		if (arq.is_open() && arq.good())
         {    
-            while ( arq )
-            {
-                arq >> str;
-                //cout << str << endl;
-                try { 
-                    cout << "OK" << endl;   
+            while ( !arq.eof() )
+            { 
+                try {  
                     if (cont == 0) 
                         tempomaximo = stoi(str);  
-                    else if (cont == 1) {
+                    
+                    else if (cont == 1) { 
                         velAtenMin = stoi(str);
                     }
-                    else if (cont == 2) {
+                    else if (cont == 2) { 
                         velAtenMax = stoi(str);
                     }
-                    else if (cont % 3 == 0) { 
-                        horarios[i] = stoi(str);
-                        i++;
-                        cont++;
+                    else if ((cont % 3) == 0) { 
+                        horarios.push_back(stoi(str));  
                     }
-                    else if (cont % 3 == 1) {
-                        cont++;
+                    else if (cont % 3 == 1) { 
+                        intervaloIniciais.push_back(stoi(str));   
                     }
-                    else if (cont % 3 == 2) {
-                        cont++;
-                    }
-
+                    else if (cont % 3 == 2) {  
+                        intervaloFinal.push_back(stoi(str));   
+                    } 
                 }
-                catch(...) { 
+                catch(...) {  
+                    cont--;
                 }  
-                for (int j = 0; j < i; ++j)
-                {
-                    cout << horarios[j] << endl;        
-                }
+                cont+=1;
+                arq >> str; 
             }
-            arq.close();
-            for (int j = 0; j < i; j++) {
-                cout << horarios[j] << endl;
-            }
-            //cout << tempomaximo << " " << velAtenMin << " " << velAtenMax << endl;
+            arq.close(); 
         }
 
         else {
             std::cerr << "Não foi possivel abrir o arquivo de entrada : especificacoes.txt\n";
             return -1;
-        }
+        }   
     }
+
     bool simule() {
+        //crio cliente
+        //crio caixa
+        //add cliente ao caixa
+        //add caixa ao supermercado
+        supermercado vaptvupt;
         int tempo = 0;
-        while (tempo < 60*60*24) {     
+        while (tempo < 60*60*24) {   
+            if (tempo.get(horarios)) { // verificar se está em um tempo de novos clientes
+                if (caixa == NULL){ //se não houverem caixas
+                    Cliente cli();
+                    caixa c(1); //caixa nome(ID do caixa)
+                }
+                else {
+                    c.addcliente(1,100);
+                    c.horaChegada = tempo;
+                    c.tempoFila = 1;
+                    menorFila(fila) = c;}
+            }
         }
     }
 };
