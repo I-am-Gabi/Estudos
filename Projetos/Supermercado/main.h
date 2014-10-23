@@ -233,30 +233,42 @@ public:
     void addcliente(int ID, double saldo, int _horaChegada = 0, int _tempoFila = 0){ /* Func. para adicionar cliente na lista */
         aux = new Cliente(ID,saldo, _horaChegada, _tempoFila); // Aloca cliente
         clientes.push(aux); // insere na lista
-    }
+    } 
     //void addcli(Cliente c){ /* Func. para adicionar cliente na lista */
     //    clientes.push(c); // insere na lista
-    //}
+    //} 
+    void removecliente() {
+        if (clientes.size() != 0){
+        clientes.pop();
+        }
+    } 
     void coutcaixa(){ /* Func. para imprimir a lista do caixa */
         std::cout << "===== CAIXA " << caixaID << " ====="<< std::endl; // caixa numero
-        clientes.coutclientes(); // imprime clientes do caixa
-    } 
+        clientes.coutclientes(); // imprime clientes do caixa 
+    }   
+    int size() { return clientes.size();} 
 };
 
 class supermercado { // Classe Supermercado
 private:
     list<caixa>caixas_abertos; //lista de caixas
 public:
+    caixa * menorcaixa = NULL;
     supermercado() : caixas_abertos() {} // Construtor do supermercado
     void addcaixa(caixa *ctoadd){ // Func. para adicionar um caixa
         caixas_abertos.push(ctoadd); // insere na lista de caixas
+        if (menorcaixa == NULL){ menorcaixa = ctoadd; }
+        else { if(ctoadd->size() < menorcaixa->size()) {
+            menorcaixa = ctoadd;
+        }}
     }
     void cout(){ // Func. para imprimir lista de caixas 
        caixas_abertos.coutsupermercado(); // imprime os caixas abertos
-    }
+    } 
     bool returnCaixas() {
         return caixas_abertos.supermercadoNull();
-    } 
+    }  
+    void coutmenor() {menorcaixa->coutcaixa();} 
 };
 
 class gerenciador { 
@@ -345,6 +357,5 @@ public:
         }
     }
 };
-
-
+ 
 #endif
