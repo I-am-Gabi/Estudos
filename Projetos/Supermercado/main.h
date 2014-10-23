@@ -228,23 +228,35 @@ public:
         aux = new Cliente(ID,saldo); // Aloca cliente
         clientes.push(aux); // insere na lista
     }
+    void removecliente() {
+        if (clientes.size() != 0){
+        clientes.pop();
+        }
+    }
     void coutcaixa(){ /* Func. para imprimir a lista do caixa */
         std::cout << "===== CAIXA " << caixaID << "====="<< std::endl; // caixa numero
         clientes.coutclientes(); // imprime clientes do caixa
     }
+    int size() { return clientes.size();}
 };
 
 class supermercado { // Classe Supermercado
 private:
     list<caixa>caixas_abertos; //lista de caixas
 public:
+    caixa * menorcaixa = NULL;
     supermercado() : caixas_abertos() {} // Construtor do supermercado
     void addcaixa(caixa *ctoadd){ // Func. para adicionar um caixa
         caixas_abertos.push(ctoadd); // insere na lista de caixas
+        if (menorcaixa == NULL){ menorcaixa = ctoadd; }
+        else { if(ctoadd->size() < menorcaixa->size()) {
+            menorcaixa = ctoadd;
+        }}
     }
     void cout(){ // Func. para imprimir lista de caixas 
        caixas_abertos.coutsupermercado(); // imprime os caixas abertos
     }
+    void coutmenor() {menorcaixa->coutcaixa();}
 };
 
 class gerenciador { 
@@ -347,24 +359,5 @@ public:
         }
     }
 };
-
-/* 
-
-int tempomaximo;
-std::ifstream leitura;
-
-leitura.open("dados.txt");
-if (leitura.is_open() && leitura.good()){
-    cout << "Reading from the File" << endl;
-    getline(leitura,tempomaximo);
-    leitura.close();
-}
-else {
-    std::cout << " não foi possível abrir dados.txt " << std::endl;
-    leitura.clear();
-}
-leitura >> tempomaximo;
-std::cout << tempomaximo << std::endl; */
-
 
 #endif
