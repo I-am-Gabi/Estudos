@@ -26,12 +26,14 @@ private:
     int ID; // ID do cliente
     int saldo; // saldo do Cliente
 public:
-    int horaChegada;
-    int tempoFila;
-    Cliente(int _id, int _saldo, int _horaChegada = 0, int _tempoFila = 0) { // Construtor
+    int horaChegada; // hora emq ue o cliente chega na fila
+    int tempoFila;  // tempo que vai passando desde que ele chegou na fila
+    int timeAtendimento; // tempo que ele vai ser atendido
+    Cliente(int _id, int _saldo, int _horaChegada = 0, int _tempoFila = 0, int _timeAtendimento = 0) { // Construtor
         saldo = _saldo; // Insere o saldo
         ID = _id; // Insere o ID
         horaChegada = _horaChegada;
+        timeAtendimento = _timeAtendimento;
     }
     void coutdados(){ // imprime os dados do Cliente
         std::cout << " " << ID << " R$ " << saldo << std::endl; // saída padrão
@@ -214,7 +216,11 @@ public:
         }
         std::cout << endl; // pula a linha
     }
-
+    bool supermercadoNull(){ /* imprime a lista de caixas na saída padrão */
+        if (begin != NULL) // se a lista não for vazia
+            return true;
+        else return false;
+    }  
 };
 
 class caixa { // Classe Caixa
@@ -224,14 +230,17 @@ private:
 public:
     caixa(int num) : clientes(1) { caixaID = num;} // Construtor do caixa
     Cliente * aux; // auxiliar para receber novo cliente
-    void addcliente(int ID, double saldo){ /* Func. para adicionar cliente na lista */
-        aux = new Cliente(ID,saldo); // Aloca cliente
+    void addcliente(int ID, double saldo, int _horaChegada = 0, int _tempoFila = 0){ /* Func. para adicionar cliente na lista */
+        aux = new Cliente(ID,saldo, _horaChegada, _tempoFila); // Aloca cliente
         clientes.push(aux); // insere na lista
     }
+    //void addcli(Cliente c){ /* Func. para adicionar cliente na lista */
+    //    clientes.push(c); // insere na lista
+    //}
     void coutcaixa(){ /* Func. para imprimir a lista do caixa */
-        std::cout << "===== CAIXA " << caixaID << "====="<< std::endl; // caixa numero
+        std::cout << "===== CAIXA " << caixaID << " ====="<< std::endl; // caixa numero
         clientes.coutclientes(); // imprime clientes do caixa
-    }
+    } 
 };
 
 class supermercado { // Classe Supermercado
@@ -245,41 +254,43 @@ public:
     void cout(){ // Func. para imprimir lista de caixas 
        caixas_abertos.coutsupermercado(); // imprime os caixas abertos
     }
+    bool returnCaixas() {
+        return caixas_abertos.supermercadoNull();
+    } 
 };
 
 class gerenciador { 
 
 public:
-    int tempomaximo;
-    int velAtenMax;
-    int velAtenMin;
-    std::vector<int>horarios;
-    std::vector<int>intervaloInicial;
-    std::vector<int>intervaloFinal;
+    int tempomaximo; // tempo máximo de espera em uma fila
+    int velAtenMax;  // vel. maxima de atendimento de cada caixa
+    int velAtenMin;  // vel. minima de atendimento de cada caixa
+    std::vector<int>horarios;  // a partir desses horários
+    std::vector<int>intervaloInicial;  // chega um cliente entre intervaloInicial 
+    std::vector<int>intervaloFinal;  // e intervaloFinal
 
 public:
     gerenciador() {
-        tempomaximo = 0;
-        velAtenMin = 0;
-        velAtenMax = 0;
+        tempomaximo = 0;  // inicializo o tempo maximo com 0
+        velAtenMin = 0;   // inicializo velAtenMin com 0
+        velAtenMax = 0;   // inicializo velAtenMax com 0
     }
 
     int randTime(int a, int b) {
-        int valor = a + rand() % b; 
+        int valor = a + rand() % b; // calculo um número randomico entre 'a' e 'b'
     }
 
     int lerDoc(){
         int cont = 0; 
-        std::ifstream arq;
-        string str;
-        string line;
-        arq.open("especificacoes.txt");
-        arq >> str; 
+        std::ifstream arq; // variável para armazenar as informações do arquivo de especificações
+        string str; // string que irá armazenar cada valor do arquivo
+        arq.open("especificacoes.txt"); // abro arquivo especificacoes.txt
 
 		if (arq.is_open() && arq.good())
         {    
-            while ( !arq.eof() )
+            while ( !arq.eof() ) // fim do arquivo
             { 
+                arq >> str; 
                 try {  
                     if (cont == 0) 
                         tempomaximo = stoi(str);  
@@ -303,8 +314,7 @@ public:
                 catch(...) {  
                     cont--;
                 }  
-                cont+=1;
-                arq >> str; 
+                cont+=1; 
             }
             arq.close(); 
         }
@@ -312,59 +322,29 @@ public:
         else {
             std::cerr << "Não foi possivel abrir o arquivo de entrada : especificacoes.txt\n";
             return -1;
-        }   
-        simule();
+        }    
+        //gerenciadorSimulacao();
     }
-
-    bool simule() {
-        //crio cliente
-        //crio caixa
-        //add cliente ao caixa
-        //add caixa ao supermercado
-        int i = 0;
+    //método que comparar se algum dos clientes tem a diferença maior do que a 
+    //permitida
+    bool gerenciadorSimulacao() { 
+        int i = 0, j = 0;
         supermercado vaptvupt;
         int tempo = 0;
+        caixa c(j);
         while (tempo < 60*60*24) {   
-            if(binary_search(horarios.begin(), horarios.end(), tempo)){
-                int pos = find(horarios.begin(), horarios.end(), tempo) - horarios.begin();
-                int tim = randTime(intervaloInicial[pos], intervaloFinal[pos]);  
-                cout << tim << endl;
-                Cliente cli(i, 100, tim);
-            }
-            tempo++;
-            i++;
-            /*if (tempo.get(horarios)) { // verificar se está em um tempo de novos clientes
-                if (caixa == NULL){ //se não houverem caixas
-                    Cliente cli();
-                    caixa c(1); //caixa nome(ID do caixa)
-                }
-                else {
-                    c.addcliente(1,100);
-                    c.horaChegada = tempo;
-                    c.tempoFila = 1;
-                    menorFila(fila) = c;}
-            }*/
+            if(binary_search(horarios.begin(), horarios.end(), tempo*60*60)){ // Se o horário corrente correspondo a um dos horários predefinidos na especificação
+                int pos = find(horarios.begin(), horarios.end(), tempo) - horarios.begin(); // posição
+                int tim = randTime(intervaloInicial[pos], intervaloFinal[pos]);   // intevalo de manifestação do cliente
+                int atendimento = randTime(velAtenMin, velAtenMax); // tempo que o cliente irá passar na fila
+                c.addcliente(i, 100, tim, atendimento);   // crio o cliente
+                vaptvupt.menorCaixa();
+           }
+           tempo++; 
+           i++;
         }
     }
 };
-
-/* 
-
-int tempomaximo;
-std::ifstream leitura;
-
-leitura.open("dados.txt");
-if (leitura.is_open() && leitura.good()){
-    cout << "Reading from the File" << endl;
-    getline(leitura,tempomaximo);
-    leitura.close();
-}
-else {
-    std::cout << " não foi possível abrir dados.txt " << std::endl;
-    leitura.clear();
-}
-leitura >> tempomaximo;
-std::cout << tempomaximo << std::endl; */
 
 
 #endif
