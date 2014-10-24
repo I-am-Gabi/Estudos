@@ -110,7 +110,9 @@ private:
     void poptop(){ /* remove elemento do topo */
         if (begin != NULL){ // se a lista não for vazia
             node<T> * aux = begin; // auxiliar para salvar posição a ser deletada
-            begin = begin->next; // inicio passa a ser o próximo
+            if (begin->next != NULL){
+                begin = begin->next; // inicio passa a ser o próximo
+            }
             delete(aux); // deleta o primeiro
             sizeoflist -= 1; // diminui tamanho da lista
         }
@@ -161,7 +163,7 @@ public:
         if (pos < sizeoflist){poppos(pos);}// Se 0 < pos < tamanho da lista
         else {std::cout << " ERROR: Posição remoção" << pos << " invalida " << std::endl; return false;}
     }
-    T showpos(int pos){ /* mostra conteudo da posição específica */
+    T* showpos(int pos){ /* mostra conteudo da posição específica */
         node<T> * p = begin; // nó auxiliar para percorrer a lista
         int i = 0; // contador de posição
         pos = pos % sizeoflist; /* Evita que o valor seja maior que a lista */
@@ -170,10 +172,10 @@ public:
                 ++i; // incrementa o i
                 p = p->next; // avança para o próximo da lista
             }
-        return *(p->data); /* Retorna endereço do conteúdo da posição */
+        return (p->data); /* Retorna endereço do conteúdo da posição */
         }
 
-        else {return -1;} /* Retorna nulo */
+        else {} /* Retorna nulo */
     }
     node <T>* search(T element){ /* procura por um elemento na lista */
         node<T> * p; // variavel auxiliar para percorrer lista
@@ -214,7 +216,17 @@ public:
             }
         }
         std::cout << endl; // pula a linha
-    }
+    } 
+    void couthorario(){
+        node<T>* p; // variavel auxiliar para percorrer a lista 
+        std::cout << "[" << sizeoflist << "] Horarios" << std::endl; // imprime o tamanho da lista
+        if (begin != NULL){ // se a lista não for vazia
+            for (p = begin; p != NULL; p = p->next){ // percorre a lista
+                std::cout << (p->data)->hora << " " << (p->data)->InterInicio << " " << (p->data)->InterFinal << std::endl; // imprime a lista de clientes do caixa
+            }
+        }
+        std::cout << endl; // pula a linha
+    } 
     bool isEmpty(){ /* Verifica se a lista é vazia */
         if (begin != NULL){return false;} // se a lista não for vazia retorna falso
         else {return true;} // se for vazia retorna verdadeiro
@@ -286,8 +298,9 @@ public:
 public:
     gerenciador() {tempomaximo = 0;velAtenMin = 0;velAtenMax = 0;} //Construtor para a classe Gerenciador
     int randTime(int a, int b) {int valor = a + rand() % b;}
-    int lerDoc(){
-        int cont = 0; int cont_col = 0;
+    int lerDoc(){  
+        int cont = 0; int cont_horarios = 0; 
+        int cont_intervaloInicio=0,cont_intervaloFinal=0; 
         std::ifstream arq; // variável para armazenar as informações do arquivo de especificações
         string str; // string que irá armazenar cada valor do arquivo
         arq.open("especificacoes.txt"); // abro arquivo especificacoes.txt
@@ -300,19 +313,20 @@ public:
                     else if (cont == 2) {velAtenMax = stoi(str);}
                     else if ((cont % 3) == 0) {
                         horarioaux = new horario; // inicializa novo horario
-                        horarioaux->hora = (stoi(str))*3600; // salva a hora em segundos
-                        cont_col += 1; // incrementa o contador de colunas
+                        horarioaux->hora = (stoi(str))*3600; 
+                        listhorarios.push(horarioaux);// salva a hora em segundos
+                        cont_horarios +=1;
                     }
                     else if (cont % 3 == 1) {
+                        horarioaux = listhorarios.showpos(cont_intervaloInicio);
                         horarioaux->InterInicio = stoi(str); // salva o intervalo inicial de tempo para chegar novo cliente
+                        cont_intervaloInicio++;
                     }
                     else if (cont % 3 == 2) {
+                        horarioaux = listhorarios.showpos(cont_intervaloFinal);
                         horarioaux->InterFinal = stoi(str); // salva o intervalo final de tempo para chegada de cliente
+                        cont_intervaloFinal++;
                     }
-                    else if (cont_col == 3){ // se contador de colunas chegou a 3, é pq já percorreu hora,intervalo inicial e intervalo final
-                        listhorarios.push(horarioaux); // é adicionado na lista de horarios
-                        cont_col = 0; // contador é resetado
-                    } 
                 }
                 catch(...) {cont--;}   
                 cont+=1; 
@@ -320,28 +334,44 @@ public:
             arq.close(); 
         }
         else {std::cerr << "Não foi possivel abrir o arquivo de entrada : especificacoes.txt\n";return -1;}    
+            listhorarios.couthorario();
+         
         gerenciadorSimulacao();
     }
     //método que comparar se algum dos clientes tem a diferença maior do que a 
     //permitida
     bool gerenciadorSimulacao() { 
-        int i = 0, j = 0,tempo =0;
+        int i = 0, j = 0,tempo =0; 
+        int hora_chegada=0;
+        int tim=0,atendimento=0; 
         supermercado vaptvupt;
         caixa c(j);
         node<horario> * hora_chegada_aux = listhorarios.showtop(); // O topo da fila de horários sempre será o horário mais próximo possivel de chegada
         // Função showtop() retorna o nó topo da lista, ou seja, o horário de chegada mais próximo
-        while (tempo < 60*60*24) {  
+        while (tempo < 60*60*24) { 
             if(hora_chegada_aux->data->hora == tempo){ // Se o tempo do while for igual ao horário mais próximo registrado
-                int tim = randTime((hora_chegada_aux->data)->InterInicio, (hora_chegada_aux->data)->InterFinal);   // intevalo de manifestação do cliente
-                int atendimento = randTime(velAtenMin, velAtenMax); // tempo que o cliente irá passar na fila
-                c.addcliente(i, tim, atendimento);   // crio o cliente
+                cout << "hora atual= " << hora_chegada_aux->data->hora << "s ";
+                tim = randTime((hora_chegada_aux->data)->InterInicio, (hora_chegada_aux->data)->InterFinal);   // intevalo de manifestação do cliente
+                atendimento = randTime(velAtenMin, velAtenMax); // tempo que o cliente irá passar na fila
+                cout << "chegará cliente daqui a " << tim << "s ";
+                hora_chegada = tempo + tim;
+                cout << "e terá atendimento de " << atendimento << "s " << endl;
                 listhorarios.pop(); //já passou o tempo, então é removido da fila de horarios
-                hora_chegada_aux = listhorarios.showtop(); // o próximo da fila passa a ser o próximo horário
-           }
-           tempo++; 
-           i++;
+                if (!(listhorarios.isEmpty())) {
+                hora_chegada_aux = listhorarios.showtop(); 
+                }// o próximo da fila passa a ser o próximo horário 
+            }
+            tempo++; 
+            i++;
+            if (tempo == hora_chegada) {
+                c.addcliente(i, tim, atendimento);
+                cout << "hora atual= " << hora_chegada << " cliente adicionado" << endl; 
+            }
         }
+        c.coutcaixa();
     }
+
+
 };
  
 #endif

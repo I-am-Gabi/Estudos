@@ -26,7 +26,7 @@ int main (){
     supermercado vaptvupt;
     vaptvupt.addcaixa(&c01);
     vaptvupt.addcaixa(&c02);
-    vaptvupt.coutmenor(); 
+    //vaptvupt.coutmenor(); 
 
     return 0;
 }
