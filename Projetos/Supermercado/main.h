@@ -340,18 +340,20 @@ public:
     //permitida
     bool gerenciadorSimulacao() { 
         int i = 0, j = 0,tempo =0;
+        int hora_chegada=0;
+        int tim=0,atendimento=0;
         supermercado vaptvupt;
         caixa c(j);
         node<horario> * hora_chegada_aux = listhorarios.showtop(); // O topo da fila de horários sempre será o horário mais próximo possivel de chegada
         // Função showtop() retorna o nó topo da lista, ou seja, o horário de chegada mais próximo
         while (tempo < 60*60*24) { 
             if(hora_chegada_aux->data->hora == tempo){ // Se o tempo do while for igual ao horário mais próximo registrado
-                cout << "checkpoint " << hora_chegada_aux->data->hora << "s ";
-                int tim = randTime((hora_chegada_aux->data)->InterInicio, (hora_chegada_aux->data)->InterFinal);   // intevalo de manifestação do cliente
-                int atendimento = randTime(velAtenMin, velAtenMax); // tempo que o cliente irá passar na fila
+                cout << "hora atual= " << hora_chegada_aux->data->hora << "s ";
+                tim = randTime((hora_chegada_aux->data)->InterInicio, (hora_chegada_aux->data)->InterFinal);   // intevalo de manifestação do cliente
+                atendimento = randTime(velAtenMin, velAtenMax); // tempo que o cliente irá passar na fila
                 cout << "chegará cliente daqui a " << tim << "s ";
+                hora_chegada = tempo + tim;
                 cout << "e terá atendimento de " << atendimento << "s " << endl;
-                c.addcliente(i, tim, atendimento);   // crio o cliente
                 listhorarios.pop(); //já passou o tempo, então é removido da fila de horarios
                 if (!(listhorarios.isEmpty())) {
                 hora_chegada_aux = listhorarios.showtop(); 
@@ -359,8 +361,14 @@ public:
            }
            tempo++; 
            i++;
+           if (tempo == hora_chegada) {c.addcliente(i, tim, atendimento);
+            cout << "hora atual= " << hora_chegada << " cliente adicionado" << endl; 
+            }
         }
+        c.coutcaixa();
     }
+
+
 };
  
 #endif
