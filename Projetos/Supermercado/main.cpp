@@ -1,5 +1,4 @@
-#include "main.h"
-#include <fstream>
+#include "main.h" 
 
 int main (){
 
@@ -8,7 +7,7 @@ int main (){
 
     srand((unsigned)time(NULL)); 
 
-    caixa c01(1); //caixa nome(ID do caixa)
+   /*caixa c01(1); //caixa nome(ID do caixa)
     c01.addcliente(11); //addcliente(nome,ID,saldo)
     c01.addcliente(12);
     c01.addcliente(12);
@@ -25,7 +24,7 @@ int main (){
 
     supermercado vaptvupt;
     vaptvupt.addcaixa(&c01);
-    vaptvupt.addcaixa(&c02);
+    vaptvupt.addcaixa(&c02);*/
     //vaptvupt.coutmenor(); 
 
     return 0;

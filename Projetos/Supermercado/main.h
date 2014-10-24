@@ -4,16 +4,7 @@
 #include <iostream> // Biblioteca Padrão do C++ para funções de arquivo
 #include <fstream> // Biblioteca para entrada/saída de arquivos 
 #include <cstdlib> // Biblioteca para srand e rand
-#include <sstream> // Biblioteca para streamstring
-#include <string>
-#include <algorithm> // for copy
-#include <iterator> // for ostream_iterator
-#include <vector>
-
-using std::stringstream;
-using std::cout;
-using std::endl;
-using std::string;
+using std::cout; using std::endl; using std::string;
 
 template <class T>
 struct node { // Nó da lista genérica
@@ -33,6 +24,11 @@ public:
         horaChegada = _horaChegada; // Insere a hora de chegada
         timeAtendimento = _timeAtendimento; // Insere qual será o tempo de atendimento
         tempoFila = _tempoFila;
+    }
+    void adicionar(int __id, int __horachegada, int __timeatend){
+        ID = __id;
+        horaChegada = __horachegada;
+        timeAtendimento = __timeatend;
     }
     void coutdados(){ // imprime os dados do Cliente
         std::cout << " " << ID << " HorarioChegada = " << horaChegada << " TempoAtendimento = " << timeAtendimento << std::endl; // saída padrão
@@ -108,6 +104,19 @@ private:
                 delete(p); // remove o primeiro
             }
     }
+    void skippos(node<T> * nodetoskip){ /* pula o nó da lista sem deletar */
+        node<T> * p = begin; // auxiliar para percorrer lista
+        node<T> * ant = begin; // auxiliar para percorrer lista
+        for (; p != nodetoskip && p != NULL; ant = p,p=p->next); // percorre até penultimo e ultimo
+            if (ant != p) { //Se for diferente, está no meio da lista
+                ant->next = p->next; // faz uma ponte entre o elemento p
+                sizeoflist--;
+            }
+            else { // Caso não, então pos = 0. remover o primeiro
+                begin = p->next; // inicio passa a ser o próximo da lista
+                sizeoflist--;
+            }
+    }
     void poptop(){ /* remove elemento do topo */
         if (begin != NULL){ // se a lista não for vazia
             node<T> * aux = begin; // auxiliar para salvar posição a ser deletada
@@ -138,7 +147,7 @@ private:
         }
     }
 public:
-    list(){ begin = NULL; end = NULL; sizeoflist = 0;} //construtor padrão da lista
+    list(): begin(NULL) , end (NULL), sizeoflist(0) {} //construtor padrão da lista
     list(int x) { begin = NULL; end = NULL; sizeoflist = 0; type = x % 4;}  // construtor com tipo de lista
     int size() {return sizeoflist;}// retorna tamanho da lista
 public:
@@ -163,6 +172,9 @@ public:
     bool pop(int pos){ /* sobrecarga para remover em uma posição especifica */
         if (pos < sizeoflist){poppos(pos);}// Se 0 < pos < tamanho da lista
         else {std::cout << " ERROR: Posição remoção" << pos << " invalida " << std::endl; return false;}
+    }
+    bool skip(node<T> * toskip){
+        skippos(toskip); // chama a função para pular o nó toskip
     }
     T* showpos(int pos){ /* mostra conteudo da posição específica */
         node<T> * p = begin; // nó auxiliar para percorrer a lista
@@ -237,21 +249,46 @@ public:
 class caixa { // Classe Caixa
 private:
     int caixaID; // ID do Caixa
-    list<Cliente>clientes; // lista de clientes do caixa
+    list<Cliente> * clientes = new list<Cliente>; // lista de clientes do caixa
 public:
-    caixa(int num) : clientes(1) { caixaID = num;} // Construtor do caixa
+    caixa() : caixaID (0) {}
+    //caixa(int num) : clientes(1) { caixaID = num;} // Construtor do caixa
+    caixa(list <Cliente> * newList) { 
+        caixaID = 987;
+        delete(clientes);
+        clientes = newList;
+    } 
     Cliente * aux; // auxiliar para receber novo cliente
     void addcliente(int ID, int _horaChegada = 0, int _TempoFila = 0,int _tempoATendimento = 0){ /* Func. para adicionar cliente na lista */
-        
         aux = new Cliente(ID,_horaChegada,_TempoFila,_tempoATendimento); // Aloca cliente
-        clientes.push(aux); // insere na lista
+        //aux = new Cliente(ID);
+        //aux->adicionar(_horaChegada,_tempoATendimento);
+        clientes->push(aux); // insere na lista
     } 
-    void removecliente() {if (clientes.size() != 0){clientes.pop();}} 
+    void removecliente() {if (clientes->size() != 0){clientes->pop();}} 
     void coutcaixa(){ /* Func. para imprimir a lista do caixa */
         std::cout << "===== CAIXA " << caixaID << " ====="<< std::endl; // caixa numero
-        clientes.coutclientes(); // imprime clientes do caixa 
+        clientes->coutclientes(); // imprime clientes do caixa 
     }   
-    int size() {return clientes.size();} 
+    int size() {return clientes->size();}
+
+    list<Cliente>* ultrapassados(int tempomaximo,int tempoatual){
+        node<Cliente> * c_aux = clientes->showtop();
+        list<Cliente> * list_ultrapassados = new list<Cliente>(1);
+        for (; c_aux->next != NULL; c_aux = c_aux->next){
+            if ((tempoatual - c_aux->data->horaChegada) > tempomaximo){
+                list_ultrapassados->push(c_aux->data);
+                clientes->skip(c_aux);
+            }
+        }
+        if(list_ultrapassados->size() == 0) { delete(list_ultrapassados); return NULL; }
+        else {return list_ultrapassados;}
+   } 
+
+   void addListClientes(list<Cliente> * newList) {
+        delete(clientes);
+        clientes = newList;
+   }
 };
 
 class supermercado { // Classe Supermercado
@@ -272,19 +309,33 @@ public:
     void cout(){ // Func. para imprimir lista de caixas 
        caixas_abertos.coutsupermercado(); // imprime os caixas abertos
     } 
-    bool returnCaixas(){
+    bool isEmpty(){
         return caixas_abertos.isEmpty();
     }  
     void coutmenor() {menorcaixa->coutcaixa();} 
+
+    void verificarUtrapassados(int tempomaximo, int tempoatual){ 
+        list<Cliente> * ult_aux;
+        node<caixa> *aux = caixas_abertos.showtop();
+        while (ult_aux != NULL) {
+            while (aux != NULL) {
+                ult_aux = (aux)->data->ultrapassados(tempomaximo, tempoatual);
+                caixa *newCaixa = new caixa(ult_aux);
+                newCaixa->coutcaixa();
+            }  
+        }
+    }
 };
 
 
 class gerenciador { 
 
+supermercado vaptvupt;
+
 struct horario{
-        int hora;
-        int InterInicio;
-        int InterFinal;
+    int hora;
+    int InterInicio;
+    int InterFinal;
 };
 
 public:
@@ -344,37 +395,37 @@ public:
     //permitida
     bool gerenciadorSimulacao() { 
         int i = 0, j = 0,tempo =0; 
-        int hora_chegada=0;
         int tim=0,atendimento=0; 
-        supermercado vaptvupt;
-        caixa c(j);
+        caixa * c_aux;
         node<horario> * hora_chegada_aux = listhorarios.showtop(); // O topo da fila de horários sempre será o horário mais próximo possivel de chegada
         // Função showtop() retorna o nó topo da lista, ou seja, o horário de chegada mais próximo
         while (tempo < 60*60*24) { 
             if(hora_chegada_aux->data->hora == tempo){ // Se o tempo do while for igual ao horário mais próximo registrado
-                cout << "hora atual= " << hora_chegada_aux->data->hora << "s ";
                 tim = randTime((hora_chegada_aux->data)->InterInicio, (hora_chegada_aux->data)->InterFinal);   // intevalo de manifestação do cliente
                 atendimento = randTime(velAtenMin, velAtenMax); // tempo que o cliente irá passar na fila
-                cout << "chegará cliente daqui a " << tim << "s ";
-                hora_chegada = tempo + tim;
-                cout << "e terá atendimento de " << atendimento << "s " << endl;
+                if (vaptvupt.isEmpty()){ // Se supermercado estiver vazio
+                    c_aux = new caixa; // Adiciona novo caixa
+                    c_aux->addcliente(i/3600,tempo+tim,0,atendimento); // Adiciona cliente no caixa
+                    vaptvupt.addcaixa(c_aux); // adiciona caixa no supermercado
+                }
+                else {
+                    c_aux = vaptvupt.menorcaixa; // Caso supermercado tenha caixas salva o menor caixa
+                    c_aux->addcliente(i/3600,tempo+tim,0,atendimento); // cliente adicionado no menor caixa
+                } 
                 listhorarios.pop(); //já passou o tempo, então é removido da fila de horarios
-                if (!(listhorarios.isEmpty())) {
-                hora_chegada_aux = listhorarios.showtop(); 
+                if (!(listhorarios.isEmpty())) { // se a lista de horarios não for vaiza
+                    hora_chegada_aux = listhorarios.showtop();  // hora de chegada passa a ser o próximo
                 }// o próximo da fila passa a ser o próximo horário 
             }
-            tempo++; 
             i++;
-            if (tempo == hora_chegada) {
-                c.addcliente(i, hora_chegada,0,atendimento);
-                cout << "hora atual= " << hora_chegada << " cliente adicionado" << endl; 
-            }
+            tempo++; 
         }
-        cout << " OK " << endl;
-        c.coutcaixa();
+        vaptvupt.cout(); //imprime supermercado 
+        //list<Cliente> * ult_aux = (vaptvupt.menorcaixa)->ultrapassados(tempomaximo,60765); //captura os clientes ultrapassados da menor lista
+        //ult_aux->coutclientes(); // imprime lista de ultrapassados
+        vaptvupt.verificarUtrapassados(tempomaximo, 60765);
+        vaptvupt.menorcaixa->coutcaixa(); //imprime o menor caixa do supermercado
     }
-
-
 };
  
 #endif
