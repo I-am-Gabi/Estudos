@@ -17,8 +17,8 @@ using std::string;
 
 template <class T>
 struct node { // Nó da lista genérica
-	node<T> * next; // Ponteiro para o proximo da lista
-	T* data; // Ponteiro para conteudo do tipo T
+    node<T> * next; // Ponteiro para o proximo da lista
+    T* data; // Ponteiro para conteudo do tipo T
 }; 
 
 class Cliente{ // Classe Cliente
@@ -32,6 +32,7 @@ public:
         ID = _id; // Insere o ID
         horaChegada = _horaChegada; // Insere a hora de chegada
         timeAtendimento = _timeAtendimento; // Insere qual será o tempo de atendimento
+        tempoFila = _tempoFila;
     }
     void coutdados(){ // imprime os dados do Cliente
         std::cout << " " << ID << " HorarioChegada = " << horaChegada << " TempoAtendimento = " << timeAtendimento << std::endl; // saída padrão
@@ -41,10 +42,10 @@ public:
 template <class T>
 class list{ // Classe genérica de lista
 private:
-	node<T>* begin; // Ponteiro para inicio da lista
-	node<T>* end;  // Ponteiro para fim da lista
+    node<T>* begin; // Ponteiro para inicio da lista
+    node<T>* end;  // Ponteiro para fim da lista
     int type;   // 1 = fila, 2 = pilha, 3 = lista
-	int sizeoflist; // tamanho da lista
+    int sizeoflist; // tamanho da lista
 private:
     void pushtop(T* toadd){ /* adiciona elemento no topo */
         node<T> * newnode = new node<T>; // aloca novo nó da lista
@@ -137,7 +138,7 @@ private:
         }
     }
 public:
-	list(){ begin = NULL; end = NULL; sizeoflist = 0;} //construtor padrão da lista
+    list(){ begin = NULL; end = NULL; sizeoflist = 0;} //construtor padrão da lista
     list(int x) { begin = NULL; end = NULL; sizeoflist = 0; type = x % 4;}  // construtor com tipo de lista
     int size() {return sizeoflist;}// retorna tamanho da lista
 public:
@@ -187,16 +188,16 @@ public:
         return NULL; // lista nula ou não possui elemento, retorna NULL
     }
     node<T> * showtop() {return begin;} 
-	void coutlist(){ /* imprime a lista na saída padrão */
- 		node<T>* p; // variavel auxiliar para percorrer a lista
-		std::cout << "[" << sizeoflist << "] "; // imprime tamanho da lista
-		if (begin != NULL){ // se não for nula
-			for (p = begin; p != NULL; p = p->next){ //vai avançado na lista
-				std::cout << *(p->data) << " "; // imprime o conteúdo da lista
-			}
-		}
-		std::cout << endl; // pula a linha
-	}
+    void coutlist(){ /* imprime a lista na saída padrão */
+        node<T>* p; // variavel auxiliar para percorrer a lista
+        std::cout << "[" << sizeoflist << "] "; // imprime tamanho da lista
+        if (begin != NULL){ // se não for nula
+            for (p = begin; p != NULL; p = p->next){ //vai avançado na lista
+                std::cout << *(p->data) << " "; // imprime o conteúdo da lista
+            }
+        }
+        std::cout << endl; // pula a linha
+    }
     void coutclientes(){ /* imprime lista de clientes na saída padrão */
         node<T>* p; // variavel auxiliar para percorrer a lista
         std::cout << "[" << sizeoflist << "] Clientes" << std::endl; // imprime o tamanho da lista
@@ -240,8 +241,9 @@ private:
 public:
     caixa(int num) : clientes(1) { caixaID = num;} // Construtor do caixa
     Cliente * aux; // auxiliar para receber novo cliente
-    void addcliente(int ID, int _horaChegada = 0, int _tempoFila = 0){ /* Func. para adicionar cliente na lista */
-        aux = new Cliente(ID,_horaChegada, _tempoFila); // Aloca cliente
+    void addcliente(int ID, int _horaChegada = 0, int _TempoFila = 0,int _tempoATendimento = 0){ /* Func. para adicionar cliente na lista */
+        
+        aux = new Cliente(ID,_horaChegada,_TempoFila,_tempoATendimento); // Aloca cliente
         clientes.push(aux); // insere na lista
     } 
     void removecliente() {if (clientes.size() != 0){clientes.pop();}} 
@@ -304,7 +306,7 @@ public:
         std::ifstream arq; // variável para armazenar as informações do arquivo de especificações
         string str; // string que irá armazenar cada valor do arquivo
         arq.open("especificacoes.txt"); // abro arquivo especificacoes.txt
-		if (arq.is_open() && arq.good()){    
+        if (arq.is_open() && arq.good()){    
             while ( !arq.eof() ){ // fim do arquivo
                 arq >> str; 
                 try {  
@@ -364,10 +366,11 @@ public:
             tempo++; 
             i++;
             if (tempo == hora_chegada) {
-                c.addcliente(i, tim, atendimento);
+                c.addcliente(i, hora_chegada,0,atendimento);
                 cout << "hora atual= " << hora_chegada << " cliente adicionado" << endl; 
             }
         }
+        cout << " OK " << endl;
         c.coutcaixa();
     }
 
