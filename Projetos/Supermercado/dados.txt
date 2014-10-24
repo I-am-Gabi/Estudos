@@ -1,0 +1,66 @@
+600			
+30 300   
+0 900 1800   
+6 30 600  # comentario
+9 30 1200  
+12 30 600  
+14 30 1200
+17 10 300
+21 30 600
+
+
+1600 s
+ 
+1000 s
+
+600 s
+
+600 # tempo máximo de espera em uma fila
+30 300 # vel. atendimento de cada caixa: 30s a 300s (5min)
+0 900 1800 # a partir de 0hs, chega um cliente em um intervalo
+6 30 600 # de tempo aleatório entre 900s e 1800s
+9 30 1200 # às 6hs, chega 1 cliente entre 30s e 600s (10min)
+12 30 600 # e assim por diante...
+14 30 1200
+17 10 300
+21 30 600
+
+enquanto (tempo < 60*60*24) // 24h
+	-> verifica se um novo cliente deve ser "criado" (chega alguém)
+	 --- se um novo cliente chega, ele entra na menor fila
+	-> se houver alguém na fila a mais tempo que o permitido
+		* cria um novo caixa e redistribui os clientes *
+	se for possível reduzir um caixa sem que os clientes passem mais tempo que o permitido
+		fecha um caixa com o menor número de clientes
+		(os que estão na fila ainda serão atendidos)
+		para cada caixa do supermercado
+			atualiza o tempo do cliente em atendimento
+			se o tempo se esgotou (foi atendido)
+			remove o cliente atendido
+			remove um cliente da fila e passa a atendê-lo.
+
+A: 1 4 2 5 3
+
+# definir de início quando tempo cada cliente passa no caixa (em atendimento) by Roberto
+# função para retornar quanto tempo o último cliente da fila irá demorar para ser atendido
+	- como é feita a realoção de clientes?
+
+	
+
+/* 
+
+int tempomaximo;
+std::ifstream leitura;
+
+leitura.open("dados.txt");
+if (leitura.is_open() && leitura.good()){
+    cout << "Reading from the File" << endl;
+    getline(leitura,tempomaximo);
+    leitura.close();
+}
+else {
+    std::cout << " não foi possível abrir dados.txt " << std::endl;
+    leitura.clear();
+}
+leitura >> tempomaximo;
+std::cout << tempomaximo << std::endl; */

@@ -258,9 +258,11 @@ public:
     void addcaixa(caixa *ctoadd){ // Func. para adicionar um caixa
         caixas_abertos.push(ctoadd); // insere na lista de caixas
         if (menorcaixa == NULL){ menorcaixa = ctoadd; }
-        else { if(ctoadd->size() < menorcaixa->size()) {
+        else { 
+            if(ctoadd->size() < menorcaixa->size()) {
             menorcaixa = ctoadd;
-        }}
+            }
+        }
     }
     void cout(){ // Func. para imprimir lista de caixas 
        caixas_abertos.coutsupermercado(); // imprime os caixas abertos
@@ -345,12 +347,12 @@ public:
         int tempo = 0;
         caixa c(j);
         while (tempo < 60*60*24) {   
-            if(binary_search(horarios.begin(), horarios.end(), tempo*60*60)){ // Se o horário corrente correspondo a um dos horários predefinidos na especificação
+            if(binary_search(horarios.begin(), horarios.end(), tempo*60*60)) { // Se o horário corrente correspondo a um dos horários predefinidos na especificação
                 int pos = find(horarios.begin(), horarios.end(), tempo) - horarios.begin(); // posição
                 int tim = randTime(intervaloInicial[pos], intervaloFinal[pos]);   // intevalo de manifestação do cliente
                 int atendimento = randTime(velAtenMin, velAtenMax); // tempo que o cliente irá passar na fila
                 c.addcliente(i, 100, tim, atendimento);   // crio o cliente
-                vaptvupt.menorCaixa();
+                vaptvupt.menorcaixa -> addcliente(c);
            }
            tempo++; 
            i++;
