@@ -24,19 +24,17 @@ struct node { // Nó da lista genérica
 class Cliente{ // Classe Cliente
 private:
     int ID; // ID do cliente
-    int saldo; // saldo do Cliente
 public:
     int horaChegada; // hora emq ue o cliente chega na fila
     int tempoFila;  // tempo que vai passando desde que ele chegou na fila
     int timeAtendimento; // tempo que ele vai ser atendido
-    Cliente(int _id, int _saldo, int _horaChegada = 0, int _tempoFila = 0, int _timeAtendimento = 0) { // Construtor
-        saldo = _saldo; // Insere o saldo
+    Cliente(int _id, int _horaChegada = 0, int _tempoFila = 0, int _timeAtendimento = 0) { // Construtor da classe cliente
         ID = _id; // Insere o ID
-        horaChegada = _horaChegada;
-        timeAtendimento = _timeAtendimento;
+        horaChegada = _horaChegada; // Insere a hora de chegada
+        timeAtendimento = _timeAtendimento; // Insere qual será o tempo de atendimento
     }
     void coutdados(){ // imprime os dados do Cliente
-        std::cout << " " << ID << " R$ " << saldo << std::endl; // saída padrão
+        std::cout << " " << ID << " HorarioChegada = " << horaChegada << " TempoAtendimento = " << timeAtendimento << std::endl; // saída padrão
     }
 };
 
@@ -145,7 +143,7 @@ public:
         switch (type) { // verifica qual tipo da lista
             case 1: pushend(toadd);break;// se for fila = adiciona no fim
             case 2: pushtop(toadd);break;// se for pilha = adiciona no inicio
-            default:pushend(toadd);break;// padrao remove no final
+            default:pushend(toadd);break;// padrao adiciona no final
         }
     }
     bool push(T* toadd, int pos){ /* sobrecarga para adicionar em uma posição especifica */
@@ -181,11 +179,12 @@ public:
         node<T> * p; // variavel auxiliar para percorrer lista
         if (begin != NULL){ // se lista não for nula
             for (p = begin; p != NULL; p = p->next){ //vai avançando a lista
-                if (*(p->data) == element){ return p; } // se encontrar retorna o nó do elemento procurado
+                if ((*(p->data))->hora == element){ return p; } // se encontrar retorna o nó do elemento procurado
             }
         }
-        return NULL; // lista nula, retorna NULL
-    } 
+        return NULL; // lista nula ou não possui elemento, retorna NULL
+    }
+    node<T> * showtop() {return begin;} 
 	void coutlist(){ /* imprime a lista na saída padrão */
  		node<T>* p; // variavel auxiliar para percorrer a lista
 		std::cout << "[" << sizeoflist << "] "; // imprime tamanho da lista
@@ -216,10 +215,9 @@ public:
         }
         std::cout << endl; // pula a linha
     }
-    bool supermercadoNull(){ /* imprime a lista de caixas na saída padrão */
-        if (begin != NULL) // se a lista não for vazia
-            return true;
-        else return false;
+    bool isEmpty(){ /* Verifica se a lista é vazia */
+        if (begin != NULL){return false;} // se a lista não for vazia retorna falso
+        else {return true;} // se for vazia retorna verdadeiro
     }  
 };
 
@@ -230,30 +228,23 @@ private:
 public:
     caixa(int num) : clientes(1) { caixaID = num;} // Construtor do caixa
     Cliente * aux; // auxiliar para receber novo cliente
-    void addcliente(int ID, double saldo, int _horaChegada = 0, int _tempoFila = 0){ /* Func. para adicionar cliente na lista */
-        aux = new Cliente(ID,saldo, _horaChegada, _tempoFila); // Aloca cliente
+    void addcliente(int ID, int _horaChegada = 0, int _tempoFila = 0){ /* Func. para adicionar cliente na lista */
+        aux = new Cliente(ID,_horaChegada, _tempoFila); // Aloca cliente
         clientes.push(aux); // insere na lista
     } 
-    //void addcli(Cliente c){ /* Func. para adicionar cliente na lista */
-    //    clientes.push(c); // insere na lista
-    //} 
-    void removecliente() {
-        if (clientes.size() != 0){
-        clientes.pop();
-        }
-    } 
+    void removecliente() {if (clientes.size() != 0){clientes.pop();}} 
     void coutcaixa(){ /* Func. para imprimir a lista do caixa */
         std::cout << "===== CAIXA " << caixaID << " ====="<< std::endl; // caixa numero
         clientes.coutclientes(); // imprime clientes do caixa 
     }   
-    int size() { return clientes.size();} 
+    int size() {return clientes.size();} 
 };
 
 class supermercado { // Classe Supermercado
 private:
     list<caixa>caixas_abertos; //lista de caixas
 public:
-    caixa * menorcaixa = NULL;
+    caixa * menorcaixa = NULL; // menor caixa no inicio é'nulo'
     supermercado() : caixas_abertos() {} // Construtor do supermercado
     void addcaixa(caixa *ctoadd){ // Func. para adicionar um caixa
         caixas_abertos.push(ctoadd); // insere na lista de caixas
@@ -267,92 +258,85 @@ public:
     void cout(){ // Func. para imprimir lista de caixas 
        caixas_abertos.coutsupermercado(); // imprime os caixas abertos
     } 
-    bool returnCaixas() {
-        return caixas_abertos.supermercadoNull();
+    bool returnCaixas(){
+        return caixas_abertos.isEmpty();
     }  
     void coutmenor() {menorcaixa->coutcaixa();} 
 };
 
+
 class gerenciador { 
+
+struct horario{
+        int hora;
+        int InterInicio;
+        int InterFinal;
+};
 
 public:
     int tempomaximo; // tempo máximo de espera em uma fila
     int velAtenMax;  // vel. maxima de atendimento de cada caixa
     int velAtenMin;  // vel. minima de atendimento de cada caixa
-    std::vector<int>horarios;  // a partir desses horários
-    std::vector<int>intervaloInicial;  // chega um cliente entre intervaloInicial 
-    std::vector<int>intervaloFinal;  // e intervaloFinal
+    list<horario> listhorarios; //fila de horarios - adicionado no fim
+    horario * horarioaux = NULL; //vai armazenando os valores do arquivo
+    //std::vector<int>horarios;  // a partir desses horários
+    //std::vector<int>intervaloInicial;  // chega um cliente entre intervaloInicial 
+    //std::vector<int>intervaloFinal;  // e intervaloFinal
 
 public:
-    gerenciador() {
-        tempomaximo = 0;  // inicializo o tempo maximo com 0
-        velAtenMin = 0;   // inicializo velAtenMin com 0
-        velAtenMax = 0;   // inicializo velAtenMax com 0
-    }
-
-    int randTime(int a, int b) {
-        int valor = a + rand() % b; // calculo um número randomico entre 'a' e 'b'
-    }
-
+    gerenciador() {tempomaximo = 0;velAtenMin = 0;velAtenMax = 0;} //Construtor para a classe Gerenciador
+    int randTime(int a, int b) {int valor = a + rand() % b;}
     int lerDoc(){
-        int cont = 0; 
+        int cont = 0; int cont_col = 0;
         std::ifstream arq; // variável para armazenar as informações do arquivo de especificações
         string str; // string que irá armazenar cada valor do arquivo
         arq.open("especificacoes.txt"); // abro arquivo especificacoes.txt
-
-		if (arq.is_open() && arq.good())
-        {    
-            while ( !arq.eof() ) // fim do arquivo
-            { 
+		if (arq.is_open() && arq.good()){    
+            while ( !arq.eof() ){ // fim do arquivo
                 arq >> str; 
                 try {  
-                    if (cont == 0) 
-                        tempomaximo = stoi(str);  
-                    
-                    else if (cont == 1) { 
-                        velAtenMin = stoi(str);
+                    if (cont == 0) tempomaximo = stoi(str);   
+                    else if (cont == 1) {velAtenMin = stoi(str);}
+                    else if (cont == 2) {velAtenMax = stoi(str);}
+                    else if ((cont % 3) == 0) {
+                        horarioaux = new horario; // inicializa novo horario
+                        horarioaux->hora = (stoi(str))*3600; // salva a hora em segundos
+                        cont_col += 1; // incrementa o contador de colunas
                     }
-                    else if (cont == 2) { 
-                        velAtenMax = stoi(str);
+                    else if (cont % 3 == 1) {
+                        horarioaux->InterInicio = stoi(str); // salva o intervalo inicial de tempo para chegar novo cliente
                     }
-                    else if ((cont % 3) == 0) { 
-                        horarios.push_back(stoi(str));  
+                    else if (cont % 3 == 2) {
+                        horarioaux->InterFinal = stoi(str); // salva o intervalo final de tempo para chegada de cliente
                     }
-                    else if (cont % 3 == 1) { 
-                        intervaloInicial.push_back(stoi(str));   
-                    }
-                    else if (cont % 3 == 2) {  
-                        intervaloFinal.push_back(stoi(str));   
+                    else if (cont_col == 3){ // se contador de colunas chegou a 3, é pq já percorreu hora,intervalo inicial e intervalo final
+                        listhorarios.push(horarioaux); // é adicionado na lista de horarios
+                        cont_col = 0; // contador é resetado
                     } 
                 }
-                catch(...) {  
-                    cont--;
-                }  
+                catch(...) {cont--;}   
                 cont+=1; 
             }
             arq.close(); 
         }
-
-        else {
-            std::cerr << "Não foi possivel abrir o arquivo de entrada : especificacoes.txt\n";
-            return -1;
-        }    
-        //gerenciadorSimulacao();
+        else {std::cerr << "Não foi possivel abrir o arquivo de entrada : especificacoes.txt\n";return -1;}    
+        gerenciadorSimulacao();
     }
     //método que comparar se algum dos clientes tem a diferença maior do que a 
     //permitida
     bool gerenciadorSimulacao() { 
-        int i = 0, j = 0;
+        int i = 0, j = 0,tempo =0;
         supermercado vaptvupt;
-        int tempo = 0;
         caixa c(j);
-        while (tempo < 60*60*24) {   
-            if(binary_search(horarios.begin(), horarios.end(), tempo*60*60)) { // Se o horário corrente correspondo a um dos horários predefinidos na especificação
-                int pos = find(horarios.begin(), horarios.end(), tempo) - horarios.begin(); // posição
-                int tim = randTime(intervaloInicial[pos], intervaloFinal[pos]);   // intevalo de manifestação do cliente
+        node<horario> * hora_chegada_aux = listhorarios.showtop(); // O topo da fila de horários sempre será o horário mais próximo possivel de chegada
+        // Função showtop() retorna o nó topo da lista, ou seja, o horário de chegada mais próximo
+        while (tempo < 60*60*24) {  
+            if(hora_chegada_aux->data->hora == tempo){ // Se o tempo do while for igual ao horário mais próximo registrado
+                int tim = randTime((hora_chegada_aux->data)->InterInicio, (hora_chegada_aux->data)->InterFinal);   // intevalo de manifestação do cliente
                 int atendimento = randTime(velAtenMin, velAtenMax); // tempo que o cliente irá passar na fila
-                c.addcliente(i, 100, tim, atendimento);   // crio o cliente
-                vaptvupt.menorcaixa -> addcliente(c);
+                c.addcliente(i, tim, atendimento);   // crio o cliente
+                listhorarios.pop(); //já passou o tempo, então é removido da fila de horarios
+                hora_chegada_aux = listhorarios.showtop(); // o próximo da fila passa a ser o próximo horário
            }
            tempo++; 
            i++;
